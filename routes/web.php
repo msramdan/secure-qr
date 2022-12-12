@@ -1,38 +1,110 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminContactController;
+use App\Http\Controllers\Admin\AdminCustomerDataController;
+use App\Http\Controllers\Admin\AdminDasboardController;
+use App\Http\Controllers\Admin\AdminMasterDataController;
+use App\Http\Controllers\Admin\AdminPartnerController;
+use App\Http\Controllers\Admin\AdminPartnerProdukController;
+use App\Http\Controllers\Admin\AdminReportController;
+use App\Http\Controllers\Admin\AdminRequestQrcodeController;
+use App\Http\Controllers\Admin\AdminRoleController;
+use App\Http\Controllers\Admin\AdminSettingWebController;
+use App\Http\Controllers\Admin\AdminTyperQrcodeController;
+use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminUtilitiesController;
+use App\Http\Controllers\Partner\PartnerBisnisController;
+use App\Http\Controllers\Partner\PartnerCustomerDataController;
+use App\Http\Controllers\Partner\PartnerDashboardController;
+use App\Http\Controllers\Partner\PartnerProductController;
+use App\Http\Controllers\Partner\PartnerProfileController;
+use App\Http\Controllers\Partner\PartnerSosmedController;
+use App\Http\Controllers\Partner\PartnerTypeQrcodeController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
-    // return Inertia::render('Welcome', [
-    //     'canLogin' => Route::has('login'),
-    //     'canRegister' => Route::has('register'),
-    //     'laravelVersion' => Application::VERSION,
-    //     'phpVersion' => PHP_VERSION,
-    // ]);
-
     return 'Halaman Home';
 });
 
-Route::get('/admin', function () {
-    return Inertia::render('Admin/Utilities/Setting');
+// backend parnter
+Route::prefix('partner')->group(function () {
+    Route::get('/dashboard', PartnerDashboardController::class);
+
+    Route::controller(PartnerBisnisController::class)->group(function () {
+        Route::get('bisnis', 'index');
+    });
+
+    Route::controller(PartnerProductController::class)->group(function () {
+        Route::get('/product', 'index');
+    });
+
+    Route::controller(PartnerTypeQrcodeController::class)->group(function () {
+        Route::get('/type_qrcode', 'index');
+    });
+
+    Route::controller(PartnerProfileController::class)->group(function () {
+        Route::get('/profile', 'index');
+    });
+
+    Route::controller(PartnerCustomerDataController::class)->group(function () {
+        Route::get('/customer_data', 'index');
+    });
+
+    Route::controller(PartnerSosmedController::class)->group(function () {
+        Route::get('/sosmed', 'index');
+    });
 });
 
-Route::get('/partner', function () {
-    return Inertia::render('Partner/Dashboard');
+// backend admin
+Route::prefix('panel')->group(function () {
+    Route::get('/dashboard', AdminDasboardController::class);
+
+    Route::controller(AdminPartnerController::class)->group(function () {
+        Route::get('/partner', 'index');
+    });
+
+    Route::controller(AdminPartnerProdukController::class)->group(function () {
+        Route::get('/partner_product', 'index');
+    });
+
+    Route::controller(AdminRequestQrcodeController::class)->group(function () {
+        Route::get('/request_qrocde', 'index');
+    });
+
+    Route::controller(AdminCustomerDataController::class)->group(function () {
+        Route::get('/customer_data', 'index');
+    });
+
+    Route::controller(AdminContactController::class)->group(function () {
+        Route::get('/contact', 'index');
+    });
+
+    Route::controller(AdminReportController::class)->group(function () {
+        Route::get('/report', 'index');
+    });
+
+    Route::controller(AdminCategoryController::class)->group(function () {
+        Route::get('/catgory', 'index');
+    });
+
+    Route::controller(AdminTyperQrcodeController::class)->group(function () {
+        Route::get('/type_qrcode', 'index');
+    });
+
+    Route::controller(AdminUserController::class)->group(function () {
+        Route::get('/user', 'index');
+    });
+
+    Route::controller(AdminRoleController::class)->group(function () {
+        Route::get('/role', 'index');
+    });
+
+    Route::controller(AdminSettingWebController::class)->group(function () {
+        Route::get('/setting_web', 'index');
+    });
 });
 
 Route::get('/validation/check-product', function () {
