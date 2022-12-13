@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\UserPartner;
 
 class AdminPartnerController extends Controller
 {
@@ -18,7 +19,8 @@ class AdminPartnerController extends Controller
     }
     public function index()
     {
-        return Inertia::render('Admin/Dashboard');
+        $partner = UserPartner::all();
+        return Inertia::render('Admin/Dashboard', compact('partner'));
     }
     public function create(Request $request)
     {
