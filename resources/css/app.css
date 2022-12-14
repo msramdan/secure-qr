@@ -1,4 +1,6 @@
+/* @import './components/validation.css'; */
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,4 +9,37 @@
 .dashboard-gradient {
     background: rgb(130,122,243);
     background: linear-gradient(90deg, rgba(130,122,243,1) 0%, rgba(179,121,242,1) 100%);
+}
+
+@layer components {
+    .btn-validation {
+        @apply bg-purple-validation w-full text-white py-2 rounded
+    }
+
+    .btn-secondary-validation {
+        @apply border border-gray-300 text-purple-validation w-full py-2 rounded
+    }
+
+    .jumbotron-validation {
+        background: rgb(180, 122, 243);
+        background: linear-gradient(90deg, rgba(180, 122, 243, 1) 0%, rgba(130, 122, 243, 1) 100%);
+        @apply pt-8 pb-12;
+    }
+
+    .content-validation {
+        @apply bg-white py-10 px-5 rounded-t-[24px] -mt-5
+    }
+
+    .form-input-validation {
+        @apply w-full border border-gray-300 px-4 py-2 rounded-md;
+    }
+
+
+    .label-validation {
+        @apply block font-medium mb-1.5;
+    }
+
+    .text-secondary-validation {
+        @apply text-gray-500;
+    }
 }

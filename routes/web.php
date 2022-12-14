@@ -35,6 +35,14 @@ Route::get('/partner', function () {
     return Inertia::render('Partner/Dashboard');
 });
 
+Route::get('/validation/check-product', function () {
+    return Inertia::render('Frontend/ProductValidation/CheckProduct');
+});
+
+Route::get('/validation/result', function () {
+    return Inertia::render('Frontend/ProductValidation/ValidationResult');
+});
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
