@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('email');
             $table->text('alamat');
             $table->text('deskripsi');
-            $table->char('is_aktif_website', 1);
+            $table->boolean('is_aktif');
             $table->timestamps();
         });
     }

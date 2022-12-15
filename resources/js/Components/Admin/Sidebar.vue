@@ -1,20 +1,25 @@
 <script setup>
+<<<<<<< HEAD
 import logo from '@src/images/logo.gif'
 import SidebarLink from './SidebarLink.vue'
 import SidebarDropdownLink from './SidebarDropdownLink.vue'
 import { Link } from '@inertiajs/inertia-vue3';
 import { ref } from 'vue'
+=======
+import logo from "@src/images/logo.gif";
+import { ref } from "vue";
+>>>>>>> 9e36fa8 (tambahan page maintenance)
 
-const windowWidth = ref(window.innerWidth)
+const windowWidth = ref(window.innerWidth);
 
 const props = defineProps({
-  openSidebar: Boolean
+    openSidebar: Boolean,
 });
 
-const emit = defineEmits(['closeSidebar']);
+const emit = defineEmits(["closeSidebar"]);
 
 function closeSidebar() {
-    emit('closeSidebar');
+    emit("closeSidebar");
 }
 
 const openedMenu = ref('')
@@ -27,7 +32,10 @@ function openMenu(menu) {
 <template>
     <nav
         @click="closeSidebar"
-        class="fixed z-50" :class="{ 'inset-0 bg-black bg-opacity-30': openSidebar && windowWidth < 1024 }"
+        class="fixed z-50"
+        :class="{
+            'inset-0 bg-black bg-opacity-30': openSidebar && windowWidth < 1024,
+        }"
     >
         <Transition
             enter-from-class="-translate-x-64"
@@ -37,7 +45,11 @@ function openMenu(menu) {
             leave-active-class="transition ease-in-out duration-300"
             leave-to-class="-translate-x-64"
         >
-            <div v-if="openSidebar" class="bg-white w-64 h-screen shadow-sidebar overflow-y-auto z-50" @click.stop>
+            <div
+                v-if="openSidebar"
+                class="bg-white w-64 h-screen shadow-sidebar overflow-y-auto z-50"
+                @click.stop
+            >
                 <div class="sticky top-0 bg-white">
                     <div class="flex items-center space-x-5 px-5 py-3.5">
                         <div>
@@ -111,6 +123,6 @@ function openMenu(menu) {
 
 <style scoped>
 .shadow-sidebar {
-    box-shadow: 0px 0px 25px 0px rgb(45 69 95 / 10%)
+    box-shadow: 0px 0px 25px 0px rgb(45 69 95 / 10%);
 }
 </style>
