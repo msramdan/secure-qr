@@ -42,4 +42,32 @@
     .text-secondary-validation {
         @apply text-gray-500;
     }
+
+    .form-dashboard {
+        @apply text-base;
+    }
+
+    .form-label-dashboard {
+        @apply block font-medium mb-2;
+    }
+
+    .form-input-dashboard {
+        @apply w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-purple-1100 focus:ring-0 placeholder-gray-400;
+    }
+
+    .form-input-error-dashboard {
+        @apply border-red-500;
+    }
+
+    .form-error-message-dashboard {
+        @apply block text-red-500 mt-1;
+    }
+
+    .form-btn-dashboard {
+        @apply bg-gradient-to-r from-purple-dashboard-gradient-1 to-purple-dashboard-gradient-2 font-medium text-white px-4 py-2 rounded-lg mt-10;
+    }
+
+    .btn-create-dashboard {
+        @apply bg-green-50 hover:bg-green-100 text-green-500 px-4 py-2 rounded-lg font-medium mb-5;
+    }
 }

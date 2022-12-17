@@ -18,7 +18,7 @@ const openSidebar = ref(window.innerWidth >= 1024 ? true : false)
                 <Header @openSidebar="openSidebar = true"/>
 
                 <!-- Page Content -->
-                <main>
+                <main class="min-h-screen">
                     <slot />
                 </main>
             </div>

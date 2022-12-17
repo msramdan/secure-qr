@@ -5,7 +5,7 @@ import SerialNumberNotRegistered from './Partials/SerialNumberNotRegistered.vue'
 import SerialNumberDuplicate from './Partials/SerialNumberDuplicate.vue'
 import { ref } from 'vue'
 
-const result = ref('not registered')
+const result = ref('registered')
 
 </script>
 

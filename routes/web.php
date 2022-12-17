@@ -28,7 +28,7 @@ Route::get('/', function () {
 });
 
 Route::get('/admin', function () {
-    return Inertia::render('Admin/Dashboard');
+    return Inertia::render('Admin/Utilities/Setting');
 });
 
 Route::get('/partner', function () {
