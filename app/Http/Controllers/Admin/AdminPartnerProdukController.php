@@ -10,24 +10,10 @@ class AdminPartnerProdukController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Dashboard');
+        return Inertia::render('Admin/Product/PartnerProduct');
     }
-    public function create(Request $request)
+    public function show($id)
     {
-    }
-    public function show(Request $request)
-    {
-    }
-    public function store(Request $request)
-    {
-    }
-    public function edit(Request $request)
-    {
-    }
-    public function update(Request $request)
-    {
-    }
-    public function destroy(Request $request)
-    {
+        return Inertia::render('Admin/Product/ProductDetail');
     }
 }

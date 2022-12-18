@@ -10,24 +10,27 @@ class AdminCategoryController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Dashboard');
+        return Inertia::render('Admin/MaterData/Kategori/Category');
     }
-    public function create(Request $request)
+    public function create()
     {
+        return Inertia::render('Admin/MaterData/Kategori/CreateCategory');
     }
-    public function show(Request $request)
+    public function show($id)
     {
+        return Inertia::render('Admin/MaterData/Kategori/DetailCategory');
     }
     public function store(Request $request)
     {
     }
-    public function edit(Request $request)
+    public function edit($id)
+    {
+        return Inertia::render('Admin/MaterData/Kategori/EditCategory');
+    }
+    public function update(Request $request, $id)
     {
     }
-    public function update(Request $request)
-    {
-    }
-    public function destroy(Request $request)
+    public function destroy($id)
     {
     }
 }

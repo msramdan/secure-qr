@@ -10,6 +10,13 @@ class AdminCustomerDataController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Dashboard');
+        return Inertia::render('Admin/Scanned/CustomerData');
+    }
+    public function show($id)
+    {
+        return Inertia::render('Admin/Scanned/DetailCustomerData');
+    }
+    public function lock(Request $request, $id)
+    {
     }
 }

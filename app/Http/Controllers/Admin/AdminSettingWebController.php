@@ -10,15 +10,9 @@ class AdminSettingWebController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Dashboard');
+        return Inertia::render('Admin/Utilities/Setting');
     }
-    public function show(Request $request)
-    {
-    }
-    public function edit(Request $request)
-    {
-    }
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
     }
 }

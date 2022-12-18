@@ -18,24 +18,31 @@ class AdminPartnerController extends Controller
     }
     public function index()
     {
-        return Inertia::render('Admin/Dashboard');
+        return Inertia::render('Admin/Partner/Partner');
     }
-    public function create(Request $request)
+    public function create()
     {
+        return Inertia::render('Admin/Partner/Create');
     }
-    public function show(Request $request)
+    public function show($id)
     {
+        return Inertia::render('Admin/Partner/Detail');
     }
     public function store(Request $request)
     {
     }
-    public function edit(Request $request)
+    public function edit($id)
+    {
+        return Inertia::render('Admin/Partner/Edit');
+    }
+    public function update(Request $request, $id)
     {
     }
-    public function update(Request $request)
+    public function destroy($id)
     {
     }
-    public function destroy(Request $request)
+    public function list($id)
     {
+        return Inertia::render('Admin/Partner/ListBisnis');
     }
 }

@@ -10,24 +10,27 @@ class AdminTyperQrcodeController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Dashboard');
+        return Inertia::render('Admin/MaterData/TypeQRCode/TypeQR');
     }
-    public function create(Request $request)
+    public function create()
     {
+        return Inertia::render('Admin/MaterData/TypeQRCode/CreateTypeQR');
     }
-    public function show(Request $request)
+    public function show($id)
     {
+        return Inertia::render('Admin/MaterData/TypeQRCode/DetailTypeQR');
     }
     public function store(Request $request)
     {
     }
-    public function edit(Request $request)
+    public function edit($id)
+    {
+        return Inertia::render('Admin/MaterData/TypeQRCode/EditTypeQR');
+    }
+    public function update(Request $request, $id)
     {
     }
-    public function update(Request $request)
-    {
-    }
-    public function destroy(Request $request)
+    public function destroy($id)
     {
     }
 }

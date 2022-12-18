@@ -63,18 +63,29 @@ Route::middleware(['isAktif'])->group(function () {
 
         Route::controller(AdminPartnerController::class)->group(function () {
             Route::get('/partner', 'index');
+            Route::get('/partner/create', 'create');
+            Route::post('/partner/store', 'store');
+            Route::get('/partner/show/{id}', 'show');
+            Route::get('/partner/edit/{id}', 'edit');
+            Route::patch('/partner/update/{id}', 'update');
+            Route::delete('/partner/destroy/{id}', 'destroy');
+            Route::get('/partner/list_bisnis/{id}', 'list');
         });
 
         Route::controller(AdminPartnerProdukController::class)->group(function () {
             Route::get('/partner_product', 'index');
+            Route::get('/partner_product/show/{id}', 'show');
         });
 
         Route::controller(AdminRequestQrcodeController::class)->group(function () {
-            Route::get('/request_qrocde', 'index');
+            Route::get('/request_qrcode', 'index');
+            Route::get('/request_qrcode/show/{id}', 'show');
         });
 
         Route::controller(AdminCustomerDataController::class)->group(function () {
             Route::get('/customer_data', 'index');
+            Route::get('/customer_data/show/{id}', 'show');
+            Route::post('/customer_data/lock/{id}', 'lock');
         });
 
         Route::controller(AdminContactController::class)->group(function () {
@@ -87,22 +98,46 @@ Route::middleware(['isAktif'])->group(function () {
 
         Route::controller(AdminCategoryController::class)->group(function () {
             Route::get('/category', 'index');
+            Route::get('/category/create', 'create');
+            Route::post('/category/store', 'store');
+            Route::get('/category/show/{id}', 'show');
+            Route::get('/category/edit/{id}', 'edit');
+            Route::patch('/category/update/{id}', 'update');
+            Route::delete('/category/destroy/{id}', 'detroy');
         });
 
         Route::controller(AdminTyperQrcodeController::class)->group(function () {
             Route::get('/type_qrcode', 'index');
+            Route::get('/type_qrcode/create', 'create');
+            Route::post('/type_qrcode/store', 'store');
+            Route::get('/type_qrcode/show/{id}', 'show');
+            Route::get('/type_qrcode/edit/{id}', 'edit');
+            Route::patch('/type_qrcode/update/{id}', 'update');
+            Route::delete('/type_qrcode/destroy/{id}', 'detroy');
         });
 
         Route::controller(AdminUserController::class)->group(function () {
-            Route::get('/user', 'index');
+            Route::get('/users', 'index');
+            Route::get('/users/create', 'create');
+            Route::post('/users/store', 'store');
+            Route::get('/users/edit/{id}', 'edit');
+            Route::patch('/users/update/{id}', 'update');
+            Route::delete('/users/destroy/{id}', 'destroy');
         });
 
         Route::controller(AdminRoleController::class)->group(function () {
-            Route::get('/role', 'index');
+            Route::get('/roles', 'index');
+            Route::get('/roles/create', 'create');
+            Route::post('/roles/store', 'store');
+            Route::get('/roles/show/{id}', 'show');
+            Route::get('/roles/edit/{id}', 'edit');
+            Route::patch('/roles/update/{id}', 'update');
+            Route::delete('/roles/destroy/{id}', 'detroy');
         });
 
         Route::controller(AdminSettingWebController::class)->group(function () {
             Route::get('/setting_web', 'index');
+            Route::patch('/setting_web/update/{id}', 'update');
         });
     });
 

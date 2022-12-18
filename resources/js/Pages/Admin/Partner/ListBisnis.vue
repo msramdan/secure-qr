@@ -1,0 +1,12 @@
+<template>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Brand</th>
+        <th>Manufacture</th>
+      </tr>
+    </thead>
+  </table>
+</template>
