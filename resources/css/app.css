@@ -43,6 +43,14 @@
         @apply text-gray-500;
     }
 
+    .card-dashboard {
+        @apply bg-white p-4 lg:p-6 rounded-2xl shadow-main;
+    }
+
+    .card-title-dashboard {
+        @apply font-bold text-lg mb-10;
+    }
+
     .form-dashboard {
         @apply text-base;
     }
@@ -68,6 +76,42 @@
     }
 
     .btn-create-dashboard {
-        @apply bg-green-50 hover:bg-green-100 text-green-500 px-4 py-2 rounded-lg font-medium mb-5;
+        @apply bg-green-50 hover:bg-green-100 text-green-500 px-4 py-2 rounded-lg font-medium;
+    }
+
+    .table {
+        @apply w-full table-auto;
+    }
+
+    .table-th {
+        @apply text-left border p-3 truncate;
+    }
+
+    .table-td {
+        @apply border p-3 align-top;
+    }
+
+    .table-th-detail {
+        @apply font-medium;
+    }
+
+    .table-td-detail {
+        @apply border-b p-3 align-top;
+    }
+
+    .table-td-dark {
+        @apply bg-[#F2F2F2];
+    }
+
+    .btn-primary {
+        @apply bg-gradient-to-r from-purple-dashboard-gradient-1 to-purple-dashboard-gradient-2 hover:opacity-90 text-white px-4 py-2 rounded-lg;
+    }
+
+    .btn-secondary {
+        @apply bg-green-500 text-white px-4 py-2 rounded-lg;
+    }
+
+    .btn-cancel {
+        @apply bg-red-50 hover:bg-red-100 text-red-500 px-4 py-2 rounded-lg mt-8;
     }
 }

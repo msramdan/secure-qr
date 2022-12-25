@@ -7,12 +7,12 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
 </script>
 
 <template>
-    <Head title="Data Request QR"/>
+    <Head title="Data Type QR"/>
 
     <AdminLayout>
-        <div class="bg-white p-4 lg:p-6 rounded-2xl shadow-main">
+        <div class="card-dashboard">
             <div class="flex items-center justify-between mb-10">
-                <h2 class="card-title-dashboard mb-0">Data Request QR</h2>
+                <h2 class="card-title-dashboard mb-0">Data Type QR</h2>
                 <ButtonCreate href="#"/>
             </div>
             <div class="flex flex-wrap items-center md:justify-between mb-5">
@@ -31,16 +31,12 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
                 </div>
             </div>
             <div class="w-full overflow-x-auto">
-                <table class="table">
+                <table class="w-full table-auto">
                     <thead>
                         <tr>
                             <th class="table-th">No</th>
-                            <th class="table-th">Kode</th>
-                            <th class="table-th">Produk</th>
-                            <th class="table-th">Type QR</th>
-                            <th class="table-th">Qty</th>
-                            <th class="table-th">Total Harga</th>
-                            <th class="table-th">Status</th>
+                            <th class="table-th">Nama</th>
+                            <th class="table-th">Harga</th>
                             <th class="table-th">Action</th>
                         </tr>
                     </thead>
@@ -49,12 +45,8 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
                             <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
                             <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
                             <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
                             <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">
-                                <TableAction detailHref="#"/>
+                                <TableAction detailHref="#" editHref="#" deleteHref="#"/>
                             </td>
                         </tr>
                     </tbody>

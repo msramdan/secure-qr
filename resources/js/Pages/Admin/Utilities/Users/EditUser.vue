@@ -1,39 +1,44 @@
 <script setup>
 import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
-import ButtonCreate from '@/Components/Admin/ButtonCreate.vue';
+import FormButton from '@/Components/Admin/FormButton.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 
 </script>
 
 <template>
-    <Head title="Data User"/>
+    <Head title="Tambah User"/>
 
     <AdminLayout>
-        <div class="bg-white p-4 lg:p-6 rounded-2xl shadow-main">
-            <h2 class="font-bold text-lg mb-5">Data User</h2>
-            <ButtonCreate/>
-            <div class="w-full overflow-x-auto">
-                <table class="w-full table-auto">
-                    <thead>
-                        <tr>
-                            <th class="text-left border p-3 truncate">No</th>
-                            <th class="text-left border p-3 truncate">Nama User</th>
-                            <th class="text-left border p-3 truncate">Email</th>
-                            <th class="text-left border p-3 truncate">Role</th>
-                            <th class="text-left border p-3 truncate">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="n in 10">
-                            <td class="border p-3" :class="{ 'bg-[#F2F2F2]': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="border p-3" :class="{ 'bg-[#F2F2F2]': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="border p-3" :class="{ 'bg-[#F2F2F2]': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="border p-3" :class="{ 'bg-[#F2F2F2]': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="border p-3" :class="{ 'bg-[#F2F2F2]': n % 2 != 0 }">Action {{ n }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="card-dashboard">
+            <h2 class="card-title-dashboard">Tambah User</h2>
+            <form class="form-dashboard" action="#">
+                <div class="mb-5">
+                    <label for="" class="form-label-dashboard">Nama :</label>
+                    <input type="text" name="" class="form-input-dashboard" placeholder="John Doe">
+                </div>
+                <div class="mb-5">
+                    <label for="" class="form-label-dashboard">Email :</label>
+                    <input type="email" name="" class="form-input-dashboard" placeholder="johndoe@gmail.com">
+                </div>
+                <div class="mb-5">
+                    <label for="" class="form-label-dashboard">Password :</label>
+                    <input type="password" name="" class="form-input-dashboard" placeholder="********">
+                    <span class="form-error-message-dashboard">Kosongkan jika tidak ingin merubah password</span>
+                </div>
+                <div class="mb-5">
+                    <label for="" class="form-label-dashboard">Konfirmasi Password :</label>
+                    <input type="password" name="" class="form-input-dashboard" placeholder="********">
+                </div>
+                <div class="mb-5">
+                    <label for="" class="form-label-dashboard">Role :</label>
+                    <select name="" id="" class="form-input-dashboard">
+                        <option value="">Choose</option>
+                        <option value="">Super Admin</option>
+                        <option value="">Admin Toko</option>
+                    </select>
+                </div>
+                <FormButton href="#" text="Update"/>
+            </form>
         </div>
     </AdminLayout>
 </template>
