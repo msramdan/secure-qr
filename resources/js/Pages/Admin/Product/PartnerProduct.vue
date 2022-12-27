@@ -3,6 +3,9 @@ import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
 import TableAction from '@/Components/Admin/TableAction.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 
+const props = defineProps({
+    products: Array
+});
 </script>
 
 <template>
@@ -41,16 +44,16 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="n in 10">
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">
-                                <TableAction detailHref="#"/>
+                        <tr v-for="product,i in products" :key="product.id">
+                            <td class="table-td" :class="{ 'table-td-dark': product.id % 2 != 0 }">{{ ++i }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': product.id % 2 != 0 }">{{ product.nama_partner }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': product.id % 2 != 0 }">{{ product.nama_bisnis }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': product.id % 2 != 0 }">{{ product.name }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': product.id % 2 != 0 }">{{ product.nama_kategori }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': product.id % 2 != 0 }">{{ product.bpom }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': product.id % 2 != 0 }">{{ product.description }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': product.id % 2 != 0 }">
+                                <TableAction :detailHref="route('admin.partner.product.show', product.id)"/>
                             </td>
                         </tr>
                     </tbody>

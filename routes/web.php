@@ -62,19 +62,19 @@ Route::middleware(['isAktif'])->group(function () {
         Route::get('/dashboard', AdminDasboardController::class);
 
         Route::controller(AdminPartnerController::class)->group(function () {
-            Route::get('/partner', 'index');
-            Route::get('/partner/create', 'create');
-            Route::post('/partner/store', 'store');
-            Route::get('/partner/show/{id}', 'show');
-            Route::get('/partner/edit/{id}', 'edit');
-            Route::patch('/partner/update/{id}', 'update');
-            Route::delete('/partner/destroy/{id}', 'destroy');
-            Route::get('/partner/list_bisnis/{id}', 'list');
+            Route::get('/partner', 'index')->name("admin.partner.index");
+            Route::get('/partner/create', 'create')->name("admin.partner.create");
+            Route::post('/partner/store', 'store')->name("admin.partner.store");
+            Route::get('/partner/show/{id}', 'show')->name("admin.partner.show");
+            Route::get('/partner/edit/{id}', 'edit')->name('admin.partner.edit');
+            Route::patch('/partner/update/{id}', 'update')->name("admin.partner.update");
+            Route::get('/partner/destroy/{id}', 'destroy')->name("admin.partner.destroy");
+            Route::get('/partner/list_bisnis/{id}', 'list')->name("admin.partner.list");
         });
 
         Route::controller(AdminPartnerProdukController::class)->group(function () {
-            Route::get('/partner_product', 'index');
-            Route::get('/partner_product/show/{id}', 'show');
+            Route::get('/partner_product', 'index')->name("admin.partner.product.index");
+            Route::get('/partner_product/show/{id}', 'show')->name("admin.partner.product.show");
         });
 
         Route::controller(AdminRequestQrcodeController::class)->group(function () {
