@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Admin;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\RequestQrcode;
 
 class AdminRequestQrcodeController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Request/RequestQR');
+        $request = RequestQrcode::with('product:id,name', 'type_qrcode:id,name')->paginate(10);
+        return Inertia::render('Admin/Request/RequestQR', ['requests' => $request]);
     }
     public function show($id)
     {

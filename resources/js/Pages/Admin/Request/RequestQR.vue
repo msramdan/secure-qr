@@ -2,8 +2,12 @@
 import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
 import TableAction from '@/Components/Admin/TableAction.vue';
 import ButtonCreate from '@/Components/Admin/ButtonCreate.vue';
+import Pagination from '@/Components/Pagination.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
-
+const props = defineProps({
+    requests: Array
+})
+console.log(props.requests.links);
 </script>
 
 <template>
@@ -45,31 +49,23 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="n in 10">
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">
-                                <TableAction detailHref="#"/>
+                        <tr v-for="request,index in requests.data">
+                            <td class="table-td" :class="{ 'table-td-dark': request.id % 2 != 0 }">{{ ++index }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': request.id % 2 != 0 }">{{ request.code }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': request.id % 2 != 0 }">{{ request.product.name }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': request.id % 2 != 0 }">{{ request.type_qrcode.name }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': request.id % 2 != 0 }">{{ request.qty }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': request.id % 2 != 0 }">{{ request.amount_price }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': request.id % 2 != 0 }">{{ request.status }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': request.id % 2 != 0 }">
+                                <TableAction v-if="request.status == 'Waiting Payment'" editHref="#"/>
+                                <TableAction v-else detailHref="#" deleteHref="#"/>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="flex flex-wrap items-center justify-between mt-5">
-                <div class="text-gray-500 mb-2 md:mb-0">Showing 1 to 10 of 32 entries</div>
-                <div class="flex divide-x divide-purple-1100 border border-purple-1100 rounded">
-                    <button class="text-gray-500 px-3.5 py-1.5">Previous</button>
-                    <div class="bg-purple-1100 text-white w-10 text-center py-1.5">1</div>
-                    <div class="w-10 text-center py-1.5">2</div>
-                    <div class="w-10 text-center py-1.5">3</div>
-                    <button class="px-3.5 py-1.5">Next</button>
-                </div>
-            </div>
+            <Pagination :links="requests.links"/>
         </div>
     </AdminLayout>
 </template>

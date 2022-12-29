@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\User;
+use App\Models\Partner;
 use App\Models\Business;
 use App\Models\Category;
-use App\Models\UserPartner;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -12,7 +13,7 @@ class Product extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    public function categroy()
+    public function category()
     {
         return $this->belongsTo(Category::class);
     }
@@ -22,6 +23,6 @@ class Product extends Model
     }
     public function partner()
     {
-        return $this->belongsTo(UserPartner::class);
+        return $this->belongsTo(Partner::class);
     }
 }

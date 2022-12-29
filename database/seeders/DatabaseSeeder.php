@@ -3,6 +3,12 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Business;
+use App\Models\Partner;
+use App\Models\Product;
+use App\Models\RequestQrcode;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,7 +24,61 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             RoleSeeder::class,
-            SettingWebSeeder::class
+            SettingWebSeeder::class,
+            CategorySeeder::class,
+            TypeQrcodeSeeder::class
         ]);
+        $user = User::create([
+            'name' => 'Demo',
+            'email' => 'demo@labelin.co',
+            'email_verified_at' => now(),
+            'password' => bcrypt('mocachino'),
+            'remember_token' => 'sd34dISJ34'
+        ]);
+        $partner = Partner::create([
+            'user_id' => $user->id,
+            'code' => '232dfE34',
+            'phone' => '085155353793',
+            'pic' => 'Ahmad Muzayyin',
+            'photo' => 'photo.jpg',
+            'address' => 'Gadu Barat Ganding Sumenep'
+        ]);
+        $business = Business::create([
+            'partner_id' => $partner->id,
+            'code' => 2982392,
+            'name' => 'Demo Company',
+            'brand' => 'Ms Glow',
+            'logo' => 'logo,png',
+            'manufacture' => 'Surabaya'
+        ]);
+        $product = Product::create([
+            'category_id' => 1,
+            'business_id' => $business->id,
+            'partner_id' => $partner->id,
+            'production_code' => 'SJDI6723',
+            'name' => 'Tonner',
+            'slug' => 'tonner',
+            'bpom' => 'NA928323923',
+            'description' => 'Tonner Pencerah Wajah',
+            'expired_date' => now(),
+            'netto' => '15ML',
+            'photo' => 'tonner.png'
+        ]);
+        for ($i = 0; $i < 50; $i++) {
+            RequestQrcode::create([
+                'partner_id' => $partner->id,
+                'product_id' => $product->id,
+                'type_qrcode_id' => 1,
+                'code' => 'SLKD34',
+                'tanggal_request' => now(),
+                'qty' => 50,
+                'sn_length' => 5,
+                'harga_satuan' => 5000,
+                'amount_price' => 50000,
+                'status' => 'Pending Payment',
+                'bukti_pembayaran' => 'bukti_bayar.jpg',
+                'tgl_upload_bukti_bayar' => now(),
+            ]);
+        }
     }
 }

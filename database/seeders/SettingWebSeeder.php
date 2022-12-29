@@ -24,7 +24,7 @@ class SettingWebSeeder extends Seeder
             'email' => 'admin@labelin.co',
             'alamat' => 'Surabaya',
             'deskripsi' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta, quos maxime. Animi est alias porro optio maxime incidunt aspernatur, nesciunt, ab facere distinctio iure. Iste molestias, laudantium nesciunt non consequuntur et possimus a! Obcaecati dolorum placeat rerum fugit, maiores doloremque nobis in accusamus. Asperiores doloribus at nesciunt hic assumenda suscipit!',
-            'is_aktif' => false
+            'is_aktif' => true
         ]);
     }
 }

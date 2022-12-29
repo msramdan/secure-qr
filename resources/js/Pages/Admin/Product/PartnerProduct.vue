@@ -1,6 +1,7 @@
 <script setup>
 import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
 import TableAction from '@/Components/Admin/TableAction.vue';
+import Pagination from '@/Components/Pagination.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 
 const props = defineProps({
@@ -44,7 +45,7 @@ const props = defineProps({
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="product,i in products" :key="product.id">
+                        <tr v-for="product,i in products.data" :key="product.id">
                             <td class="table-td" :class="{ 'table-td-dark': product.id % 2 != 0 }">{{ ++i }}</td>
                             <td class="table-td" :class="{ 'table-td-dark': product.id % 2 != 0 }">{{ product.nama_partner }}</td>
                             <td class="table-td" :class="{ 'table-td-dark': product.id % 2 != 0 }">{{ product.nama_bisnis }}</td>
@@ -59,16 +60,7 @@ const props = defineProps({
                     </tbody>
                 </table>
             </div>
-            <div class="flex flex-wrap items-center justify-between mt-5">
-                <div class="text-gray-500 mb-2 md:mb-0">Showing 1 to 10 of 32 entries</div>
-                <div class="flex divide-x divide-purple-1100 border border-purple-1100 rounded">
-                    <button class="text-gray-500 px-3.5 py-1.5">Previous</button>
-                    <div class="bg-purple-1100 text-white w-10 text-center py-1.5">1</div>
-                    <div class="w-10 text-center py-1.5">2</div>
-                    <div class="w-10 text-center py-1.5">3</div>
-                    <button class="px-3.5 py-1.5">Next</button>
-                </div>
-            </div>
+            <Pagination :links="products.links"/>
         </div>
     </AdminLayout>
 </template>

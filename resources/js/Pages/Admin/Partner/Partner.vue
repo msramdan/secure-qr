@@ -3,6 +3,7 @@ import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
 import ButtonCreate from '@/Components/Admin/ButtonCreate.vue';
 import TableAction from '@/Components/Admin/TableAction.vue';
 import ActionIcon from '@/Components/Admin/ActionIcon.vue';
+import Pagination from '@/Components/Pagination.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 
 const props = defineProps({
@@ -51,7 +52,7 @@ const props = defineProps({
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="partner,index in partners" :key="partner.id">
+                        <tr v-for="partner,index in partners.data" :key="partner.id">
                             <td
                                 class="table-td"
                                 :class="{ 'table-td-dark': partner.id % 2 != 0 }"
@@ -62,13 +63,13 @@ const props = defineProps({
                                 class="table-td"
                                 :class="{ 'table-td-dark': partner.id % 2 != 0 }"
                             >
-                                {{ partner.name }}
+                                {{ partner.user.name }}
                             </td>
                             <td
                                 class="table-td"
                                 :class="{ 'table-td-dark': partner.id % 2 != 0 }"
                             >
-                                {{ partner.email }}
+                                {{ partner.user.email }}
                             </td>
                             <td
                                 class="table-td"
@@ -87,11 +88,11 @@ const props = defineProps({
                                 :class="{ 'table-td-dark': partner.id % 2 != 0 }"
                             >
                                 <TableAction
-                                    :detailHref="route('admin.partner.show',partner.id_partner)"
-                                    :editHref="route('admin.partner.edit',partner.id_partner)"
-                                    :deleteHref="route('admin.partner.destroy',partner.id_partner)"
+                                    :detailHref="route('admin.partner.show',partner.user_id)"
+                                    :editHref="route('admin.partner.edit',partner.user_id)"
+                                    :deleteHref="route('admin.partner.destroy',partner.user_id)"
                                 >
-                                    <Link :href="route('admin.partner.list',partner.id_partner)">
+                                    <Link :href="route('admin.partner.list',partner.user_id)">
                                         <ActionIcon>
                                             <path
                                                 stroke-linecap="round"
@@ -106,26 +107,7 @@ const props = defineProps({
                     </tbody>
                 </table>
             </div>
-            <div class="flex flex-wrap items-center justify-between mt-5">
-                <div class="text-gray-500 mb-2 md:mb-0">
-                    Showing 1 to 10 of 32 entries
-                </div>
-                <div
-                    class="flex divide-x divide-purple-1100 border border-purple-1100 rounded"
-                >
-                    <button class="text-gray-500 px-3.5 py-1.5">
-                        Previous
-                    </button>
-                    <div
-                        class="bg-purple-1100 text-white w-10 text-center py-1.5"
-                    >
-                        1
-                    </div>
-                    <div class="w-10 text-center py-1.5">2</div>
-                    <div class="w-10 text-center py-1.5">3</div>
-                    <button class="px-3.5 py-1.5">Next</button>
-                </div>
-            </div>
+            <Pagination :links="partners.links"/>
         </div>
     </AdminLayout>
 </template>

@@ -2,7 +2,10 @@
 import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
 import TableAction from '@/Components/Admin/TableAction.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
-
+import Pagination from '@/Components/Pagination.vue';
+const props = defineProps({
+    contacts: Array
+});
 </script>
 
 <template>
@@ -35,33 +38,20 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
                             <th class="table-th">Email</th>
                             <th class="table-th">Subjek</th>
                             <th class="table-th">Deskripsi</th>
-                            <th class="table-th">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="n in 10">
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">
-                                <TableAction detailHref="#" editHref="#" deleteHref="#"/>
-                            </td>
+                        <tr v-for="contact,i in contacts.data" :key="i">
+                            <td class="table-td" :class="{ 'table-td-dark': contact.id % 2 != 0 }">{{ ++i }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': contact.id % 2 != 0 }">{{ contact.nama_lengkap }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': contact.id % 2 != 0 }">{{ contact.email }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': contact.id % 2 != 0 }">{{ contact.subjek }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': contact.id % 2 != 0 }">{{ contact.deskripsi }}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="flex flex-wrap items-center justify-between mt-5">
-                <div class="text-gray-500 mb-2 md:mb-0">Showing 1 to 10 of 32 entries</div>
-                <div class="flex divide-x divide-purple-1100 border border-purple-1100 rounded">
-                    <button class="text-gray-500 px-3.5 py-1.5">Previous</button>
-                    <div class="bg-purple-1100 text-white w-10 text-center py-1.5">1</div>
-                    <div class="w-10 text-center py-1.5">2</div>
-                    <div class="w-10 text-center py-1.5">3</div>
-                    <button class="px-3.5 py-1.5">Next</button>
-                </div>
-            </div>
+            <Pagination :links="contacts.links"/>
         </div>
     </AdminLayout>
 </template>

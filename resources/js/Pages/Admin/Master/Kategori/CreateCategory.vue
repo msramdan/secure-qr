@@ -1,8 +1,15 @@
 <script setup>
 import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
 import FormButton from '@/Components/Admin/FormButton.vue';
-import { Head, Link } from '@inertiajs/inertia-vue3';
-
+import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import InputError from '@/Components/InputError.vue';
+const form = useForm({
+    code: '',
+    name:''
+});
+const FormSubmit = () => {
+    form.post(route('admin.category.store'))
+}
 </script>
 
 <template>
@@ -11,16 +18,18 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
     <AdminLayout>
         <div class="card-dashboard">
             <h2 class="card-title-dashboard">Tambah Kategori</h2>
-            <form class="form-dashboard" action="#">
+            <form class="form-dashboard" @submit.prevent="FormSubmit">
                 <div class="mb-5">
-                    <label for="" class="form-label-dashboard">Kode :</label>
-                    <input type="text" name="" class="form-input-dashboard" placeholder="123456">
+                    <label for="code" class="form-label-dashboard">Kode :</label>
+                    <input type="text" v-model="form.code" id="code" class="form-input-dashboard" placeholder="123456">
+                    <InputError :message="form.errors.code"/>
                 </div>
                 <div class="mb-5">
-                    <label for="" class="form-label-dashboard">Nama :</label>
-                    <input type="text" name="" class="form-input-dashboard" placeholder="John Doe">
+                    <label for="nama" class="form-label-dashboard">Nama :</label>
+                    <input type="text" v-model="form.name" id="nama" class="form-input-dashboard" placeholder="John Doe">
+                    <InputError :message="form.errors.name"/>
                 </div>
-                <FormButton href="#" text="Simpan"/>
+                <FormButton :href="route('admin.category.index')" text="Simpan"/>
             </form>
         </div>
     </AdminLayout>

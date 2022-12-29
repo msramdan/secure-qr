@@ -1,7 +1,9 @@
 <script setup>
 import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
-
+const props = defineProps({
+    category: Array
+});
 </script>
 
 <template>
@@ -14,23 +16,23 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
                 <tbody>
                     <tr>
                         <td class="table-td-detail font-semibold table-td-dark">Kode</td>
-                        <td class="table-td-detail table-td-dark">12345678</td>
+                        <td class="table-td-detail table-td-dark">{{ category.code }}</td>
                     </tr>
                     <tr>
                         <td class="table-td-detail font-semibold">Nama</td>
-                        <td class="table-td-detail">Bahan Makanan</td>
+                        <td class="table-td-detail">{{ category.name }}</td>
                     </tr>
                     <tr>
                         <td class="table-td-detail font-semibold table-td-dark">Created at</td>
-                        <td class="table-td-detail table-td-dark">2 Januari 2023</td>
+                        <td class="table-td-detail table-td-dark">{{ category.created_at }}</td>
                     </tr>
                     <tr>
                         <td class="table-td-detail font-semibold">Updated at</td>
-                        <td class="table-td-detail">4 Januari 2023</td>
+                        <td class="table-td-detail">{{ category.updated_at }}</td>
                     </tr>
                 </tbody>
             </table>
-            <Link href="#">
+            <Link :href="route('admin.category.index')">
                 <button class="btn-cancel">Kembali</button>
             </Link>
         </div>

@@ -3,7 +3,9 @@ import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
 import TableAction from '@/Components/Admin/TableAction.vue';
 import ActionIcon from '@/Components/Admin/ActionIcon.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
-
+const props = defineProps({
+    customers: Array
+});
 </script>
 
 <template>
@@ -43,13 +45,13 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="n in 10">
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': n % 2 != 0 }">
+                        <tr v-for="i in 10" :key="i">
+                            <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">{{ i }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">{{ i }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">{{ i }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">{{ i}}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">{{ i }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">
                                 <TableAction detailHref="#">
                                     <Link href="#">
                                         <ActionIcon>
