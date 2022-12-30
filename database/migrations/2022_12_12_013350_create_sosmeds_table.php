@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use App\Models\Partner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('sosmeds', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained();
+            $table->foreignIdFor(Partner::class)->constrained();
             $table->string('name');
             $table->string('link_sosmed');
             $table->timestamps();

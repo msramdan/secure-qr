@@ -16,15 +16,15 @@ class SettingWebSeeder extends Seeder
     public function run()
     {
         SettingWeb::insert([
-            'nama_website' => 'labelin.co',
-            'kode_website' => fake()->numberBetween(1, 7),
+            'nama_website' => 'Labelin.co',
+            'kode_website' => '423954',
             'logo_dark' => 'logo_dark.png',
             'logo_light' => 'logo_light.png',
             'telpon' => '0123456789',
             'email' => 'admin@labelin.co',
             'alamat' => 'Surabaya',
-            'deskripsi' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi nam repellat maxime cupiditate mollitia ea rem cumque nulla voluptates sequi?',
-            'is_aktif' => false
+            'deskripsi' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta, quos maxime. Animi est alias porro optio maxime incidunt aspernatur, nesciunt, ab facere distinctio iure. Iste molestias, laudantium nesciunt non consequuntur et possimus a! Obcaecati dolorum placeat rerum fugit, maiores doloremque nobis in accusamus. Asperiores doloribus at nesciunt hic assumenda suscipit!',
+            'is_aktif' => true
         ]);
     }
 }

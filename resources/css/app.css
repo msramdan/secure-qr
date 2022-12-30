@@ -1,4 +1,6 @@
+/* @import './components/validation.css'; */
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,4 +9,109 @@
 .dashboard-gradient {
     background: rgb(130,122,243);
     background: linear-gradient(90deg, rgba(130,122,243,1) 0%, rgba(179,121,242,1) 100%);
+}
+
+@layer components {
+    .btn-validation {
+        @apply bg-purple-validation w-full text-white py-2 rounded
+    }
+
+    .btn-secondary-validation {
+        @apply border border-gray-300 text-purple-validation w-full py-2 rounded
+    }
+
+    .jumbotron-validation {
+        background: rgb(180, 122, 243);
+        background: linear-gradient(90deg, rgba(180, 122, 243, 1) 0%, rgba(130, 122, 243, 1) 100%);
+        @apply pt-8 pb-12;
+    }
+
+    .content-validation {
+        @apply bg-white py-10 px-5 rounded-t-[24px] -mt-5
+    }
+
+    .form-input-validation {
+        @apply w-full border border-gray-300 px-4 py-2 rounded-md;
+    }
+
+
+    .label-validation {
+        @apply block font-medium mb-1.5;
+    }
+
+    .text-secondary-validation {
+        @apply text-gray-500;
+    }
+
+    .card-dashboard {
+        @apply bg-white p-4 lg:p-6 rounded-2xl shadow-main;
+    }
+
+    .card-title-dashboard {
+        @apply font-bold text-lg mb-10;
+    }
+
+    .form-dashboard {
+        @apply text-base;
+    }
+
+    .form-label-dashboard {
+        @apply block font-medium mb-2;
+    }
+
+    .form-input-dashboard {
+        @apply w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-purple-1100 focus:ring-0 placeholder-gray-400;
+    }
+
+    .form-input-error-dashboard {
+        @apply border-red-500;
+    }
+
+    .form-error-message-dashboard {
+        @apply block text-red-500 mt-1;
+    }
+
+    .form-btn-dashboard {
+        @apply bg-gradient-to-r from-purple-dashboard-gradient-1 to-purple-dashboard-gradient-2 font-medium text-white px-4 py-2 rounded-lg mt-10;
+    }
+
+    .btn-create-dashboard {
+        @apply bg-green-50 hover:bg-green-100 text-green-500 px-4 py-2 rounded-lg font-medium;
+    }
+
+    .table {
+        @apply w-full table-auto;
+    }
+
+    .table-th {
+        @apply text-left border p-3 truncate;
+    }
+
+    .table-td {
+        @apply border p-3 align-top;
+    }
+
+    .table-th-detail {
+        @apply font-medium;
+    }
+
+    .table-td-detail {
+        @apply border-b p-3 align-top;
+    }
+
+    .table-td-dark {
+        @apply bg-[#F2F2F2];
+    }
+
+    .btn-primary {
+        @apply bg-gradient-to-r from-purple-dashboard-gradient-1 to-purple-dashboard-gradient-2 hover:opacity-90 text-white px-4 py-2 rounded-lg;
+    }
+
+    .btn-secondary {
+        @apply bg-green-500 text-white px-4 py-2 rounded-lg;
+    }
+
+    .btn-cancel {
+        @apply bg-red-50 hover:bg-red-100 text-red-500 px-4 py-2 rounded-lg mt-8;
+    }
 }

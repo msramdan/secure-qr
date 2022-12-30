@@ -10,24 +10,27 @@ class AdminRoleController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Dashboard');
+        return Inertia::render('Admin/Utilities/Roles/Roles');
     }
-    public function create(Request $request)
+    public function create()
     {
+        return Inertia::render('Admin/Utilities/Roles/CreateRoles');
     }
-    public function show(Request $request)
+    public function show($id)
     {
+        return Inertia::render('Admin/Utilities/Roles/DetailRoles');
     }
     public function store(Request $request)
     {
     }
-    public function edit(Request $request)
+    public function edit($id)
+    {
+        return Inertia::render('Admin/Utilities/Roles/EditRoles');
+    }
+    public function update(Request $request, $id)
     {
     }
-    public function update(Request $request)
-    {
-    }
-    public function destroy(Request $request)
+    public function destroy($id)
     {
     }
 }

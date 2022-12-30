@@ -24,13 +24,15 @@ module.exports = {
                             1: '#827af3',
                             2: '#b47af3'
                         }
-                    }
+                    },
+                    validation: '#827AF3'
                 }
             },
             boxShadow: {
                 dashboard: {
                     card: '0px 0px 12px 0px rgb(120 146 141 / 6%)'
                 },
+                main: '0px 0px 25px 0px rgb(45 69 95 / 10%)'
             }
         },
     },

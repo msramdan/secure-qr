@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use App\Models\Partner;
 use App\Models\Product;
 use App\Models\TypeQrcode;
 use Illuminate\Support\Facades\Schema;
@@ -18,7 +18,7 @@ return new class extends Migration
     {
         Schema::create('request_qrcodes', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained();
+            $table->foreignIdFor(Partner::class)->constrained();
             $table->foreignIdFor(Product::class)->constrained();
             $table->foreignIdFor(TypeQrcode::class)->constrained();
             $table->string('code', 100);

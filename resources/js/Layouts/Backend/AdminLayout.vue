@@ -12,7 +12,7 @@ const openSidebar = ref(window.innerWidth >= 1024 ? true : false)
         <!-- Page Sidebar -->
         <Sidebar :open-sidebar="openSidebar" @closeSidebar="openSidebar = false"/>
 
-        <div class="lg:ml-64">
+        <div class="lg:ml-64 min-h-screen flex flex-col justify-between">
             <div class="px-4 md:px-8 pb-8">
                 <!-- Page Header -->
                 <Header @openSidebar="openSidebar = true"/>

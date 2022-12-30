@@ -11,25 +11,11 @@ class AdminRequestQrcodeController extends Controller
 {
     public function index()
     {
-        $requestQrs = RequestQrcode::with('product:id,code,name', 'type_qr:id,name');
-        return Inertia::render('Admin/Dashboard');
+        $request = RequestQrcode::with('product:id,name', 'type_qrcode:id,name')->paginate(10);
+        return Inertia::render('Admin/Request/RequestQR', ['requests' => $request]);
     }
-    public function create(Request $request)
+    public function show($id)
     {
-    }
-    public function show(Request $request)
-    {
-    }
-    public function store(Request $request)
-    {
-    }
-    public function edit(Request $request)
-    {
-    }
-    public function update(Request $request)
-    {
-    }
-    public function destroy(Request $request)
-    {
+        return Inertia::render('Admin/Request/DetailRequestQR');
     }
 }

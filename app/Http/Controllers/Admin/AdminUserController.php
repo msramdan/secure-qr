@@ -10,24 +10,23 @@ class AdminUserController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Dashboard');
+        return Inertia::render('Admin/Utilities/Users/User');
     }
-    public function create(Request $request)
+    public function create()
     {
-    }
-    public function show(Request $request)
-    {
+        return Inertia::render('Admin/Utilities/Users/CreateUser');
     }
     public function store(Request $request)
     {
     }
-    public function edit(Request $request)
+    public function edit($id)
+    {
+        return Inertia::render('Admin/Utilities/Users/EditUser');
+    }
+    public function update(Request $request, $id)
     {
     }
-    public function update(Request $request)
-    {
-    }
-    public function destroy(Request $request)
+    public function destroy($id)
     {
     }
 }

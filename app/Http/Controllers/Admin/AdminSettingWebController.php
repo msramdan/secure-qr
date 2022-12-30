@@ -5,20 +5,17 @@ namespace App\Http\Controllers\Admin;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\SettingWeb;
 
 class AdminSettingWebController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Dashboard');
+        $setting = SettingWeb::first();
+        return Inertia::render('Admin/Utilities/Setting', ['setting' => $setting]);
     }
-    public function show(Request $request)
+    public function update(Request $request, $id)
     {
-    }
-    public function edit(Request $request)
-    {
-    }
-    public function update(Request $request)
-    {
+        dd($request->all());
     }
 }
