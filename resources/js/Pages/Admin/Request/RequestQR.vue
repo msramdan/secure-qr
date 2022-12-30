@@ -49,7 +49,7 @@ console.log(props.requests.links);
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="request,index in requests.data">
+                        <tr v-for="request, index in requests.data">
                             <td class="table-td" :class="{ 'table-td-dark': request.id % 2 != 0 }">{{ ++index }}</td>
                             <td class="table-td" :class="{ 'table-td-dark': request.id % 2 != 0 }">{{ request.code }}</td>
                             <td class="table-td" :class="{ 'table-td-dark': request.id % 2 != 0 }">{{ request.product.name }}</td>
