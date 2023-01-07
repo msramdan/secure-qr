@@ -9,9 +9,11 @@ use App\Models\RequestQrcode;
 
 class AdminRequestQrcodeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $request = RequestQrcode::with('product:id,name', 'type_qrcode:id,name')->paginate(10);
+        $paginate = $request->get('paginate') ?? 10;
+        $request = RequestQrcode::with('product:id,name', 'type_qrcode:id,name')->paginate($paginate);
+        // dd($request);
         return Inertia::render('Admin/Request/RequestQR', ['requests' => $request]);
     }
     public function show($id)

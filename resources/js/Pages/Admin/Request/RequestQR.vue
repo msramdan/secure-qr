@@ -3,11 +3,18 @@ import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
 import TableAction from '@/Components/Admin/TableAction.vue';
 import ButtonCreate from '@/Components/Admin/ButtonCreate.vue';
 import Pagination from '@/Components/Pagination.vue';
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import { onMounted } from 'vue';
 const props = defineProps({
     requests: Array
 })
-console.log(props.requests.links);
+onMounted(() => {  })
+const form = useForm({
+    paginate: ''
+});
+const getPaginate = () => {
+    form.get(route('admin.request.index'))
+}
 </script>
 
 <template>
@@ -22,7 +29,7 @@ console.log(props.requests.links);
             <div class="flex flex-wrap items-center md:justify-between mb-5">
                 <div class="flex items-center space-x-2 mb-2 md:mb-0">
                     <div>Show</div>
-                    <select class="form-input-dashboard w-20">
+                    <select class="form-input-dashboard w-20" v-model="form.paginate" @change="getPaginate">
                         <option value="10">10</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
@@ -49,8 +56,8 @@ console.log(props.requests.links);
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="request, index in requests.data">
-                            <td class="table-td" :class="{ 'table-td-dark': request.id % 2 != 0 }">{{ ++index }}</td>
+                        <tr v-for="request, i in requests.data" :key="request.id">
+                            <td class="table-td" :class="{ 'table-td-dark': request.id % 2 != 0 }">{{ ++i }}</td>
                             <td class="table-td" :class="{ 'table-td-dark': request.id % 2 != 0 }">{{ request.code }}</td>
                             <td class="table-td" :class="{ 'table-td-dark': request.id % 2 != 0 }">{{ request.product.name }}</td>
                             <td class="table-td" :class="{ 'table-td-dark': request.id % 2 != 0 }">{{ request.type_qrcode.name }}</td>
@@ -65,7 +72,7 @@ console.log(props.requests.links);
                     </tbody>
                 </table>
             </div>
-            <Pagination :links="requests.links"/>
+            <Pagination :data="requests" />
         </div>
     </AdminLayout>
 </template>
