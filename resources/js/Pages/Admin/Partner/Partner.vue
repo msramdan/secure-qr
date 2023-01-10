@@ -107,7 +107,7 @@ const props = defineProps({
                     </tbody>
                 </table>
             </div>
-            <Pagination :links="partners.links"/>
+            <Pagination :data="partners"/>
         </div>
     </AdminLayout>
 </template>

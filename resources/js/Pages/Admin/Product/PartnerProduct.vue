@@ -60,7 +60,7 @@ const props = defineProps({
                     </tbody>
                 </table>
             </div>
-            <Pagination :links="products.links"/>
+            <Pagination :data="products"/>
         </div>
     </AdminLayout>
 </template>
