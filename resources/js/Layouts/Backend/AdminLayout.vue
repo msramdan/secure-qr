@@ -2,13 +2,21 @@
 import Sidebar from '@/Components/Admin/Sidebar.vue'
 import Header from '@/Components/Admin/Header.vue'
 import Footer from '@/Components/Admin/Footer.vue'
-import { ref, onMounted } from 'vue'
+import Alert from '@/Components/Alert.vue'
+import { ref, reactive } from 'vue'
 
 const openSidebar = ref(window.innerWidth >= 1024 ? true : false)
+
+const flash = reactive({ type: 'success', message: 'Data successfully added!' })
 </script>
 
 <template>
-    <div class="bg-dashboard">
+    <div class="bg-main">
+        <!-- Flash Message -->
+        <!-- <div v-if="$page.props.flash"> -->
+            <Alert :flash="flash"/>
+        <!-- </div> -->
+
         <!-- Page Sidebar -->
         <Sidebar :open-sidebar="openSidebar" @closeSidebar="openSidebar = false"/>
 
@@ -19,7 +27,7 @@ const openSidebar = ref(window.innerWidth >= 1024 ? true : false)
 
                 <!-- Page Content -->
                 <main>
-                    <slot />
+                    <slot/>
                 </main>
             </div>
 

@@ -36,6 +36,9 @@ module.exports = {
             }
         },
     },
+    variants: {
+        accentColor: ['responsive', 'dark', 'group-hover', 'focus-within', 'hover', 'focus'] // Listed are the defaults
+    },
 
     plugins: [require('@tailwindcss/forms')],
 };

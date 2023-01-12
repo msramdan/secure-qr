@@ -1,85 +1,16 @@
 <script setup>
 import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
-import { onMounted } from 'vue'
-import { Bar } from 'vue-chartjs';
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+import { ref, reactive } from 'vue'
+import DashboardChart from './DashboardChart.vue'
+import DashboardMap from './DashboardMap.vue'
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
-
-const chart1Data = ({
-    labels: ['Dokumen', 'Kosmetik'],
-    datasets: [{
-        label: 'Total Scan',
-        data: [5, 68],
-        backgroundColor: [
-            '#7CB5EC',
-            '#434348',
-        ]
-    }]
-})
-
-const chart1Options = ({
-    responsive: false,
-    responsiveAnimationDuration: 0,
-    animation: {
-        duration: 0
-    },
-    scales: {
-        y: {
-            beginAtZero: true,
-            max: 80
-        },
-    },
-    plugins: {
-        legend: {
-            labels: {
-                font: {
-                    family: "'Urbanist'",
-                    size: 16,
-                    lineHeight: 1.5
-                }
-            }
-        }
-    },
-    responsive: true
-})
-
-
-const chart2Data = ({
-    labels: ['PT xxx', 'PT xxx', 'PT xxx', 'PT xxx', 'PT xxx', 'PT xxx', 'PT xxx', 'PT xxx', 'PT xxx'],
-    datasets: [{
-        label: 'Total Scan',
-        data: [7, 2, 4, 4, 9, 1, 9, 3, 1],
-        backgroundColor: ['#7CB5EC', '#434348', '#90ED7D', '#F7A35C', '#8085E9', '#F15C80', '#E4D354', '#2B908F', '#F45B5B']
-    }]
-})
-
-const chart2Options = ({
-    responsive: false,
-    responsiveAnimationDuration: 0,
-    animation: {
-        duration: 0
-    },
-    scales: {
-        y: {
-            beginAtZero: true,
-            max: 10
-        },
-    },
-    plugins: {
-        legend: {
-            labels: {
-                font: {
-                    family: "'Urbanist'",
-                    size: 16,
-                    lineHeight: 1.5
-                }
-            }
-        }
-    },
-    responsive: true
-})
+const datas = ref([
+    { city: 'Kota Sorong', totalScan: 501 },
+    { city: 'Makassar', totalScan: 1100 },
+    { city: 'Bandung', totalScan: 600 },
+    { city: 'Jakarta Pusat', totalScan: 10 },
+]);
 
 </script>
 
@@ -205,38 +136,8 @@ const chart2Options = ({
             </div>
         </div>
 
-        <div class="card-dashboard mb-8">
-            <h2 class="card-title-dashboard">Map Persebaran Produk Scan</h2>
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.6664270097594!2d106.82496411473913!3d-6.175392395529165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sMonumen%20Nasional!5e0!3m2!1sid!2sid!4v1671886373314!5m2!1sid!2sid"
-                class="w-full h-96 lg:h-[32rem] rounded-xl" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
+        <DashboardMap :datas="datas"/>
+        <DashboardChart/>
 
-        <div class="flex flex-col lg:flex-row lg:space-x-8 space-y-8 lg:space-y-0">
-            <div class="flex-1">
-                <div class="card-dashboard">
-                    <h2 class="card-title-dashboard">Chart by Kategori</h2>
-                    <Bar
-                        id="by-category-chart"
-                        class="w-full"
-                        :options="chart1Options"
-                        :data="chart1Data"
-                    />
-                </div>
-            </div>
-            <div class="flex-1">
-                <div class="card-dashboard">
-                    <h2 class="card-title-dashboard">Chart by Bisnis</h2>
-                    <Bar
-                        id="by-category-chart"
-                        class="w-full"
-                        :options="chart2Options"
-                        :data="chart2Data"
-                    />
-                </div>
-            </div>
-        </div>
     </AdminLayout>
 </template>
