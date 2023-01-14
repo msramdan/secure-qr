@@ -12,6 +12,10 @@
 }
 
 @layer components {
+    .bg-main {
+        @apply bg-[#EDECFC]
+    }
+
     .btn-validation {
         @apply bg-purple-validation w-full text-white py-2 rounded
     }
