@@ -53,7 +53,6 @@ class AdminRequestQrcodeController extends Controller
         DB::beginTransaction();
         try {
             for ($i = 1; $i <= $jml; $i++) {
-                // Generate Batch Code
 
                 $sn = $this->generateRandomString($request->sn_length);
                 $pin = $this->generateRandomPin();
@@ -64,16 +63,17 @@ class AdminRequestQrcodeController extends Controller
                     'pin' => $pin,
                     'created_at' => date('Y-m-d H:i:s'),
                 ]);
-                // dd($qrcode);
-                $this->generateBatchCode($qrcode->id, $request->request_id);
+
+                // Generate Batch Code
+                $this->generateBatchCode($qrcode->id, $request->request_id, $product->product_id);
             }
             // update table request qr
             $affected = RequestQrcode::where('id', $request->request_id)
                 ->update(['is_generate' => 'Sudah Generate']);
             if ($affected) {
-                echo "success";
+                return redirect()->back()->with(['message' => 'Successfully generate Qr Code!', 'type' => 'success']);
             } else {
-                echo "error";
+                return redirect()->back()->with(['message' => 'Failed to generate Qr Code!', 'type' => 'danger']);
             }
         } catch (\Throwable $th) {
             dd($th->getMessage());
@@ -143,12 +143,12 @@ class AdminRequestQrcodeController extends Controller
         }
         return str($randomString)->upper();
     }
-    public function generateBatchCode($qr_code_id, $request_id)
+    public function generateBatchCode($qr_code_id, $request_id, $product_id)
     {
         $randString = strtoupper($this->randomHruf(2));
         $minNumber = 00000001;
         $maxNumber = 10000000;
-        $code = BatchCode::select('batch_code')->where('request_qrcode_id', $request_id)->orderBy('id', 'desc')->limit(1)->get();
+        $code = BatchCode::select('batch_code')->where('product_id', $product_id)->orderBy('id', 'desc')->limit(1)->get();
         if (!$code->isEmpty()) {
             $code = $code[0]['batch_code'];
             $kode = (int) substr($code, 2);
@@ -157,6 +157,7 @@ class AdminRequestQrcodeController extends Controller
                 $kode++;
                 $newcode = $prefix . str_pad($kode, 8, '0', STR_PAD_LEFT);
                 BatchCode::insert([
+                    'product_id' => $product_id,
                     'qr_code_id' => $qr_code_id,
                     'request_qrcode_id' => $request_id,
                     'batch_code' => $newcode,
@@ -167,6 +168,7 @@ class AdminRequestQrcodeController extends Controller
         } else {
             $newcode = $randString . str_pad($minNumber, 8, '0', STR_PAD_LEFT);
             BatchCode::insert([
+                'product_id' => $product_id,
                 'qr_code_id' => $qr_code_id,
                 'request_qrcode_id' => $request_id,
                 'batch_code' => $newcode,
