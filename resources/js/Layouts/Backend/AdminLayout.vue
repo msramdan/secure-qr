@@ -7,15 +7,15 @@ import { ref, reactive } from 'vue'
 
 const openSidebar = ref(window.innerWidth >= 1024 ? true : false)
 
-const flash = reactive({ type: 'success', message: 'Data successfully added!' })
+// const flash = reactive({ type: 'success', message: 'Data successfully added!' })
 </script>
 
 <template>
     <div class="bg-main">
         <!-- Flash Message -->
-        <!-- <div v-if="$page.props.flash"> -->
-            <Alert :flash="flash"/>
-        <!-- </div> -->
+        <div v-if="$page.props.flash">
+            <Alert :flash="$page.props.flash"/>
+        </div>
 
         <!-- Page Sidebar -->
         <Sidebar :open-sidebar="openSidebar" @closeSidebar="openSidebar = false"/>

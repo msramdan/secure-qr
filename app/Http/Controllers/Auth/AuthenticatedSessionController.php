@@ -37,7 +37,12 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        $user = auth()->user()->roles->pluck('name')[0] ?? 'partner';
+        if ($user == 'Super Admin') {
+            return redirect()->intended(RouteServiceProvider::HOME);
+        } else {
+            return redirect()->intended(route('partner.dashboard'));
+        }
     }
 
     /**
@@ -54,6 +59,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return to_route('home');
     }
 }

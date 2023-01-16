@@ -6,6 +6,7 @@ import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
 const props = defineProps({
     partner: Array,
 });
+console.log(props.partner)
 const form = useForm({
     name: props.partner.name,
     email: props.partner.email,
@@ -15,7 +16,7 @@ const form = useForm({
     pic: props.partner.pic,
     alamat: props.partner.address,
     photo: props.partner.photo,
-    id_partner: props.partner.id_partner
+    id_partner: props.partner.id
 });
 const FormSubmit = () => {
     form.patch(route("admin.partner.update", props.partner.id));

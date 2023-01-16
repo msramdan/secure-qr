@@ -65,8 +65,8 @@ const getPaginate = () => {
                             <td class="table-td" :class="{ 'table-td-dark': request.id % 2 != 0 }">{{ request.amount_price }}</td>
                             <td class="table-td" :class="{ 'table-td-dark': request.id % 2 != 0 }">{{ request.status }}</td>
                             <td class="table-td" :class="{ 'table-td-dark': request.id % 2 != 0 }">
-                                <TableAction v-if="request.status == 'Waiting Payment'" editHref="#"/>
-                                <TableAction v-else detailHref="#" deleteHref="#"/>
+                                <TableAction v-if="request.status == 'Waiting Payment'" editHref="#" deleteHref="#"/>
+                                <TableAction v-else :detailHref="route('admin.request.show', request.id)" deleteHref="#"/>
                             </td>
                         </tr>
                     </tbody>

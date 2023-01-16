@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Product;
+use App\Models\QrCode;
 use App\Models\RequestQrcode;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,7 +17,7 @@ return new class extends Migration
     {
         Schema::create('batch_codes', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Product::class)->constrained();
+            $table->foreignIdFor(QrCode::class)->constrained();
             $table->foreignIdFor(RequestQrcode::class)->constrained();
             $table->string('batch_code', 20);
             $table->timestamps();

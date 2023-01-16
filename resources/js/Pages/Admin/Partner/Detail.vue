@@ -60,7 +60,7 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
                 </div>
             </div>
             <div class="flex items-center space-x-2 font-medium mt-8">
-                <Link href="#">
+                <Link :href="route('admin.partner.index')">
                     <button class="bg-red-50 hover:bg-red-100 text-red-500 px-4 py-2 rounded-lg">Kembali</button>
                 </Link>
             </div>

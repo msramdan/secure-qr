@@ -16,12 +16,16 @@ return new class extends Migration
     {
         Schema::create('partners', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->string('code', 20)->nullable();
+            $table->string('name');
             $table->string('phone', 20)->nullable();
             $table->string('pic', 100)->nullable();
             $table->string('photo')->nullable();
             $table->text('address')->nullable();
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

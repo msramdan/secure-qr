@@ -19,7 +19,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('login'), {
+    form.post(route('auth'), {
         onFinish: () => form.reset('password'),
     });
 };
@@ -93,21 +93,21 @@ const submit = () => {
                 <h1 class="font-semibold text-4xl md:text-5xl mb-3">Login</h1>
                 <div class="text-gray-500">Enter your email address and password to access website</div>
             </div>
-            <form action="" class="">
+            <form @submit.prevent="submit" class="">
                 <div class="mb-5">
                     <label for="email" class="form-label-dashboard">Email</label>
-                    <input type="email" id="email" class="form-input-dashboard" placeholder="johndoe@gmail.com">
+                    <input type="email" v-model="form.email" id="email" class="form-input-dashboard" placeholder="johndoe@gmail.com">
                 </div>
                 <div class="mb-5">
                     <div class="flex items-center justify-between">
                         <label for="password" class="form-label-dashboard">Password</label>
-                        <a href="#" id="password" class="form-label-dashboard text-purple-1100">Forgot password?</a>
+                        <a href="#" class="form-label-dashboard text-purple-1100">Forgot password?</a>
                     </div>
-                    <input type="password" class="form-input-dashboard" placeholder="********">
+                    <input type="password" v-model="form.password" id="password" class="form-input-dashboard" placeholder="********">
                 </div>
                 <div class="flex items-center justify-between mt-8">
                     <label class="flex items-center form-label-dashboard mb-0">
-                        <input type="checkbox" class="accent-red-500 rounded mr-2">Remember me
+                        <input type="checkbox" v-model="form.remember" class="accent-red-500 rounded mr-2">Remember me
                     </label>
                     <button type="submit" class="btn-primary">Login</button>
                 </div>

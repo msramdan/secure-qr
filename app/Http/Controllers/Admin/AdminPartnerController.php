@@ -16,15 +16,15 @@ class AdminPartnerController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('permission::partner_show')->only('index');
-        // $this->middleware('permission::partner_create')->only('create', 'store');
-        // $this->middleware('permission::partner_update')->only('edit', 'update');
-        // $this->middleware('permission::partner_delete')->only('destroy');
-        // $this->middleware('permission::partner_detail')->only('show');
+        $this->middleware('permission::partner_show')->only('index');
+        $this->middleware('permission::partner_create')->only('create', 'store');
+        $this->middleware('permission::partner_update')->only('edit', 'update');
+        $this->middleware('permission::partner_delete')->only('destroy');
+        $this->middleware('permission::partner_detail')->only('show');
     }
     public function index()
     {
-        $partner = Partner::with('user:id,name,email')->paginate(10);
+        $partner = Partner::paginate(10);
         return Inertia::render('Admin/Partner/Partner', ['partners' => $partner]);
     }
     public function create()
@@ -54,37 +54,21 @@ class AdminPartnerController extends Controller
             })->save($path . $filename);
             $attr["photo"] = $filename;
         }
-        $user = User::create([
-            'name' => $attr["name"],
-            'email' => $attr["email"],
-            'password' => $attr["password"]
-        ]);
         Partner::create([
-            'user_id' => $user->id,
             'code' => fake()->numberBetween(5),
+            'name' => $attr["name"],
             'phone' => $attr["phone"],
             'pic' => $attr["pic"],
             'photo' => $attr["photo"],
-            'address' => $attr["alamat"]
+            'address' => $attr["alamat"],
+            'email' => $attr["email"],
+            'password' => $attr["password"]
         ]);
-        return to_route('admin.partner.index');
+        return to_route('admin.partner.index')->with(['message' => 'Data successfully added!', 'type' => 'success']);
     }
     public function edit($id)
     {
-        $partner = Partner::join('users', 'partners.user_id', '=', 'users.id')
-            ->where('partners.id', $id)
-            ->select(
-                'users.id',
-                'users.name',
-                'users.email',
-                'users.password',
-                'partners.id as id_partner',
-                'partners.phone',
-                'partners.pic',
-                'partners.photo',
-                'partners.address',
-            )
-            ->first();
+        $partner = Partner::find($id);
         return Inertia::render('Admin/Partner/Edit', ['partner' => $partner]);
     }
     public function update(PartnerUpdateRequest $request, $id)
@@ -122,29 +106,22 @@ class AdminPartnerController extends Controller
 
             $attr['photo'] = $filename;
         }
-        $partner->update([
-            'phone' => $attr['phone'],
-            'pic' => $attr['pic'],
-            'photo' => 'default.jpg',
-            'address' => $attr['alamat'],
-        ]);
-        User::find($partner->user_id)->update($attr);
+        $partner->update($attr);
 
-        return to_route('admin.partner.index');
+        return to_route('admin.partner.index')->with(['message' => 'Data hasbeen updated!', 'type' => 'success']);
     }
     public function destroy($id)
     {
         try {
             $partner = Partner::findOrFail($id);
-            User::where('id', $partner->user_id)->delete();
             $path = storage_path('app/public/uploads/profiles/');
             if ($partner->photo != null && file_exists($path . $partner->photo)) {
                 unlink($path . $partner->photo);
             }
             $partner->delete();
-            return to_route('admin.partner.index');
+            return to_route('admin.partner.index')->with(['message' => 'Data hasbeen deleted!', 'type' => 'danger']);
         } catch (\Throwable $th) {
-            return to_route('admin.partner.index');
+            return to_route('admin.partner.index')->with(['message' => "Data can't deleted!", 'type' => 'danger']);
         }
     }
     public function list($id)

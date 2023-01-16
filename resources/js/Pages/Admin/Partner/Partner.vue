@@ -63,13 +63,13 @@ const props = defineProps({
                                 class="table-td"
                                 :class="{ 'table-td-dark': partner.id % 2 != 0 }"
                             >
-                                {{ partner.user.name }}
+                                {{ partner.name }}
                             </td>
                             <td
                                 class="table-td"
                                 :class="{ 'table-td-dark': partner.id % 2 != 0 }"
                             >
-                                {{ partner.user.email }}
+                                {{ partner.email }}
                             </td>
                             <td
                                 class="table-td"
@@ -88,11 +88,11 @@ const props = defineProps({
                                 :class="{ 'table-td-dark': partner.id % 2 != 0 }"
                             >
                                 <TableAction
-                                    :detailHref="route('admin.partner.show',partner.user_id)"
-                                    :editHref="route('admin.partner.edit',partner.user_id)"
-                                    :deleteHref="route('admin.partner.destroy',partner.user_id)"
+                                    :detailHref="route('admin.partner.show', partner.id)"
+                                    :editHref="route('admin.partner.edit', partner.id)"
+                                    :deleteHref="route('admin.partner.destroy', partner.id)"
                                 >
-                                    <Link :href="route('admin.partner.list',partner.user_id)">
+                                    <Link :href="route('admin.partner.list', partner.id)">
                                         <ActionIcon>
                                             <path
                                                 stroke-linecap="round"

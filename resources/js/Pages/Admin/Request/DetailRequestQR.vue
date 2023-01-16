@@ -1,7 +1,23 @@
 <script setup>
 import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import { onMounted } from 'vue';
 
+const props = defineProps({
+  Qr: Array,
+  histories: Array
+})
+const form = useForm({
+    request_id: props.Qr.id,
+    qty: props.Qr.qty,
+    sn_length: props.Qr.sn_length,
+})
+const Proses = () => { 
+    form.post(route('admin.request.upProgress'))
+}
+const GenerateQR = () => { 
+    form.post(route('admin.request.generate'))
+}
 </script>
 
 <template>
@@ -16,76 +32,89 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
                         <tbody>
                             <tr>
                                 <td class="table-td-detail font-semibold table-td-dark">Nama Partner</td>
-                                <td class="table-td-detail table-td-dark">John Doe</td>
+                                <td class="table-td-detail table-td-dark">{{ Qr.nama_partner }}</td>
                             </tr>
                             <tr>
                                 <td class="table-td-detail font-semibold">Nama Produk</td>
-                                <td class="table-td-detail">Toner</td>
+                                <td class="table-td-detail">{{ Qr.nama_produk }}</td>
                             </tr>
                             <tr>
                                 <td class="table-td-detail font-semibold table-td-dark">Jenis QRCode</td>
-                                <td class="table-td-detail table-td-dark">Label hologram (3x1,5cm) Landscape</td>
+                                <td class="table-td-detail table-td-dark">{{ Qr.jenis_qr }}</td>
                             </tr>
                             <tr>
                                 <td class="table-td-detail font-semibold">Qty</td>
-                                <td class="table-td-detail">100</td>
+                                <td class="table-td-detail">{{ Qr.qty }}</td>
                             </tr>
                             <tr>
                                 <td class="table-td-detail font-semibold table-td-dark">Panjang Serial Number</td>
-                                <td class="table-td-detail table-td-dark">10</td>
+                                <td class="table-td-detail table-td-dark">{{ Qr.sn_length }}</td>
                             </tr>
                             <tr>
                                 <td class="table-td-detail font-semibold">Total Pembayaran (QtyXHarga Jenis QRCode)</td>
-                                <td class="table-td-detail">100,000 (100 x 1,000)</td>
+                                <td class="table-td-detail">{{ Qr.amount_price }} ({{ Qr.qty }} x {{ Qr.harga_satuan }})</td>
                             </tr>
                             <tr>
                                 <td class="table-td-detail font-semibold table-td-dark">Status</td>
-                                <td class="table-td-detail table-td-dark">Proses Cetak QR</td>
+                                <td class="table-td-detail table-td-dark">{{ Qr.status }}</td>
                             </tr>
                             <tr>
                                 <td class="table-td-detail font-semibold">Tanggal Request</td>
-                                <td class="table-td-detail">1 Januari 2023</td>
+                                <td class="table-td-detail">{{ Qr.tanggal_request }}</td>
                             </tr>
                             <tr>
                                 <td class="table-td-detail font-semibold table-td-dark">Bukti Pembayaran</td>
                                 <td class="table-td-detail table-td-dark">
-                                    <a href="#" class="underline text-blue-500 hover:text-blue-600">Download</a>
+                                    <a href="#" v-if="Qr.bukti_pembayaran != null" class="underline text-blue-500 hover:text-blue-600">Download</a>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="table-td-detail font-semibold">Tanggal Upload Bukti Bayar</td>
-                                <td class="table-td-detail">3 Januari 2023</td>
+                                <td class="table-td-detail">{{ Qr.tgl_upload_bukti_bayar }}</td>
                             </tr>
                             <tr>
                                 <td class="table-td-detail font-semibold table-td-dark">Status Generate QRCode</td>
-                                <td class="table-td-detail table-td-dark">Sudah Generate</td>
+                                <td class="table-td-detail table-td-dark">{{ Qr.is_generate ?? 'Belum Generate' }}</td>
                             </tr>
                             <tr>
                                 <td class="table-td-detail font-semibold">Jasa Kirim</td>
-                                <td class="table-td-detail"></td>
+                                <td class="table-td-detail">{{ Qr.jasa_kirim }}</td>
                             </tr>
                             <tr>
                                 <td class="table-td-detail font-semibold table-td-dark">Nomor Resi</td>
-                                <td class="table-td-detail table-td-dark"></td>
+                                <td class="table-td-detail table-td-dark">{{ Qr.no_resi }}</td>
                             </tr>
                             <tr>
                                 <td class="table-td-detail font-semibold">Riwayat</td>
                                 <td class="table-td-detail">
-                                    <ul class="list-disc">
-                                        <li>2022-11-05 05:44:47 - Waiting Payment</li>
-                                        <li>2022-11-05 05:44:54 - Pending Payment</li>
-                                        <li>2022-11-05 05:45:42 - Proses Cetak QR</li>
+                                    <ul class="list-disc" v-for="histori,i in histories" :key="i">
+                                        <li>{{ histori.created_at }} - {{ histori.status }}</li>
                                     </ul>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                     <div class="flex items-center space-x-2 font-medium mt-8">
-                        <Link href="#">
+                        <Link :href="route('admin.request.index')">
                             <button class="btn-cancel mt-0">Kembali</button>
                         </Link>
-                        <button class="btn-primary">Update Resi</button>
-                        <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">Download File Excel</button>
+                        <form @submit.prevent="Proses" v-if="Qr.status == 'Pending Payment'">
+                          <input type="hidden" v-model="form.request_id">
+                          <button class="btn-primary" type="submit">Proses Request</button>
+                        </form>
+                        <form @submit.prevent="GenerateQR" v-if="Qr.status == 'Proses Cetak QR' && Qr.is_generate == null">
+                          <input type="hidden" v-model="form.request_id">
+                          <input type="hidden" v-model="form.qty">
+                          <input type="hidden" v-model="form.sn_length">
+                          <button class="btn-primary">Generate</button>
+                        </form>
+                        <form action="" v-if="Qr.status == 'Proses Cetak QR' && Qr.is_generate != null">
+                          <input type="hidden" value="">
+                          <input type="hidden" value="">
+                          <input type="hidden" value="">
+                          <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">Update Resi</button>
+                        </form>
+                        <Link :href="route('admin.export.Qr', Qr.id)" v-if="Qr.is_generate != null" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">Download File Excel</Link>
                     </div>
                 </div>
             </div>
@@ -96,19 +125,19 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
                         <tbody>
                             <tr>
                                 <td class="table-td-detail font-semibold table-td-dark">Nama</td>
-                                <td class="table-td-detail table-td-dark">John Doe</td>
+                                <td class="table-td-detail table-td-dark">{{ Qr.nama_partner }}</td>
                             </tr>
                             <tr>
                                 <td class="table-td-detail font-semibold">Email</td>
-                                <td class="table-td-detail">johndoe@gmail.com</td>
+                                <td class="table-td-detail">{{ Qr.email_partner }}</td>
                             </tr>
                             <tr>
                                 <td class="table-td-detail font-semibold table-td-dark">Telepon</td>
-                                <td class="table-td-detail table-td-dark">08xxxxxxxxxx</td>
+                                <td class="table-td-detail table-td-dark">{{ Qr.telp_partner }}</td>
                             </tr>
                             <tr>
                                 <td class="table-td-detail font-semibold">Alamat</td>
-                                <td class="table-td-detail">Jawa Barat</td>
+                                <td class="table-td-detail">{{ Qr.alamat_partner }}</td>
                             </tr>
                         </tbody>
                     </table>

@@ -28,20 +28,17 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             TypeQrcodeSeeder::class
         ]);
-        $user = User::create([
-            'name' => 'Demo',
-            'email' => 'demo@labelin.co',
-            'email_verified_at' => now(),
-            'password' => bcrypt('mocachino'),
-            'remember_token' => 'sd34dISJ34'
-        ]);
         $partner = Partner::create([
-            'user_id' => $user->id,
             'code' => '232dfE34',
+            'name' => 'Demo',
             'phone' => '085155353793',
             'pic' => 'Ahmad Muzayyin',
             'photo' => 'photo.jpg',
-            'address' => 'Gadu Barat Ganding Sumenep'
+            'address' => 'Gadu Barat Ganding Sumenep',
+            'email' => 'demo@labelin.co',
+            'email_verified_at' => now(),
+            'password' => bcrypt('mocachino'),
+            'remember_token' => 'sd34dISJ34',
         ]);
         $business = Business::create([
             'partner_id' => $partner->id,
