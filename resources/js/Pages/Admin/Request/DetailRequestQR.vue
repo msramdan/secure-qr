@@ -1,6 +1,10 @@
 <script setup>
 import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
+import Modal from '@/Components/Modal.vue'
+import { ref } from 'vue'
+
+const openModal = ref(false)
 
 </script>
 
@@ -84,7 +88,7 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
                         <Link href="#">
                             <button class="btn-cancel mt-0">Kembali</button>
                         </Link>
-                        <button class="btn-primary">Update Resi</button>
+                        <button type="button" @click="openModal = true" class="btn-primary">Update Resi</button>
                         <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">Download File Excel</button>
                     </div>
                 </div>
@@ -115,5 +119,22 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
                 </div>
             </div>
         </div>
+
+        <Modal :open-modal="openModal" modal-title="Update No. Resi" @closeModal="openModal = false">
+            <form action="#">
+                <div class="mb-5">
+                    <label for="nama" class="form-label-dashboard">Ekspedisi :</label>
+                    <input class="form-input-dashboard" type="text" name="nama" placeholder="Ekspedisi">
+                </div>
+                <div>
+                    <label for="no_tlp" class="form-label-dashboard">No. Resi :</label>
+                    <input class="form-input-dashboard" type="text" name="no_tlp" placeholder="Nomor Resi">
+                </div>
+                <div class="flex items-center justify-end space-x-2 font-medium mt-8">
+                    <button @click="openModal = false" class="bg-red-50 hover:bg-red-100 text-red-500 px-4 py-2 rounded-lg">Batal</button>
+                    <button type="submit" class="btn-primary">Update</button>
+                </div>
+            </form>
+        </Modal>
     </AdminLayout>
 </template>
