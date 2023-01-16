@@ -2,7 +2,10 @@
 import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import { onMounted } from 'vue';
+import Modal from '@/Components/Modal.vue'
+import { ref } from 'vue'
 
+const openModal = ref(false)
 const props = defineProps({
   Qr: Array,
   histories: Array
@@ -108,12 +111,7 @@ const GenerateQR = () => {
                           <input type="hidden" v-model="form.sn_length">
                           <button class="btn-primary">Generate</button>
                         </form>
-                        <form action="" v-if="Qr.status == 'Proses Cetak QR' && Qr.is_generate != null">
-                          <input type="hidden" value="">
-                          <input type="hidden" value="">
-                          <input type="hidden" value="">
-                          <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">Update Resi</button>
-                        </form>
+                          <button type="button" @click="openModal = true" class="g-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">Update Resi</button>
                         <Link :href="route('admin.export.Qr', Qr.id)" v-if="Qr.is_generate != null" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">Download File Excel</Link>
                     </div>
                 </div>
@@ -144,5 +142,22 @@ const GenerateQR = () => {
                 </div>
             </div>
         </div>
+
+        <Modal :open-modal="openModal" modal-title="Update No. Resi" @closeModal="openModal = false">
+            <form action="#">
+                <div class="mb-5">
+                    <label for="nama" class="form-label-dashboard">Ekspedisi :</label>
+                    <input class="form-input-dashboard" type="text" name="nama" placeholder="Ekspedisi">
+                </div>
+                <div>
+                    <label for="no_tlp" class="form-label-dashboard">No. Resi :</label>
+                    <input class="form-input-dashboard" type="text" name="no_tlp" placeholder="Nomor Resi">
+                </div>
+                <div class="flex items-center justify-end space-x-2 font-medium mt-8">
+                    <button @click="openModal = false" class="bg-red-50 hover:bg-red-100 text-red-500 px-4 py-2 rounded-lg">Batal</button>
+                    <button type="submit" class="btn-primary">Update</button>
+                </div>
+            </form>
+        </Modal>
     </AdminLayout>
 </template>
