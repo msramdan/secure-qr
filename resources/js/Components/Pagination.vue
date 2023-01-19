@@ -6,7 +6,6 @@ const props = defineProps({
     data: Array,
 });
 
-onMounted(() => {  })
 </script>
 <template>
     <div

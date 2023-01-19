@@ -10,6 +10,7 @@ use App\Models\HistoryRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\QrCode;
+use Dflydev\DotAccessData\Data;
 
 class AdminRequestQrcodeController extends Controller
 {
@@ -24,8 +25,28 @@ class AdminRequestQrcodeController extends Controller
     public function index(Request $request)
     {
         $paginate = $request->get('paginate') ?? 10;
-        $request = RequestQrcode::with('product:id,name', 'type_qrcode:id,name')->paginate($paginate);
-        return Inertia::render('Admin/Request/RequestQR', ['requests' => $request]);
+        $data = RequestQrcode::when($request->input('search') ?? false, function ($query, $search) {
+            $query->where('code', 'like', "%{$search}%")
+                ->orWhere('amount_price', 'like', "%{$search}%")
+                ->orWhere('qty', 'like', "%{$search}%")
+                ->orWhere('status', 'like', "%{$search}%");
+        })->with('product:id,name', 'type_qrcode:id,name')
+            ->paginate($paginate)
+            ->withQueryString()
+            ->through(fn ($request) => [
+                'id' => $request->id,
+                'code' => $request->code,
+                'product_name' => $request->product->name,
+                'type_qrcode' => $request->type_qrcode->name,
+                'amount_price' => $request->amount_price,
+                'qty' => $request->qty,
+                'status' => $request->status,
+            ]);
+
+        return Inertia::render('Admin/Request/RequestQR', [
+            'requests' => $data,
+            'filters' => $request->only(['search']),
+        ]);
     }
     public function show($id)
     {
@@ -107,19 +128,23 @@ class AdminRequestQrcodeController extends Controller
     {
         // insert ke table qr
         HistoryRequest::insert([
-            'request_qr_id' => $request->request_qr_id,
+            'request_qrcode_id' => $request->request_id,
             'status' => 'Dalam Pengiriman',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
 
 
-        $affected = RequestQrcode::where('id', $request->request_qr_id)
+        $affected = RequestQrcode::where('id', $request->request_id)
             ->update([
                 'status' => 'Dalam Pengiriman',
-                'jasa_kirim' => $request->jasa_kirim,
-                'no_resi' => $request->resi,
+                'jasa_kirim' => $request->ekspedisi,
+                'no_resi' => $request->no_resi,
             ]);
-        return redirect()->back();
+        if ($affected) {
+            return redirect()->back()->with(['message' => 'Successfully updated data!', 'type' => 'success']);
+        } else {
+            return redirect()->back()->with(['message' => 'Failed to updated data!', 'type' => 'danger']);
+        }
     }
 
     function generateRandomString($length)

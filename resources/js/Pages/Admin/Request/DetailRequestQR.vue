@@ -14,12 +14,22 @@ const form = useForm({
     request_id: props.Qr.id,
     qty: props.Qr.qty,
     sn_length: props.Qr.sn_length,
+    ekspedisi: '',
+    no_resi:''
 })
 const Proses = () => { 
     form.post(route('admin.request.upProgress'))
 }
 const GenerateQR = () => { 
     form.post(route('admin.request.generate'))
+}
+const KirimPaket = () => { 
+    try {
+        form.post(route('admin.request.upResi'));
+        openModal.value = false
+    } catch (error) {
+        console.log(error.getMessage);
+    }
 }
 </script>
 
@@ -111,8 +121,8 @@ const GenerateQR = () => {
                           <input type="hidden" v-model="form.sn_length">
                           <button class="btn-primary">Generate</button>
                         </form>
-                          <button type="button" @click="openModal = true" class="g-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">Update Resi</button>
-                        <Link :href="route('admin.export.Qr', Qr.id)" v-if="Qr.is_generate != null" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">Download File Excel</Link>
+                          <button v-if="Qr.status != 'Dalam Pengiriman'"  class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg" type="button" @click="openModal = true">Update Resi</button>
+                        <a :href="route('admin.export.Qr', Qr.id)" v-if="Qr.is_generate != null" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg" target="_blank" rel="noopener noreferrer">Download File Excel</a>
                     </div>
                 </div>
             </div>
@@ -144,14 +154,14 @@ const GenerateQR = () => {
         </div>
 
         <Modal :open-modal="openModal" modal-title="Update No. Resi" @closeModal="openModal = false">
-            <form action="#">
+            <form @submit.prevent="KirimPaket">
                 <div class="mb-5">
                     <label for="nama" class="form-label-dashboard">Ekspedisi :</label>
-                    <input class="form-input-dashboard" type="text" name="nama" placeholder="Ekspedisi">
+                    <input class="form-input-dashboard" type="text" v-model="form.ekspedisi" placeholder="Ekspedisi">
                 </div>
                 <div>
                     <label for="no_tlp" class="form-label-dashboard">No. Resi :</label>
-                    <input class="form-input-dashboard" type="text" name="no_tlp" placeholder="Nomor Resi">
+                    <input class="form-input-dashboard" type="text" v-model="form.no_resi" placeholder="Nomor Resi">
                 </div>
                 <div class="flex items-center justify-end space-x-2 font-medium mt-8">
                     <button @click="openModal = false" class="bg-red-50 hover:bg-red-100 text-red-500 px-4 py-2 rounded-lg">Batal</button>

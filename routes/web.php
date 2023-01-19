@@ -91,17 +91,17 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/export/QrCode/{id}', [QrCodeController::class, 'export'])->name('admin.export.Qr');
 
         Route::controller(AdminCustomerDataController::class)->group(function () {
-            Route::get('/customer_data', 'index');
-            Route::get('/customer_data/show/{id}', 'show');
-            Route::post('/customer_data/lock/{id}', 'lock');
+            Route::get('/customer_data', 'index')->name('admin.customer.index');
+            Route::get('/customer_data/show/{id}', 'show')->name('admin.customer.show');
+            Route::post('/customer_data/lock/{id}', 'lock')->name('admin.customer.lock');
         });
 
         Route::controller(AdminContactController::class)->group(function () {
-            Route::get('/contact', 'index');
+            Route::get('/contact', 'index')->name('admin.contact.index');
         });
 
         Route::controller(AdminReportController::class)->group(function () {
-            Route::get('/report', 'index');
+            Route::get('/report', 'index')->name('admin.report.index');
         });
 
         Route::controller(AdminCategoryController::class)->group(function () {

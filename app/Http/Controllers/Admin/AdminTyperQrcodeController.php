@@ -11,10 +11,18 @@ use Intervention\Image\Facades\Image;
 
 class AdminTyperQrcodeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $type = TypeQrcode::paginate(10);
-        return Inertia::render('Admin/Master/TypeQRCode/TypeQR', ['type' => $type]);
+        $paginate = $request->get('paginate') ?? 10;
+        $type = TypeQrcode::when($request->input('search'), function ($query, $search) {
+            $query->where('name', 'like', "%{$search}%")
+                ->orWhere('price', 'like', "%{$search}%");
+        })->paginate($paginate)
+            ->withQueryString();
+        return Inertia::render('Admin/Master/TypeQRCode/TypeQR', [
+            'type' => $type,
+            'filters' => $request->only(['search'])
+        ]);
     }
     public function create()
     {

@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\QrCode;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ProductScanned extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    public function qr_code()
+    {
+        return $this->hasMany(QrCode::class);
+    }
 }

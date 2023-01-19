@@ -10,10 +10,23 @@ use App\Models\Product;
 
 class AdminCategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $category = Category::paginate(10);
-        return Inertia::render('Admin/Master/Kategori/Category', ['category' => $category]);
+        $paginate = $request->get('paginate') ?? 10;
+        $category = Category::when($request->input('search'), function ($query, $search) {
+            $query->where('code', 'like', "%{$search}%")
+                ->orWhere('name', 'like', "%{$search}%");
+        })->paginate($paginate)
+            ->withQueryString()
+            ->through(fn ($ct) => [
+                'id' => $ct->id,
+                'code' => $ct->code,
+                'name' => $ct->name,
+            ]);
+        return Inertia::render('Admin/Master/Kategori/Category', [
+            'category' => $category,
+            'filters' => $request->only(['search'])
+        ]);
     }
     public function create()
     {

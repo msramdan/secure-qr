@@ -9,9 +9,26 @@ use Inertia\Inertia;
 
 class AdminContactController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $contact = Contact::paginate(10);
-        return Inertia::render('Admin/Kontak', ['contacts' => $contact]);
+        $paginate = $request->get('paginate') ?? 10;
+        $contact = Contact::when($request->input('search'), function ($query, $search) {
+            $query->where('nama_lengkap', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%")
+                ->orWhere('subjek', 'like', "%{$search}%")
+                ->orWhere('deskripsi', 'like', "%{$search}%");
+        })->paginate($paginate)
+            ->withQueryString()
+            ->through(fn ($cont) => [
+                'id' => $cont->id,
+                'nama_lengkap' => $cont->nama_lengkap,
+                'email' => $cont->email,
+                'subjek' => $cont->subjek,
+                'deskripsi' => $cont->deskripsi,
+            ]);
+        return Inertia::render('Admin/Kontak', [
+            'contacts' => $contact,
+            'filters' => $request->only(['search'])
+        ]);
     }
 }

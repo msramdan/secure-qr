@@ -22,10 +22,28 @@ class AdminPartnerController extends Controller
         $this->middleware('permission::partner_delete')->only('destroy');
         $this->middleware('permission::partner_detail')->only('show');
     }
-    public function index()
+    public function index(Request $request)
     {
-        $partner = Partner::paginate(10);
-        return Inertia::render('Admin/Partner/Partner', ['partners' => $partner]);
+        $paginate = $request->get('paginate') ?? 10;
+        $partner = Partner::when($request->input('search'), function ($query, $search) {
+            $query->where('name', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%")
+                ->orWhere('pic', 'like', "%{$search}%")
+                ->orWhere('address', 'like', "%{$search}%");
+        })
+            ->paginate($paginate)
+            ->withQueryString()
+            ->through(fn ($partner) => [
+                'id' => $partner->id,
+                'name' => $partner->name,
+                'email' => $partner->email,
+                'pic' => $partner->pic,
+                'address' => $partner->address
+            ]);
+        return Inertia::render('Admin/Partner/Partner', [
+            'partners' => $partner,
+            'filters' => $request->only(['search'])
+        ]);
     }
     public function create()
     {
