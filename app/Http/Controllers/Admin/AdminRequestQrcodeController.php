@@ -12,7 +12,7 @@ class AdminRequestQrcodeController extends Controller
     public function index()
     {
         $request = RequestQrcode::with('product:id,name', 'type_qrcode:id,name')->paginate(10);
-        return Inertia::render('Admin/Request/RequestQR', ['requests' => $request]);
+        return Inertia::render('Admin/Request/Create', ['requests' => $request]);
     }
     public function show($id)
     {

@@ -2,7 +2,7 @@
 import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
 import TableAction from '@/Components/Admin/TableAction.vue';
 import ButtonCreate from '@/Components/Admin/ButtonCreate.vue';
-import Pagination from '@/Components/Pagination.vue';
+import Datatable from '@/Components/Admin/Datatable.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 const props = defineProps({
     requests: Array
@@ -19,22 +19,7 @@ console.log(props.requests.links);
                 <h2 class="card-title-dashboard mb-0">Data Request QR</h2>
                 <ButtonCreate href="#"/>
             </div>
-            <div class="flex flex-wrap items-center md:justify-between mb-5">
-                <div class="flex items-center space-x-2 mb-2 md:mb-0">
-                    <div>Show</div>
-                    <select class="form-input-dashboard w-20">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                    <div>entries</div>
-                </div>
-                <div class="w-full md:w-auto">
-                    <input type="text" class="form-input-dashboard" placeholder="Search">
-                </div>
-            </div>
-            <div class="w-full overflow-x-auto">
+            <Datatable :pagination-links="requests.links">
                 <table class="table">
                     <thead>
                         <tr>
@@ -64,8 +49,7 @@ console.log(props.requests.links);
                         </tr>
                     </tbody>
                 </table>
-            </div>
-            <Pagination :links="requests.links"/>
+            </Datatable>
         </div>
     </AdminLayout>
 </template>

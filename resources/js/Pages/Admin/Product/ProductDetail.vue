@@ -13,38 +13,38 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
             <div>
                 <table class="w-full">
                     <tbody>
-                        <tr>
-                            <td class="table-td-detail font-semibold table-td-dark md:truncate">Nama Partner</td>
-                            <td class="table-td-detail table-td-dark">John Doe</td>
+                        <tr class="bg-odd">
+                            <td class="table-td-detail font-semibold md:truncate">Nama Partner</td>
+                            <td class="table-td-detail">Demo User</td>
                         </tr>
                         <tr>
                             <td class="table-td-detail font-semibold">Bisnis</td>
-                            <td class="table-td-detail"></td>
+                            <td class="table-td-detail">Demo Company</td>
                         </tr>
-                        <tr>
-                            <td class="table-td-detail font-semibold table-td-dark md:truncate">Nama Produk</td>
-                            <td class="table-td-detail table-td-dark"></td>
+                        <tr class="bg-odd">
+                            <td class="table-td-detail font-semibold md:truncate">Nama Produk</td>
+                            <td class="table-td-detail">Tonner</td>
                         </tr>
                         <tr>
                             <td class="table-td-detail font-semibold">Slug</td>
-                            <td class="table-td-detail"></td>
+                            <td class="table-td-detail">tonner</td>
                         </tr>
-                        <tr>
-                            <td class="table-td-detail font-semibold table-td-dark md:truncate">Kategori</td>
-                            <td class="table-td-detail table-td-dark"></td>
+                        <tr class="bg-odd">
+                            <td class="table-td-detail font-semibold md:truncate">Kategori</td>
+                            <td class="table-td-detail">Dokumen</td>
                         </tr>
                         <tr>
                             <td class="table-td-detail font-semibold">BPOM</td>
-                            <td class="table-td-detail"></td>
+                            <td class="table-td-detail">77125689304</td>
                         </tr>
-                        <tr>
-                            <td class="table-td-detail font-semibold table-td-dark md:truncate">Deskripsi</td>
-                            <td class="table-td-detail table-td-dark">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis tempora laboriosam dicta eos eum minima temporibus quidem eaque quo esse mollitia numquam aut laborum, cupiditate et, corrupti nemo earum. Nihil.</td>
+                        <tr class="bg-odd">
+                            <td class="table-td-detail font-semibold md:truncate">Deskripsi</td>
+                            <td class="table-td-detail">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis tempora laboriosam dicta eos eum minima temporibus quidem eaque quo esse mollitia numquam aut laborum, cupiditate et, corrupti nemo earum. Nihil.</td>
                         </tr>
                         <tr>
                             <td class="table-td-detail font-semibold">Photo</td>
                             <td class="table-td-detail">
-                                <img src="https://labelin.co/storage/uploads/photos/5hPS2CzpgGXS8csvvyYaoxNML3wexSJhQrjDi2OB.png" alt="Logo" class="w-32 rounded">
+                                <img src="https://labelin.co/storage/uploads/photos/FvXAw5pP8H0Ias6IrBlEcZC4xMufssymI0BqykuC.jpg" alt="Photo" class="sm:w-40 rounded">
                             </td>
                         </tr>
                     </tbody>

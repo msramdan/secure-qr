@@ -3,7 +3,7 @@ import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
 import ButtonCreate from '@/Components/Admin/ButtonCreate.vue';
 import TableAction from '@/Components/Admin/TableAction.vue';
 import ActionIcon from '@/Components/Admin/ActionIcon.vue';
-import Pagination from '@/Components/Pagination.vue';
+import Datatable from '@/Components/Admin/Datatable.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 
 const props = defineProps({
@@ -20,26 +20,8 @@ const props = defineProps({
                 <h2 class="card-title-dashboard mb-0">Data Partner</h2>
                 <ButtonCreate href="/panel/partner/create" />
             </div>
-            <div class="flex flex-wrap items-center md:justify-between mb-5">
-                <div class="flex items-center space-x-2 mb-2 md:mb-0">
-                    <div>Show</div>
-                    <select class="form-input-dashboard w-20">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                    <div>entries</div>
-                </div>
-                <div class="w-full md:w-auto">
-                    <input
-                        type="text"
-                        class="form-input-dashboard"
-                        placeholder="Search"
-                    />
-                </div>
-            </div>
-            <div class="w-full overflow-x-auto">
+
+            <Datatable :pagination-links="partners.links">
                 <table class="table">
                     <thead>
                         <tr>
@@ -52,45 +34,27 @@ const props = defineProps({
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="partner,index in partners.data" :key="partner.id">
-                            <td
-                                class="table-td"
-                                :class="{ 'table-td-dark': partner.id % 2 != 0 }"
-                            >
+                        <tr v-for="partner,index in partners.data" :key="partner.id" class="odd:bg-odd">
+                            <td class="table-td">
                                 {{ ++index }}
                             </td>
-                            <td
-                                class="table-td"
-                                :class="{ 'table-td-dark': partner.id % 2 != 0 }"
-                            >
+                            <td class="table-td">
                                 {{ partner.user.name }}
                             </td>
-                            <td
-                                class="table-td"
-                                :class="{ 'table-td-dark': partner.id % 2 != 0 }"
-                            >
+                            <td class="table-td">
                                 {{ partner.user.email }}
                             </td>
-                            <td
-                                class="table-td"
-                                :class="{ 'table-td-dark': partner.id % 2 != 0 }"
-                            >
+                            <td class="table-td">
                                 {{ partner.pic }}
                             </td>
-                            <td
-                                class="table-td"
-                                :class="{ 'table-td-dark': partner.id % 2 != 0 }"
-                            >
+                            <td class="table-td">
                                 {{ partner.address }}
                             </td>
-                            <td
-                                class="table-td"
-                                :class="{ 'table-td-dark': partner.id % 2 != 0 }"
-                            >
+                            <td class="table-td">
                                 <TableAction
-                                    :detailHref="route('admin.partner.show',partner.user_id)"
-                                    :editHref="route('admin.partner.edit',partner.user_id)"
-                                    :deleteHref="route('admin.partner.destroy',partner.user_id)"
+                                    :detail-href="route('admin.partner.show',partner.user_id)"
+                                    :edit-href="route('admin.partner.edit',partner.user_id)"
+                                    :delete-href="route('admin.partner.destroy',partner.user_id)"
                                 >
                                     <Link :href="route('admin.partner.list',partner.user_id)">
                                         <ActionIcon>
@@ -106,8 +70,7 @@ const props = defineProps({
                         </tr>
                     </tbody>
                 </table>
-            </div>
-            <Pagination :links="partners.links"/>
+            </Datatable>
         </div>
     </AdminLayout>
 </template>

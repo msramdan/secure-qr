@@ -14,7 +14,7 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
                 <div class="flex-1">
                     <table class="w-full">
                         <tbody>
-                            <tr>
+                            <tr class="bg-odd">
                                 <td class="border-b p-3 w-32 font-semibold">Nama</td>
                                 <td class="border-b p-3">John Doe</td>
                             </tr>
@@ -22,7 +22,7 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
                                 <td class="border-b p-3 w-32 font-semibold">Email</td>
                                 <td class="border-b p-3">johndoe@gmail.com</td>
                             </tr>
-                            <tr>
+                            <tr class="bg-odd">
                                 <td class="border-b p-3 w-32 font-semibold">Phone</td>
                                 <td class="border-b p-3">08xxxxxxxxxx</td>
                             </tr>
@@ -30,7 +30,7 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
                                 <td class="border-b p-3 w-32 font-semibold">Pic</td>
                                 <td class="border-b p-3">John Doe Pic</td>
                             </tr>
-                            <tr>
+                            <tr class="bg-odd">
                                 <td class="border-b p-3 w-32 font-semibold">Address</td>
                                 <td class="border-b p-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, esse deleniti! Animi et eaque eos ipsum odit non, aperiam unde officiis praesentium, impedit itaque perferendis quod delectus omnis autem quia?</td>
                             </tr>
@@ -38,7 +38,7 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
                                 <td class="border-b p-3 w-32 font-semibold">Created at</td>
                                 <td class="border-b p-3">31 Desember 2022</td>
                             </tr>
-                            <tr>
+                            <tr class="bg-odd">
                                 <td class="border-b p-3 w-32 font-semibold">Updated at</td>
                                 <td class="border-b p-3">1 Januari 2023</td>
                             </tr>

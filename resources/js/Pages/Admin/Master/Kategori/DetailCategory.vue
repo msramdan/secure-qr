@@ -14,17 +14,17 @@ const props = defineProps({
             <h2 class="card-title-dashboard">Detail Kategori</h2>
             <table class="table">
                 <tbody>
-                    <tr>
-                        <td class="table-td-detail font-semibold table-td-dark">Kode</td>
-                        <td class="table-td-detail table-td-dark">{{ category.code }}</td>
+                    <tr class="bg-odd">
+                        <td class="table-td-detail font-semibold">Kode</td>
+                        <td class="table-td-detail">{{ category.code }}</td>
                     </tr>
                     <tr>
                         <td class="table-td-detail font-semibold">Nama</td>
                         <td class="table-td-detail">{{ category.name }}</td>
                     </tr>
-                    <tr>
-                        <td class="table-td-detail font-semibold table-td-dark">Created at</td>
-                        <td class="table-td-detail table-td-dark">{{ category.created_at }}</td>
+                    <tr class="bg-odd">
+                        <td class="table-td-detail font-semibold">Created at</td>
+                        <td class="table-td-detail">{{ category.created_at }}</td>
                     </tr>
                     <tr>
                         <td class="table-td-detail font-semibold">Updated at</td>

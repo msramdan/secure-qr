@@ -10,7 +10,7 @@ class PartnerProfileController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Dashboard');
+        return Inertia::render('Partner/Profile');
     }
     public function create(Request $request)
     {

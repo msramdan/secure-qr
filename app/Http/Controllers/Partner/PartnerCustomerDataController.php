@@ -10,7 +10,7 @@ class PartnerCustomerDataController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Dashboard');
+        return Inertia::render('Partner/CustomerData/CustomerData');
     }
     public function show(Request $request)
     {
