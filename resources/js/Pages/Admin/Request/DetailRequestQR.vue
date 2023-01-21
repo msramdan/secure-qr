@@ -37,7 +37,7 @@ const KirimPaket = () => {
     <Head title="Detail Request QR"/>
 
     <AdminLayout>
-        <div class="flex flex-col lg:flex-row lg:space-x-8">
+        <div class="flex flex-col lg:flex-row lg:space-x-8 space-y-8 lg:space-y-0">
             <div class="basis-2/3">
                 <div class="card-dashboard">
                     <h2 class="card-title-dashboard">Detail Request QR</h2>

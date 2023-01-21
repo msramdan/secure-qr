@@ -56,12 +56,12 @@ watch(search, debounce(function (value) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="tipe,i in type.data" :key="i">
-                            <td class="table-td" :class="{ 'table-td-dark': tipe.id % 2 != 0 }">{{ ++i }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': tipe.id % 2 != 0 }">{{ tipe.name }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': tipe.id % 2 != 0 }">{{ tipe.price }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': tipe.id % 2 != 0 }">
-                                <TableAction :detailHref="route('admin.type.show',tipe.id)" :editHref="route('admin.type.edit',tipe.id)" :deleteHref="route('admin.type.destroy',tipe.id)"/>
+                        <tr v-for="tipe,i in type.data" :key="i" class="odd:bg-odd">
+                            <td class="table-td">{{ ++i }}</td>
+                            <td class="table-td">{{ tipe.name }}</td>
+                            <td class="table-td">{{ tipe.price }}</td>
+                            <td class="table-td">
+                                <TableAction :detail-href="route('admin.type.show',tipe.id)" :edit-href="route('admin.type.edit',tipe.id)" :delete-href="route('admin.type.destroy',tipe.id)"/>
                             </td>
                         </tr>
                     </tbody>

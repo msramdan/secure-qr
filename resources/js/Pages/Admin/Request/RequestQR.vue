@@ -30,6 +30,7 @@ watch(search, debounce(function (value) {
                 <h2 class="card-title-dashboard mb-0">Data Request QR</h2>
                 <ButtonCreate href="#"/>
             </div>
+<<<<<<< HEAD
             <div class="flex flex-wrap items-center md:justify-between mb-5">
                 <div class="flex items-center space-x-2 mb-2 md:mb-0">
                     <div>Show</div>
@@ -46,6 +47,9 @@ watch(search, debounce(function (value) {
                 </div>
             </div>
             <div class="w-full overflow-x-auto">
+=======
+            <Datatable :pagination-links="requests.links">
+>>>>>>> 1c9b0deb51a0fe921779166b0741d111b5c9960e
                 <table class="table">
                     <thead>
                         <tr>

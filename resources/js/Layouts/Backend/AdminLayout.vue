@@ -3,11 +3,12 @@ import Sidebar from '@/Components/Admin/Sidebar.vue'
 import Header from '@/Components/Admin/Header.vue'
 import Footer from '@/Components/Admin/Footer.vue'
 import Alert from '@/Components/Alert.vue'
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 
 const openSidebar = ref(window.innerWidth >= 1024 ? true : false)
 
 // const flash = reactive({ type: 'success', message: 'Data successfully added!' })
+
 </script>
 
 <template>

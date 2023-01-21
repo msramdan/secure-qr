@@ -32,6 +32,7 @@ const submit = () => {
                 </div>
                 <div class="mb-5">
                     <label for="photo" class="form-label-dashboard">Photo :</label>
+                    <img src="https://labelin.co/storage/uploads/photos/9d3oGAl6v50WahFABmB11c6uLKycMrtOg3KMs7yx.jpg" alt="Photo" class="sm:w-40 rounded mb-1">
                     <label for="photo" class="block mb-2 cursor-pointer">
                         <div class="flex border border-gray-300 rounded-lg">
                             <div class="grow text-gray-400 px-4 py-2">Choose file</div>

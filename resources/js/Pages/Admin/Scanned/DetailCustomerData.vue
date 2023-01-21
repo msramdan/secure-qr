@@ -12,17 +12,17 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
             <h2 class="card-title-dashboard">Detail Data Customer</h2>
             <table class="table">
                 <tbody>
-                    <tr>
-                        <td class="table-td-detail font-semibold table-td-dark">Serial Number</td>
-                        <td class="table-td-detail table-td-dark">CKTNF</td>
+                    <tr class="bg-odd">
+                        <td class="table-td-detail font-semibold">Serial Number</td>
+                        <td class="table-td-detail">CKTNF</td>
                     </tr>
                     <tr>
                         <td class="table-td-detail font-semibold">Nama Produk</td>
                         <td class="table-td-detail">Night Cream Acne 10gr</td>
                     </tr>
-                    <tr>
-                        <td class="table-td-detail font-semibold table-td-dark">Alamat</td>
-                        <td class="table-td-detail table-td-dark">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos, qui.</td>
+                    <tr class="bg-odd">
+                        <td class="table-td-detail font-semibold">Customer Data</td>
+                        <td class="table-td-detail"></td>
                     </tr>
                 </tbody>
             </table>

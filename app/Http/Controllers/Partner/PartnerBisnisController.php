@@ -10,7 +10,7 @@ class PartnerBisnisController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Dashboard');
+        return Inertia::render('Partner/Business/Business');
     }
     public function create(Request $request)
     {

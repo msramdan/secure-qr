@@ -13,7 +13,7 @@ const openUserOption = ref(false)
 </script>
 
 <template>
-    <header class="sticky top-0 bg-dashboard pt-5 rounded-b-2xl z-50">
+    <header class="sticky top-0 bg-dashboard pt-5 rounded-b-2xl z-10">
         <div class="bg-white rounded-2xl shadow-dashboard-card mb-5">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between">
                 <div class="font-bold text-2xl ml-4 md:ml-5 mt-5 md:mt-0 mb-5 md:mb-0">Page Title</div>

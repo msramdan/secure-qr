@@ -3,7 +3,7 @@ import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
 import ButtonCreate from '@/Components/Admin/ButtonCreate.vue';
 import TableAction from '@/Components/Admin/TableAction.vue';
 import ActionIcon from '@/Components/Admin/ActionIcon.vue';
-import Pagination from '@/Components/Pagination.vue';
+import Datatable from '@/Components/Admin/Datatable.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
 import { ref, watch } from 'vue';
@@ -65,11 +65,8 @@ watch(search, debounce(function (value) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="partner,index in partners.data" :key="partner.id">
-                            <td
-                                class="table-td"
-                                :class="{ 'table-td-dark': partner.id % 2 != 0 }"
-                            >
+                        <tr v-for="partner,index in partners.data" :key="partner.id" class="odd:bg-odd">
+                            <td class="table-td">
                                 {{ ++index }}
                             </td>
                             <td
@@ -84,22 +81,13 @@ watch(search, debounce(function (value) {
                             >
                                 {{ partner.email }}
                             </td>
-                            <td
-                                class="table-td"
-                                :class="{ 'table-td-dark': partner.id % 2 != 0 }"
-                            >
+                            <td class="table-td">
                                 {{ partner.pic }}
                             </td>
-                            <td
-                                class="table-td"
-                                :class="{ 'table-td-dark': partner.id % 2 != 0 }"
-                            >
+                            <td class="table-td">
                                 {{ partner.address }}
                             </td>
-                            <td
-                                class="table-td"
-                                :class="{ 'table-td-dark': partner.id % 2 != 0 }"
-                            >
+                            <td class="table-td">
                                 <TableAction
                                     :detailHref="route('admin.partner.show', partner.id)"
                                     :editHref="route('admin.partner.edit', partner.id)"

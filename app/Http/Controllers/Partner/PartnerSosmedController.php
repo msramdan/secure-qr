@@ -10,7 +10,7 @@ class PartnerSosmedController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Dashboard');
+        return Inertia::render('Partner/CustomLink/Edit');
     }
     public function create(Request $request)
     {
