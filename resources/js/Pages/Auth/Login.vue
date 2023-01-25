@@ -95,12 +95,12 @@ const submit = () => {
             </div>
             <form action="" class="">
                 <div class="mb-5">
-                    <label for="email" class="form-label-dashboard">Email</label>
+                    <label for="email" class="form-label-dashboard">Email<span class="text-red-500">*</span></label>
                     <input type="email" id="email" class="form-input-dashboard" placeholder="johndoe@gmail.com">
                 </div>
                 <div class="mb-5">
                     <div class="flex items-center justify-between">
-                        <label for="password" class="form-label-dashboard">Password</label>
+                        <label for="password" class="form-label-dashboard">Password<span class="text-red-500">*</span></label>
                         <a href="#" id="password" class="form-label-dashboard text-purple-1100">Forgot password?</a>
                     </div>
                     <input type="password" class="form-input-dashboard" placeholder="********">

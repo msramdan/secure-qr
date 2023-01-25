@@ -1,1 +1,43 @@
-// Template detail customer data pada web labelin.co tidak bisa dilihat karena error saat mengakses halaman tersebut jadi belum saya buat halaman ini
+<script setup>
+import PartnerLayout from '@/Layouts/Backend/PartnerLayout.vue';
+import { Head, Link } from '@inertiajs/inertia-vue3';
+
+</script>
+
+<template>
+    <Head title="Detail Data Customer"/>
+
+    <PartnerLayout>
+        <div class="card-dashboard">
+            <h2 class="card-title-dashboard">Detail Data Customer</h2>
+            <table class="table">
+                <tbody>
+                    <tr class="bg-odd">
+                        <td class="table-td-detail font-semibold">Serial Number</td>
+                        <td class="table-td-detail">CKTNF</td>
+                    </tr>
+                    <tr>
+                        <td class="table-td-detail font-semibold">Nama Produk</td>
+                        <td class="table-td-detail">Night Cream Acne 10gr</td>
+                    </tr>
+                    <tr class="bg-odd">
+                        <td class="table-td-detail font-semibold">Customer Data</td>
+                        <td class="table-td-detail">
+                            <ul class="list-disc">
+                                <li>Kota A</li>
+                                <li>Kota B</li>
+                                <li>Kota C</li>
+                                <li>Kota D</li>
+                                <li>Kota E</li>
+                                <li>Kota F</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <Link href="#">
+                <button class="btn-cancel">Kembali</button>
+            </Link>
+        </div>
+    </PartnerLayout>
+</template>

@@ -15,23 +15,38 @@ const chartOptions = ({
         duration: 0
     },
     scales: {
-        y: {
-            beginAtZero: true,
-            max: 80
-        },
-    },
-    plugins: {
-        legend: {
-            labels: {
+        x: {
+            ticks: {
                 font: {
-                    family: "'Urbanist'",
-                    size: 16,
-                    lineHeight: 1.5
+                    family: 'Urbanist'
+                }
+            },
+            grid: {
+                display: false
+            }
+        },
+        y: {
+            ticks: {
+                font: {
+                    family: 'Urbanist'
                 }
             }
         }
     },
-    responsive: true
+    plugins: {
+        legend: {
+            labels: {
+                color: '#111827',
+                font: {
+                    family: 'Urbanist',
+                    size: 16,
+                    lineHeight: 1.5,
+                    weight: 600,
+                },
+                boxWidth: 0
+            }
+        }
+    }
 })
 </script>
 
