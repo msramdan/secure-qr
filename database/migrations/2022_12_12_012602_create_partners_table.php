@@ -16,12 +16,12 @@ return new class extends Migration
     {
         Schema::create('partners', function (Blueprint $table) {
             $table->id();
-            $table->string('code', 20)->nullable();
+            $table->string('code', 20)->unique();
             $table->string('name');
-            $table->string('phone', 20)->nullable();
-            $table->string('pic', 100)->nullable();
+            $table->string('phone', 20);
+            $table->string('pic', 100);
             $table->string('photo')->nullable();
-            $table->text('address')->nullable();
+            $table->text('address');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

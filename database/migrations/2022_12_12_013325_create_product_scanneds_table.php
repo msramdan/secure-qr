@@ -17,6 +17,7 @@ return new class extends Migration
         Schema::create('product_scanneds', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(QrCode::class)->constrained();
+            $table->string('kota');
             $table->string('lat');
             $table->string('long');
             $table->ipAddress('visitor');

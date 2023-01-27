@@ -19,49 +19,61 @@ use App\Http\Controllers\Partner\PartnerProfileController;
 use App\Http\Controllers\Admin\AdminCustomerDataController;
 use App\Http\Controllers\Admin\AdminPartnerProdukController;
 use App\Http\Controllers\Admin\AdminRequestQrcodeController;
+use App\Http\Controllers\Partner\PartnerAuthController;
 use App\Http\Controllers\Partner\PartnerDashboardController;
 use App\Http\Controllers\Partner\PartnerTypeQrcodeController;
 use App\Http\Controllers\Partner\PartnerCustomerDataController;
+use App\Http\Controllers\Partner\PartnerRequestQrcodeController;
 use App\Http\Controllers\QrCodeController;
 
 Route::middleware(['isAktif'])->group(function () {
     Route::get('/', function () {
         return 'Halaman Home';
     })->name('home');
-
-    // backend parnter
-    Route::middleware(['auth'])->group(function () {
-        Route::prefix('partner')->group(function () {
-            Route::get('/dashboard', PartnerDashboardController::class)->name('partner.dashboard');
-
-            Route::controller(PartnerBisnisController::class)->group(function () {
-                Route::get('bisnis', 'index');
-            });
-
-            Route::controller(PartnerProductController::class)->group(function () {
-                Route::get('/product', 'index');
-            });
-
-            Route::controller(PartnerTypeQrcodeController::class)->group(function () {
-                Route::get('/type_qrcode', 'index');
-            });
-
-            Route::controller(PartnerProfileController::class)->group(function () {
-                Route::get('/profile', 'index');
-            });
-
-            Route::controller(PartnerCustomerDataController::class)->group(function () {
-                Route::get('/customer_data', 'index');
-            });
-
-            Route::controller(PartnerSosmedController::class)->group(function () {
-                Route::get('/sosmed', 'index');
-            });
+    Route::controller(PartnerAuthController::class)
+        ->prefix('partner')
+        ->as('partner.')
+        ->group(function () {
+            Route::get('/login', 'index')->name('login');
+            Route::post('/auth', 'handleLogin')->name('auth');
+            Route::post('/logout', 'logout')->name('logout');
         });
+    // backend parnter
+    Route::middleware(['auth:partners'])->group(function () {
+        Route::prefix('partner')
+            ->as('partner.')
+            ->group(function () {
+                Route::get('/dashboard', PartnerDashboardController::class)->name('dashboard');
+
+                Route::controller(PartnerBisnisController::class)->group(function () {
+                    Route::get('bisnis', 'index')->name('bisnis.index');
+                });
+
+                Route::controller(PartnerProductController::class)->group(function () {
+                    Route::get('/produk', 'index')->name('produk.index');
+                });
+
+                Route::controller(PartnerRequestQrcodeController::class)->group(function () {
+                    Route::get('/request_qrcode', 'index')->name('request.index');
+                });
+
+                Route::controller(PartnerCustomerDataController::class)->group(function () {
+                    Route::get('/customer_data', 'index')->name('customer.index');
+                });
+
+                Route::controller(PartnerSosmedController::class)->group(function () {
+                    Route::get('/links', 'index')->name('links.index');
+                });
+
+
+                Route::controller(PartnerProfileController::class)->group(function () {
+                    Route::get('/profile', 'index')->name('profil.index');
+                });
+            });
     });
 });
 // backend admin
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth:web'])->group(function () {
     Route::prefix('panel')->group(function () {
         Route::get('/dashboard', AdminDasboardController::class);
 

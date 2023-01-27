@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Facade;
 
+require_once app_path('Helpers/Alert.php');
+
 return [
 
     /*

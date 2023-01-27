@@ -39,13 +39,20 @@ class AdminCategoryController extends Controller
     }
     public function store(Request $request)
     {
-        Category::create(
-            $request->validate([
-                'code' => 'required|unique:categories,code',
-                'name' => 'required|min:1'
-            ])
-        );
-        return to_route('admin.category.index');
+        try {
+            Category::create(
+                $request->validate([
+                    'code' => 'required|unique:categories,code',
+                    'name' => 'required|min:1'
+                ])
+            );
+
+            \Message::success('Berhasil merubah data!');
+            return to_route('admin.category.index');
+        } catch (\Throwable $th) {
+            \Message::danger('Gagal merubah data!');
+            return redirect()->back();
+        }
     }
     public function edit($id)
     {
@@ -54,23 +61,35 @@ class AdminCategoryController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $category = Category::findOrFail($id);
-        $category->update(
-            $request->validate([
-                'code' => 'required|unique:categories,code,' . $id,
-                'name' => 'required'
-            ])
-        );
-        return to_route('admin.category.index');
+        try {
+            $category = Category::findOrFail($id);
+            $category->update(
+                $request->validate([
+                    'code' => 'required|unique:categories,code,' . $id,
+                    'name' => 'required'
+                ])
+            );
+            \Message::success('Berhasil merubah data!');
+            return to_route('admin.category.index');
+        } catch (\Throwable $th) {
+            \Message::danger('Gagal merubah data!');
+            return redirect()->back();
+        }
     }
     public function destroy($id)
     {
-        $category = Category::findOrFail($id);
-        $product = Product::where('category_id', $category->id)->get();
-        if ($product->isEmpty()) {
-            $category->delete();
-            return to_route('admin.category.index');
+        try {
+            $category = Category::findOrFail($id);
+            $product = Product::where('category_id', $category->id)->get();
+            if ($product->isEmpty()) {
+                $category->delete();
+                return to_route('admin.category.index');
+            }
+            return redirect()->back();
+            \Message::success('Berhasil menghapus data!');
+        } catch (\Throwable $th) {
+            \Message::danger('Gagal menghapus data!');
+            return redirect()->back();
         }
-        return redirect()->back();
     }
 }

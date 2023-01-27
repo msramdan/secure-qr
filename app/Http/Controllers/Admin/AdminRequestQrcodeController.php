@@ -70,7 +70,6 @@ class AdminRequestQrcodeController extends Controller
     {
         $jml = $request->qty;
         $product = RequestQrcode::select('product_id')->where('id', $request->request_id)->first();
-        // dd($this->generateBatchCode($product->product_id));
         DB::beginTransaction();
         try {
             for ($i = 1; $i <= $jml; $i++) {
@@ -89,17 +88,15 @@ class AdminRequestQrcodeController extends Controller
                 $this->generateBatchCode($qrcode->id, $request->request_id, $product->product_id);
             }
             // update table request qr
-            $affected = RequestQrcode::where('id', $request->request_id)
+            RequestQrcode::where('id', $request->request_id)
                 ->update(['is_generate' => 'Sudah Generate']);
-            if ($affected) {
-                return redirect()->back()->with(['message' => 'Successfully generate Qr Code!', 'type' => 'success']);
-            } else {
-                return redirect()->back()->with(['message' => 'Failed to generate Qr Code!', 'type' => 'danger']);
-            }
+
+            \Message::success('Berhasil mengenerate Qr Code!');
+            return redirect()->back();
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             DB::rollBack();
-            echo "error";
+            \Message::danger('Gagal mengenerate Qr Code!');
+            return redirect()->back();
         } finally {
             DB::commit();
         }
@@ -107,43 +104,48 @@ class AdminRequestQrcodeController extends Controller
 
     public function upProgress(Request $request)
     {
-        $request_qr_id = $request->request_id;
-        // insert ke table qr
-        HistoryRequest::insert([
-            'request_qrcode_id' => $request_qr_id,
-            'status' => 'Proses Cetak QR',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
+        try {
+            $request_qr_id = $request->request_id;
+            // insert ke table qr
+            HistoryRequest::insert([
+                'request_qrcode_id' => $request_qr_id,
+                'status' => 'Proses Cetak QR',
+                'created_at' => date('Y-m-d H:i:s'),
+            ]);
 
-        $affected = RequestQrcode::where('id', $request_qr_id)
-            ->update(['status' => 'Proses Cetak QR']);
-        if ($affected) {
-            return redirect()->back()->with(['message' => 'Success to update data', 'type' => 'success']);
-        } else {
-            return redirect()->back()->with(['message' => 'Failed to update data', 'type' => 'danger']);
+            RequestQrcode::where('id', $request_qr_id)
+                ->update(['status' => 'Proses Cetak QR']);
+
+            \Message::success('Berhasil merubah data!');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            \Message::success('Gagal merubah data!');
+            return redirect()->back();
         }
     }
 
     public function upResi(Request $request)
     {
-        // insert ke table qr
-        HistoryRequest::insert([
-            'request_qrcode_id' => $request->request_id,
-            'status' => 'Dalam Pengiriman',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-
-        $affected = RequestQrcode::where('id', $request->request_id)
-            ->update([
+        try {
+            // insert ke table qr
+            HistoryRequest::insert([
+                'request_qrcode_id' => $request->request_id,
                 'status' => 'Dalam Pengiriman',
-                'jasa_kirim' => $request->ekspedisi,
-                'no_resi' => $request->no_resi,
+                'created_at' => date('Y-m-d H:i:s'),
             ]);
-        if ($affected) {
-            return redirect()->back()->with(['message' => 'Successfully updated data!', 'type' => 'success']);
-        } else {
-            return redirect()->back()->with(['message' => 'Failed to updated data!', 'type' => 'danger']);
+
+
+            $affected = RequestQrcode::where('id', $request->request_id)
+                ->update([
+                    'status' => 'Dalam Pengiriman',
+                    'jasa_kirim' => $request->ekspedisi,
+                    'no_resi' => $request->no_resi,
+                ]);
+            \Message::success('Berhasil menyimpan data!');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            \Message::success('Gagal menyimpan data!');
+            return redirect()->back();
         }
     }
 

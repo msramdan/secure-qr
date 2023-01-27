@@ -19,7 +19,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('auth'), {
+    form.post(route('partner.auth'), {
         onFinish: () => form.reset('password'),
     });
 };
@@ -113,6 +113,9 @@ const submit = () => {
                 </div>
             </form>
             <hr class="border-t border-gray-200 my-5">
+            <div class="text-center md:text-start">
+                Don't have an account? <a href="/register" class="text-purple-1100">Register</a>
+            </div>
         </div>
 
         <template #image>
