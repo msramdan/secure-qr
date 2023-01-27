@@ -2,7 +2,7 @@
 import user1 from '@src/images/user-1.jpg'
 import { ref } from 'vue'
 import { Link } from '@inertiajs/inertia-vue3'
-import SidebarLink from '../Admin/SidebarLink.vue';
+import HeaderLink from './HeaderLink.vue';
 
 const openedMenu = ref('')
 
@@ -39,7 +39,7 @@ const openUserOption = ref(false)
                     </SidebarLink>
                     <SidebarLink name="Custom Link Resmi" href="/partner/links" :active="$page.url === '/partner/links'">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
-                    </SidebarLink>
+                    </HeaderLink>
                 </ul>
                 <div class="flex items-center justify-end space-x-4 xl:space-x-5">
                     <div class="flex items-center space-x-4 xl:space-x-5 text-purple-1100">

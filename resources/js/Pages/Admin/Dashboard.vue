@@ -2,8 +2,8 @@
 import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import { ref, reactive } from 'vue'
-import DashboardChart from './DashboardChart.vue'
-import DashboardMap from './DashboardMap.vue'
+import BarChart from '@/Components/BarChart.vue'
+import TotalScanMap from '@/Components/TotalScanMap.vue'
 
 const datas = ref([
     { city: 'Kota Sorong', totalScan: 501 },
@@ -11,6 +11,27 @@ const datas = ref([
     { city: 'Bandung', totalScan: 600 },
     { city: 'Jakarta Pusat', totalScan: 10 },
 ]);
+
+const chartByKategoriData = ({
+    labels: ['Dokumen', 'Kosmetik'],
+    datasets: [{
+        label: 'Total Scan',
+        data: [5, 68],
+        backgroundColor: [
+            '#7CB5EC',
+            '#434348',
+        ]
+    }]
+})
+
+const chartByBisnisData = ({
+    labels: ['PT A', 'PT B', 'PT C', 'PT D', 'PT E', 'PT F', 'PT G', 'PT H', 'PT I'],
+    datasets: [{
+        label: 'Total Scan',
+        data: [7, 2, 4, 4, 9, 1, 9, 3, 1],
+        backgroundColor: ['#7CB5EC', '#434348', '#90ED7D', '#F7A35C', '#8085E9', '#F15C80', '#E4D354', '#2B908F', '#F45B5B']
+    }]
+})
 
 </script>
 
@@ -136,8 +157,16 @@ const datas = ref([
             </div>
         </div>
 
-        <DashboardMap :datas="datas"/>
-        <DashboardChart/>
+        <TotalScanMap :datas="datas"/>
+
+        <div class="flex flex-col lg:flex-row lg:space-x-8 space-y-8 lg:space-y-0">
+            <div class="flex-1">
+                <BarChart title="Chart by Kategori" :chart-data="chartByKategoriData" />
+            </div>
+            <div class="flex-1">
+                <BarChart title="Chart by Bisnis" :chart-data="chartByBisnisData" />
+            </div>
+        </div>
 
     </AdminLayout>
 </template>

@@ -163,7 +163,7 @@ const KirimPaket = () => {
                     <label for="no_tlp" class="form-label-dashboard">No. Resi :</label>
                     <input class="form-input-dashboard" type="text" v-model="form.no_resi" placeholder="Nomor Resi">
                 </div>
-                <div class="flex items-center justify-end space-x-2 font-medium mt-8">
+                <div class="flex items-center justify-end space-x-2 font-medium mt-8 pb-5">
                     <button @click="openModal = false" class="bg-red-50 hover:bg-red-100 text-red-500 px-4 py-2 rounded-lg">Batal</button>
                     <button type="submit" class="btn-primary">Update</button>
                 </div>
