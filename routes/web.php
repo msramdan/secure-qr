@@ -47,10 +47,22 @@ Route::middleware(['isAktif'])->group(function () {
 
                 Route::controller(PartnerBisnisController::class)->group(function () {
                     Route::get('bisnis', 'index')->name('bisnis.index');
+                    Route::get('bisnis/create', 'create')->name('bisnis.create');
+                    Route::post('bisnis/store', 'store')->name('bisnis.store');
+                    Route::get('bisnis/show/{business}', 'show')->name('bisnis.show');
+                    Route::get('bisnis/edit/{business}', 'edit')->name('bisnis.edit');
+                    Route::patch('bisnis/update/{business}', 'update')->name('bisnis.update');
+                    Route::delete('bisnis/destroy/{business}', 'destroy')->name('bisnis.destroy');
                 });
 
                 Route::controller(PartnerProductController::class)->group(function () {
                     Route::get('/produk', 'index')->name('produk.index');
+                    Route::get('/produk/create', 'create')->name('produk.create');
+                    Route::post('/produk/store', 'store')->name('produk.store');
+                    Route::get('/produk/show/{product}', 'show')->name('produk.show');
+                    Route::get('/produk/edit/{product}', 'edit')->name('produk.edit');
+                    Route::patch('/produk/update/{product}', 'update')->name('produk.update');
+                    Route::delete('/produk/destroy/{product}', 'destroy')->name('produk.destroy');
                 });
 
                 Route::controller(PartnerRequestQrcodeController::class)->group(function () {

@@ -5,7 +5,6 @@ import { onMounted } from 'vue';
 const props = defineProps({
     data: Array,
 });
-
 </script>
 <template>
     <div
