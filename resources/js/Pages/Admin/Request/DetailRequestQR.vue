@@ -28,7 +28,7 @@ const KirimPaket = () => {
         form.post(route('admin.request.upResi'));
         openModal.value = false
     } catch (error) {
-        console.log(error.getMessage);
+        // console.log(error.getMessage);
     }
 }
 </script>

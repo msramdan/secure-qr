@@ -67,7 +67,11 @@ Route::middleware(['isAktif'])->group(function () {
 
                 Route::controller(PartnerRequestQrcodeController::class)->group(function () {
                     Route::get('/request_qrcode', 'index')->name('request.index');
+                    Route::get('/request_qrcode/show/{requestQr}', 'show')->name('request.show');
+                    Route::get('/request_qrcode/download/{filename}', 'download')->name('request.download');
+                    Route::post('/request_qrcode/upload/{id}', 'upload')->name('request.upload');
                 });
+                Route::get('/export/QrCode/{id}', [QrCodeController::class, 'export'])->name('export.Qr');
 
                 Route::controller(PartnerCustomerDataController::class)->group(function () {
                     Route::get('/customer_data', 'index')->name('customer.index');

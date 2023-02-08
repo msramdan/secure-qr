@@ -72,8 +72,8 @@ class DatabaseSeeder extends Seeder
                 'sn_length' => 5,
                 'harga_satuan' => 5000,
                 'amount_price' => 50000,
-                'status' => 'Pending Payment',
-                'bukti_pembayaran' => 'bukti_bayar.jpg',
+                'status' => 'Waiting Payment',
+                'bukti_pembayaran' => '',
                 'tgl_upload_bukti_bayar' => now(),
             ]);
         }
