@@ -25,7 +25,7 @@ use Inertia\Inertia;
 
 Route::middleware(['isAktif'])->group(function () {
     Route::get('/', function () {
-        return 'Halaman Home';
+        return Inertia::render('Frontend/LandingPage');
     });
 
     // backend parnter
