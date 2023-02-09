@@ -29,7 +29,7 @@ onMounted(() => {
 
 <template>
     <div>
-        <nav class="sticky top-0 bg-white border-b py-4 lg:py-6 shadow-sm z-50">
+        <nav class="landing-nav sticky top-0 bg-white border-b py-4 lg:py-6 shadow-sm z-50">
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
                 <div class="flex items-center justify-between">
                     <img src="@src/images/landing/Labelin Logo.png" alt="Logo" class="w-36">

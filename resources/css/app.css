@@ -15,10 +15,6 @@
         @apply font-sans text-gray-900
     }
 
-    nav {
-        @apply  px-6 sm:px-10 lg:px-40 max-w-[1536px] mx-auto
-    }
-
     section {
         @apply px-6 sm:px-10 lg:px-40 py-20 max-w-[1536px] mx-auto
     }
@@ -197,6 +193,10 @@
 
     .plan-card {
         @apply lg:w-[22rem] bg-gradient-to-b to-tertiary border-2 border-tertiary pt-2 rounded-2xl
+    }
+
+    .landing-nav {
+        @apply  px-6 sm:px-10 lg:px-40 max-w-[1536px] mx-auto
     }
 
     .landing-form-label {
