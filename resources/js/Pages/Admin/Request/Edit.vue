@@ -3,26 +3,34 @@ import AdminLayout from "@/Layouts/Backend/AdminLayout.vue";
 import FormButton from "@/Components/Admin/FormButton.vue";
 import InputError from "@/Components/InputError.vue";
 import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
+import { Inertia } from "@inertiajs/inertia";
 
 const props = defineProps({
-    code_request: Object,
+    request: Object,
     type: Object,
     product: Object
 })
 const form = useForm({
-    code: props.code_request,
-    product_id: '',
-    type_qrcode_id: '',
-    harga_satuan: '',
-    qty: '',
-    amount_price: '',
-    sn_length: '',
+    product_id: props.request.product_id,
+    type_qrcode_id: props.request.type_qrcode_id,
+    harga_satuan: props.request.harga_satuan,
+    qty: props.request.qty,
+    amount_price: props.request.amount_price,
+    sn_length: props.request.sn_length,
 })
 const calculateAmountPrice = () => {
     form.amount_price = form.harga_satuan * form.qty
 }
-const FormSubmit = (e) => {
-    form.post(route('admin.request.store'))
+const FormUpdate = (e) => {
+    Inertia.post(route('admin.request.update', e), {
+        _method: 'patch',
+        product_id: form.product_id,
+        type_qrcode_id: form.type_qrcode_id,
+        harga_satuan: form.harga_satuan,
+        qty: form.qty,
+        amount_price: form.amount_price,
+        sn_length: form.sn_length,
+    })
 }
 </script>
 
@@ -31,14 +39,14 @@ const FormSubmit = (e) => {
 
     <AdminLayout>
         <div class="card-dashboard">
-            <h2 class="card-title-dashboard">Tambah Request QR</h2>
-            <form class="form-dashboard" @submit.prevent="FormSubmit">
-                <h2 class="font-semibold text-xl underline underline-offset-4 mb-5">Kode Request : {{ code_request }}</h2>
+            <h2 class="card-title-dashboard">Edit Request QR</h2>
+            <form class="form-dashboard" @submit.prevent="FormUpdate(request.id)">
+                <h2 class="font-semibold text-xl underline underline-offset-4 mb-5">Kode Request : {{ request.code }}</h2>
                 <div class="mb-5">
                     <label for="product" class="form-label-dashboard">Product :</label>
                     <select v-model="form.product_id" id="product" class="form-input-dashboard">
                         <option value="" disabled>Select product</option>
-                        <option :value="produk.id" v-for="produk in product">{{ produk.partner.name }} - {{ produk.name }}</option>
+                        <option :value="produk.id" v-for="produk in product" :selected="produk.id == request.product_id">{{ produk.partner.name }} - {{ produk.name }}</option>
                     </select>
                     <InputError :message="form.errors.product_id" />
                 </div>
@@ -46,7 +54,7 @@ const FormSubmit = (e) => {
                     <label for="type" class="form-label-dashboard">Type QR :</label>
                     <select v-model="form.type_qrcode_id" id="type" class="form-input-dashboard">
                         <option value="" disabled>Select type QR</option>
-                        <option :value="jenis.id" v-for="jenis in type">{{ jenis.name }}</option>
+                        <option :value="jenis.id" v-for="jenis in type" :selected="jenis.id == request.type_qrcode_id">{{ jenis.name }}</option>
                     </select>
                     <InputError :message="form.errors.type_qrcode_id" />
                 </div>

@@ -13,18 +13,22 @@ class AdminContactController extends Controller
     {
         $paginate = $request->get('paginate') ?? 10;
         $contact = Contact::when($request->input('search'), function ($query, $search) {
-            $query->where('nama_lengkap', 'like', "%{$search}%")
+            $query->where('nama', 'like', "%{$search}%")
                 ->orWhere('email', 'like', "%{$search}%")
-                ->orWhere('subjek', 'like', "%{$search}%")
-                ->orWhere('deskripsi', 'like', "%{$search}%");
+                ->orWhere('telepon', 'like', "%{$search}%")
+                ->orWhere('perusahaan', 'like', "%{$search}%")
+                ->orWhere('industri', 'like', "%{$search}%")
+                ->orWhere('informasi', 'like', "%{$search}%");
         })->paginate($paginate)
             ->withQueryString()
             ->through(fn ($cont) => [
                 'id' => $cont->id,
-                'nama_lengkap' => $cont->nama_lengkap,
+                'nama' => $cont->nama,
                 'email' => $cont->email,
-                'subjek' => $cont->subjek,
-                'deskripsi' => $cont->deskripsi,
+                'telepon' => $cont->telepon,
+                'perusahaan' => $cont->perusahaan,
+                'industri' => $cont->industri,
+                'informasi' => $cont->informasi,
             ]);
         return Inertia::render('Admin/Kontak', [
             'contacts' => $contact,

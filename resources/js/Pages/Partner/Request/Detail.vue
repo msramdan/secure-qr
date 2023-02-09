@@ -5,6 +5,7 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
 const props = defineProps({
     request: Object
 })
+console.log(props.request.histories);
 </script>
 
 <template>
@@ -46,7 +47,7 @@ const props = defineProps({
                     <tr>
                         <td class="table-td-detail font-semibold">Bukti Pembayaran</td>
                         <td class="table-td-detail">
-                            <a :href="route('partner.request.download', request.bukti_pembayaran)" class="underline text-blue-500 hover:text-blue-600">Download</a>
+                            <a :href="route('partner.request.download', request.bukti_pembayaran)" class="underline text-blue-500 hover:text-blue-600" v-if="request.bukti_pembayaran">Download</a>
                         </td>
                     </tr>
                     <tr class="bg-odd">
@@ -65,7 +66,7 @@ const props = defineProps({
                         <td class="table-td-detail font-semibold">Riwayat</td>
                         <td class="table-td-detail">
                             <ul class="list-disc">
-                                <li v-for="history in request.histories">{{ history.created_at }} - {{ request.status }}</li>
+                                <li v-for="history in request.histories">{{ history.created_at }} - {{ history.status }}</li>
                             </ul>
                         </td>
                     </tr>

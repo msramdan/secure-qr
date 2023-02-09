@@ -9,7 +9,9 @@ use App\Models\RequestQrcode;
 use App\Models\HistoryRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\QrCode;
+use App\Models\TypeQrcode;
 use Dflydev\DotAccessData\Data;
 
 class AdminRequestQrcodeController extends Controller
@@ -66,6 +68,103 @@ class AdminRequestQrcodeController extends Controller
         $history = HistoryRequest::where('request_qrcode_id', $id)->get();
         return Inertia::render('Admin/Request/DetailRequestQR', ['Qr' => $request, 'histories' => $history]);
     }
+    public function create()
+    {
+        $product = Product::with('partner')->get();
+        $type = TypeQrcode::all();
+        $kode_request = $this->generateRandomString(10);
+        return Inertia::render('Admin/Request/Create', [
+            'code_request' => $kode_request,
+            'product' => $product,
+            'type' => $type
+        ]);
+    }
+    public function store(Request $request)
+    {
+        // dd($request->all());
+        try {
+            $attr = $request->validate([
+                'product_id' => 'required|exists:App\Models\Product,id',
+                'type_qrcode_id' => 'required|exists:App\Models\TypeQrcode,id',
+                'harga_satuan' => 'required|numeric|min:1',
+                'qty' => 'required|numeric|min:1',
+                'sn_length' => 'required|numeric|min:5|max:10',
+                'code' => 'string|required|max:100'
+            ]);
+            $attr['amount_price'] = $request->harga_satuan * $request->qty;
+            $attr['tanggal_request'] = now()->toDateTimeString();
+            $attr['status'] = 'Waiting Payment';
+            $partner_id = Product::select('partner_id')->where('id', $request->product_id)->first()->toArray();
+            $attr['partner_id'] = $partner_id['partner_id'];
+            $requestQr = RequestQrcode::create($attr);
+            HistoryRequest::create(
+                [
+                    'status' => $attr['status'],
+                    'request_qrcode_id' => $requestQr->id
+                ]
+            );
+
+            \Message::success('Berhasil menyimpan data!');
+            return to_route('admin.request.index');
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            \Message::danger('Gagal menyimpan data!');
+            return redirect()->back();
+        }
+    }
+    public function edit($id)
+    {
+        $request = RequestQrcode::join('partners', 'request_qrcodes.partner_id', '=', 'partners.id')
+            ->join('products', 'request_qrcodes.product_id', '=', 'products.id')
+            ->join('type_qrcodes', 'request_qrcodes.type_qrcode_id', '=', 'type_qrcodes.id')
+            ->select(
+                'request_qrcodes.*'
+            )
+            ->firstWhere('request_qrcodes.id', $id);
+        $type = TypeQrcode::all();
+        $product = Product::with('partner')->get();
+        return Inertia::render('Admin/Request/Edit', [
+            'request' => $request,
+            'type' => $type,
+            'product' => $product
+        ]);
+    }
+    public function update(Request $request, $id)
+    {
+        try {
+            $attr = $request->validate([
+                'product_id' => 'required|exists:App\Models\Product,id',
+                'type_qrcode_id' => 'required|exists:App\Models\TypeQrcode,id',
+                'harga_satuan' => 'required|numeric|min:1',
+                'qty' => 'required|numeric|min:1',
+                'sn_length' => 'required|numeric|min:5|max:10',
+            ]);
+            $attr['amount_price'] = $request->harga_satuan * $request->qty;
+            $requestQr = RequestQrcode::findOrFail($id);
+            $requestQr->update($attr);
+            \Message::success('Berhasil merubah data!');
+            return to_route('admin.request.index');
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            \Message::danger('Gagal merubah data!');
+            return redirect()->back();
+        }
+    }
+    public function download(string $filename)
+    {
+        $path = storage_path("app/public/uploads/bukti-pembayaran/");
+        if (file_exists($path . $filename)) {
+            $fullpath = $path . $filename;
+            $extension = \File::extension($fullpath);
+            $headers = array(
+                'Content-Type: application/' . $extension,
+            );
+            return response()->download($fullpath, $filename, $headers);
+        } else {
+            \Message::danger('Bukti pembayaran tidak ada!');
+            return redirect()->back();
+        }
+    }
     public function generateQR(Request $request)
     {
         $jml = $request->qty;
@@ -116,10 +215,10 @@ class AdminRequestQrcodeController extends Controller
             RequestQrcode::where('id', $request_qr_id)
                 ->update(['status' => 'Proses Cetak QR']);
 
-            \Message::success('Berhasil merubah data!');
+            \Message::success('Berhasil memproses request!');
             return redirect()->back();
         } catch (\Throwable $th) {
-            \Message::success('Gagal merubah data!');
+            \Message::success('Gagal memproses request!');
             return redirect()->back();
         }
     }
@@ -214,5 +313,30 @@ class AdminRequestQrcodeController extends Controller
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return str($randomString)->upper();
+    }
+
+    public function destroy($id)
+    {
+        $requestQr = RequestQrcode::firstWhere('id', $id);
+        if (in_array($requestQr->status, ['Dalam Pengiriman'])) {
+            \Message::danger('Data gagal dihapus, Qr Code sudah tersebar');
+            return redirect()->back();
+        }
+
+        try {
+            $path = '/public/uploads/bukti-pembayaran/';
+            if ($requestQr->bukti_pembayaran != null && file_exists($path . $requestQr->bukti_pembayaran)) {
+                unlink($path . $requestQr->bukti_pembayaran);
+            }
+            BatchCode::where('request_qrcode_id', $requestQr->id)->delete();
+            QrCode::where('request_qrcode_id', $requestQr->id)->delete();
+            $requestQr->delete();
+
+            \Message::success('Data berhasil dihapus');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            \Message::danger('Data gagal dihapus!');
+            return redirect()->back();
+        }
     }
 }

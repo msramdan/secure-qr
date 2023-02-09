@@ -111,10 +111,16 @@ Route::middleware(['auth:web'])->group(function () {
 
         Route::controller(AdminRequestQrcodeController::class)->group(function () {
             Route::get('/request_qrcode', 'index')->name('admin.request.index');
+            Route::get('/request_qrcode/create', 'create')->name('admin.request.create');
+            Route::post('/request_qrcode/store', 'store')->name('admin.request.store');
             Route::get('/request_qrcode/show/{id}', 'show')->name('admin.request.show');
+            Route::get('/request_qrcode/edit/{id}', 'edit')->name('admin.request.edit');
+            Route::patch('/request_qrcode/update/{id}', 'update')->name('admin.request.update');
+            Route::delete('/request_qrcode/destroy/{id}', 'destroy')->name('admin.request.destroy');
             Route::post('/request_qrcode/generate', 'generateQR')->name('admin.request.generate');
             Route::post('/request_qrcode/upProgress', 'upProgress')->name('admin.request.upProgress');
             Route::post('/request_qrcode/upResi', 'upResi')->name('admin.request.upResi');
+            Route::get('/request_qrcode/download/{filename}', 'download')->name('admin.request.download');
         });
         Route::get('/export/QrCode/{id}', [QrCodeController::class, 'export'])->name('admin.export.Qr');
 

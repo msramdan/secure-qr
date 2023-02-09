@@ -15,6 +15,10 @@ class RequestQrcode extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    public function getAmountPriceAttribute($value)
+    {
+        return 'Rp. ' . number_format($value, 2, ',', '.');
+    }
     public function product()
     {
         return $this->belongsTo(Product::class);

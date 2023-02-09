@@ -78,7 +78,7 @@ const KirimPaket = () => {
                             <tr>
                                 <td class="table-td-detail font-semibold table-td-dark">Bukti Pembayaran</td>
                                 <td class="table-td-detail table-td-dark">
-                                    <a href="#" v-if="Qr.bukti_pembayaran != null" class="underline text-blue-500 hover:text-blue-600">Download</a>
+                                    <a :href="route('admin.request.download', Qr.bukti_pembayaran)" v-if="Qr.bukti_pembayaran" class="underline text-blue-500 hover:text-blue-600">Download</a>
                                 </td>
                             </tr>
                             <tr>
@@ -121,7 +121,7 @@ const KirimPaket = () => {
                           <input type="hidden" v-model="form.sn_length">
                           <button class="btn-primary">Generate</button>
                         </form>
-                          <button v-if="Qr.status != 'Dalam Pengiriman'"  class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg" type="button" @click="openModal = true">Update Resi</button>
+                          <button v-if="Qr.status != 'Dalam Pengiriman' && Qr.is_generate == 'Sudah Generate'"  class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg" type="button" @click="openModal = true">Update Resi</button>
                         <a :href="route('admin.export.Qr', Qr.id)" v-if="Qr.is_generate != null" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg" target="_blank" rel="noopener noreferrer">Download File Excel</a>
                     </div>
                 </div>
