@@ -28,7 +28,7 @@ use App\Http\Controllers\QrCodeController;
 
 Route::middleware(['isAktif'])->group(function () {
     Route::get('/', function () {
-        return 'Halaman Home';
+        return Inertia::render('Frontend/LandingPage');
     })->name('home');
     Route::controller(PartnerAuthController::class)
         ->prefix('partner')

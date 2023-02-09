@@ -28,7 +28,7 @@ function openMenu(menu) {
         @click="closeSidebar"
         class="fixed z-50"
         :class="{
-            'inset-0 bg-black bg-opacity-30': openSidebar && windowWidth < 1280,
+            'inset-0 bg-black bg-opacity-30': openSidebar && windowWidth <= 1280,
         }"
     >
         <Transition
