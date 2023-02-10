@@ -1,21 +1,24 @@
 <script setup>
+import { usePage } from '@inertiajs/inertia-vue3';
 import Sidebar from '@/Components/Admin/Sidebar.vue'
 import Header from '@/Components/Admin/Header.vue'
 import Footer from '@/Components/Admin/Footer.vue'
 import Alert from '@/Components/Alert.vue'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const openSidebar = ref(window.innerWidth >= 1024 ? true : false)
 
-// const flash = reactive({ type: 'success', message: 'Data successfully added!' })
-
+const flash = ref(usePage().props.value.flash)
+const flashExist = computed(() =>
+    flash.value.success || flash.value.danger || flash.value.warning || flash.value.info
+);
 </script>
 
 <template>
     <div class="bg-main">
         <!-- Flash Message -->
-        <div v-if="$page.props.flash">
-            <Alert :flash="$page.props.flash"/>
+        <div v-if="flashExist">
+            <Alert :flash="flash"/>
         </div>
 
         <!-- Page Sidebar -->
