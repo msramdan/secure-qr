@@ -5,9 +5,11 @@ import productImage from '@src/images/validation/Rectangle 442.jpg'
 import successRate from '@src/images/validation/Group 4109.png'
 import ValidationLayout from '@/Layouts/Frontend/ValidationLayout.vue'
 import PengaduanModal from '@/Components/Frontend/Validation/Modal.vue'
+import StarRating from 'vue-star-rating'
 import { ref } from 'vue'
 
 const openModal = ref(false)
+const rating = ref(3)
 </script>
 
 <template>
@@ -108,22 +110,8 @@ const openModal = ref(false)
         <!-- Beri Rating -->
         <div>
             <div class="text-gray-500 text-center mb-4">Yuk, beli produk kami dan beri rating terbaik</div>
-            <div class="flex items-center justify-center space-x-3 mb-8">
-                <svg width="29" height="29" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 12.3917L11.4583 14.4833C12.0917 14.8667 12.8667 14.3 12.7 13.5833L11.7833 9.65L14.8417 7C15.4 6.51666 15.1 5.6 14.3667 5.54167L10.3417 5.2L8.76667 1.48333C8.48333 0.808331 7.51667 0.808331 7.23333 1.48333L5.65833 5.19166L1.63333 5.53333C0.9 5.59166 0.599999 6.50833 1.15833 6.99166L4.21667 9.64166L3.3 13.575C3.13333 14.2917 3.90833 14.8583 4.54167 14.475L8 12.3917Z" fill="#FFBE40"/>
-                </svg>
-                <svg width="29" height="29" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 12.3917L11.4583 14.4833C12.0917 14.8667 12.8667 14.3 12.7 13.5833L11.7833 9.65L14.8417 7C15.4 6.51666 15.1 5.6 14.3667 5.54167L10.3417 5.2L8.76667 1.48333C8.48333 0.808331 7.51667 0.808331 7.23333 1.48333L5.65833 5.19166L1.63333 5.53333C0.9 5.59166 0.599999 6.50833 1.15833 6.99166L4.21667 9.64166L3.3 13.575C3.13333 14.2917 3.90833 14.8583 4.54167 14.475L8 12.3917Z" fill="#FFBE40"/>
-                </svg>
-                <svg width="29" height="29" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 12.3917L11.4583 14.4833C12.0917 14.8667 12.8667 14.3 12.7 13.5833L11.7833 9.65L14.8417 7C15.4 6.51666 15.1 5.6 14.3667 5.54167L10.3417 5.2L8.76667 1.48333C8.48333 0.808331 7.51667 0.808331 7.23333 1.48333L5.65833 5.19166L1.63333 5.53333C0.9 5.59166 0.599999 6.50833 1.15833 6.99166L4.21667 9.64166L3.3 13.575C3.13333 14.2917 3.90833 14.8583 4.54167 14.475L8 12.3917Z" fill="#FFBE40"/>
-                </svg>
-                <svg width="26" height="26" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M27.25 10.0667L19.1833 9.36667L16.0333 1.95C15.4667 0.6 13.5333 0.6 12.9667 1.95L9.81666 9.38333L1.76667 10.0667C0.299999 10.1833 -0.300001 12.0167 0.816666 12.9833L6.93333 18.2833L5.1 26.15C4.76667 27.5833 6.31667 28.7167 7.58333 27.95L14.5 23.7833L21.4167 27.9667C22.6833 28.7333 24.2333 27.6 23.9 26.1667L22.0667 18.2833L28.1833 12.9833C29.3 12.0167 28.7167 10.1833 27.25 10.0667ZM14.5 20.6667L8.23333 24.45L9.9 17.3167L4.36667 12.5167L11.6667 11.8833L14.5 5.16667L17.35 11.9L24.65 12.5333L19.1167 17.3333L20.7833 24.4667L14.5 20.6667Z" fill="#BFC9E0"/>
-                </svg>
-                <svg width="26" height="26" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M27.25 10.0667L19.1833 9.36667L16.0333 1.95C15.4667 0.6 13.5333 0.6 12.9667 1.95L9.81666 9.38333L1.76667 10.0667C0.299999 10.1833 -0.300001 12.0167 0.816666 12.9833L6.93333 18.2833L5.1 26.15C4.76667 27.5833 6.31667 28.7167 7.58333 27.95L14.5 23.7833L21.4167 27.9667C22.6833 28.7333 24.2333 27.6 23.9 26.1667L22.0667 18.2833L28.1833 12.9833C29.3 12.0167 28.7167 10.1833 27.25 10.0667ZM14.5 20.6667L8.23333 24.45L9.9 17.3167L4.36667 12.5167L11.6667 11.8833L14.5 5.16667L17.35 11.9L24.65 12.5333L19.1167 17.3333L20.7833 24.4667L14.5 20.6667Z" fill="#FFBE40"/>
-                </svg>
+            <div class="flex justify-center space-x-3 mb-8">
+                <star-rating v-model:rating="rating" :star-size="30" active-color="#FFBE40" :rounded-corners="true" padding="2" :show-rating="false"/>
             </div>
             <button @click="openModal = true" class="btn-validation">Beri Rating</button>
         </div>

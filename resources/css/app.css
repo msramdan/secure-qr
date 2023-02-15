@@ -148,7 +148,43 @@
         @apply bg-red-50 hover:bg-red-100 text-red-500 px-4 py-2 rounded-lg mt-8;
     }
 
+
+
+
+
     /* Landing Page Classes */
+    .landing-nav {
+        @apply  px-6 sm:px-10 lg:px-40 max-w-screen-2xl mx-auto
+    }
+
+    .landing-section {
+        @apply px-6 sm:px-10 lg:px-40 py-20 max-w-screen-2xl mx-auto
+    }
+
+    .landing-h1 {
+        @apply font-bold text-4xl lg:text-5xl text-primary leading-snug lg:leading-snug mb-5
+    }
+
+    .landing-h2 {
+        @apply font-bold text-3xl lg:text-4xl text-secondary leading-snug lg:leading-snug mb-16
+    }
+
+    .landing-h3 {
+        @apply font-bold text-xl lg:text-2xl text-secondary leading-snug lg:leading-snug mb-4
+    }
+
+    .landing-p {
+        @apply leading-relaxed text-[#4A4A68]
+    }
+
+    .landing-label {
+        @apply block font-semibold mb-2
+    }
+
+    .landing-form-input {
+        @apply bg-[#F8F8F9] w-full px-4 py-2 border-2 border-[#ECF1F4] rounded-lg focus:bg-white focus:outline-none focus:border-[#ECF1F4] focus:ring-0
+    }
+
     .active {
         @apply font-bold text-primary
     }
@@ -179,11 +215,11 @@
         transition: max-height 0.3s ease-in-out
     }
 
-    .btn-landing-primary {
+    .landing-btn-primary {
         @apply bg-primary font-semibold text-white px-5 py-3 rounded-lg
     }
 
-    .btn-landing-light {
+    .landing-btn-light {
         @apply font-semibold text-primary px-5 py-3 rounded-lg
     }
 
@@ -194,16 +230,15 @@
     .plan-card {
         @apply lg:w-[22rem] bg-gradient-to-b to-tertiary border-2 border-tertiary pt-2 rounded-2xl
     }
+}
 
-    .landing-nav {
-        @apply  px-6 sm:px-10 lg:px-40 max-w-[1536px] mx-auto
-    }
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
 
-    .landing-form-label {
-        @apply block font-semibold mb-2
-    }
-
-    .landing-form-input {
-        @apply bg-[#F8F8F9] w-full px-4 py-2 border-2 border-[#ECF1F4] rounded-lg focus:bg-white focus:outline-none focus:border-[#ECF1F4] focus:ring-0
-    }
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
