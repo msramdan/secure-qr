@@ -1,0 +1,26 @@
+.btn-validation {
+    @apply bg-purple-validation w-full text-white py-2 rounded
+}
+
+.btn-secondary-validation {
+    @apply border border-gray-300 text-purple-validation w-full py-2 rounded
+}
+
+.jumbotron-validation {
+    background: rgb(180, 122, 243);
+    background: linear-gradient(90deg, rgba(180, 122, 243, 1) 0%, rgba(130, 122, 243, 1) 100%);
+    @apply pt-8 pb-12;
+}
+
+.content-validation {
+    @apply bg-white py-10 px-5 rounded-t-[24px] -mt-5
+}
+
+.form-input-validation {
+    @apply w-full px-4 py-2 rounded-xl;
+}
+
+
+.label-validation {
+    @apply block font-medium mb-1;
+}

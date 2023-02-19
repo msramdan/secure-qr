@@ -1,0 +1,244 @@
+/* @import './components/validation.css'; */
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.dashboard-gradient {
+    background: rgb(130,122,243);
+    background: linear-gradient(90deg, rgba(130,122,243,1) 0%, rgba(179,121,242,1) 100%);
+}
+
+@layer base {
+    body {
+        @apply font-sans text-gray-900
+    }
+
+    section {
+        @apply px-6 sm:px-10 lg:px-40 py-20 max-w-[1536px] mx-auto
+    }
+
+    h1 {
+        @apply font-bold text-4xl lg:text-5xl text-primary leading-snug lg:leading-snug mb-5
+    }
+
+    h2 {
+        @apply font-bold text-3xl lg:text-4xl text-secondary leading-snug lg:leading-snug mb-16
+    }
+
+    h3 {
+        @apply font-bold text-xl lg:text-2xl text-secondary leading-snug lg:leading-snug mb-4
+    }
+
+    p {
+        @apply leading-relaxed text-[#4A4A68]
+    }
+}
+
+@layer components {
+    .bg-main {
+        @apply bg-[#EDECFC]
+    }
+
+    .btn-validation {
+        @apply bg-purple-validation w-full text-white py-2 rounded
+    }
+
+    .btn-secondary-validation {
+        @apply border border-gray-300 text-purple-validation w-full py-2 rounded
+    }
+
+    .jumbotron-validation {
+        background: rgb(180, 122, 243);
+        background: linear-gradient(90deg, rgba(180, 122, 243, 1) 0%, rgba(130, 122, 243, 1) 100%);
+        @apply pt-8 pb-12;
+    }
+
+    .content-validation {
+        @apply bg-white py-10 px-5 rounded-t-[24px] -mt-5
+    }
+
+    .form-input-validation {
+        @apply w-full border border-gray-300 px-4 py-2 rounded-md;
+    }
+
+
+    .label-validation {
+        @apply block font-medium mb-1.5;
+    }
+
+    .text-secondary-validation {
+        @apply text-gray-500;
+    }
+
+    .card-dashboard {
+        @apply bg-white p-4 lg:p-6 rounded-2xl shadow-main;
+    }
+
+    .card-title-dashboard {
+        @apply font-bold text-lg mb-10;
+    }
+
+    .form-dashboard {
+        @apply text-base;
+    }
+
+    .form-label-dashboard {
+        @apply block font-medium mb-2;
+    }
+
+    .form-input-dashboard {
+        @apply w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-purple-1100 focus:ring-0 placeholder-gray-400;
+    }
+
+    .form-input-error-dashboard {
+        @apply border-red-500;
+    }
+
+    .form-error-message-dashboard {
+        @apply block text-red-500 mt-1;
+    }
+
+    .form-btn-dashboard {
+        @apply bg-gradient-to-r from-purple-dashboard-gradient-1 to-purple-dashboard-gradient-2 font-medium text-white px-4 py-2 rounded-lg mt-10;
+    }
+
+    .btn-create-dashboard {
+        @apply bg-green-50 hover:bg-green-100 text-green-500 px-4 py-2 rounded-lg font-medium;
+    }
+
+    .table {
+        @apply w-full table-auto;
+    }
+
+    .table-th {
+        @apply text-left border p-3 truncate;
+    }
+
+    .table-td {
+        @apply border p-3 align-top;
+    }
+
+    .table-th-detail {
+        @apply font-medium;
+    }
+
+    .table-td-detail {
+        @apply border-b p-3 align-top;
+    }
+
+    .table-td-dark {
+        @apply bg-[#F2F2F2];
+    }
+
+    .bg-odd {
+        @apply bg-[#F2F2F2];
+    }
+
+    .btn-primary {
+        @apply bg-gradient-to-r from-purple-dashboard-gradient-1 to-purple-dashboard-gradient-2 hover:opacity-90 text-white px-4 py-2 rounded-lg;
+    }
+
+    .btn-secondary {
+        @apply bg-green-500 text-white px-4 py-2 rounded-lg;
+    }
+
+    .btn-cancel {
+        @apply bg-red-50 hover:bg-red-100 text-red-500 px-4 py-2 rounded-lg mt-8;
+    }
+
+
+
+
+
+    /* Landing Page Classes */
+    .landing-nav {
+        @apply  px-6 sm:px-10 lg:px-40 max-w-screen-2xl mx-auto
+    }
+
+    .landing-section {
+        @apply px-6 sm:px-10 lg:px-40 py-20 max-w-screen-2xl mx-auto
+    }
+
+    .landing-h1 {
+        @apply font-bold text-4xl lg:text-5xl text-primary leading-snug lg:leading-snug mb-5
+    }
+
+    .landing-h2 {
+        @apply font-bold text-3xl lg:text-4xl text-secondary leading-snug lg:leading-snug mb-16
+    }
+
+    .landing-h3 {
+        @apply font-bold text-xl lg:text-2xl text-secondary leading-snug lg:leading-snug mb-4
+    }
+
+    .landing-p {
+        @apply leading-relaxed text-[#4A4A68]
+    }
+
+    .landing-label {
+        @apply block font-semibold mb-2
+    }
+
+    .landing-form-input {
+        @apply bg-[#F8F8F9] w-full px-4 py-2 border-2 border-[#ECF1F4] rounded-lg focus:bg-white focus:outline-none focus:border-[#ECF1F4] focus:ring-0
+    }
+
+    .active {
+        @apply font-bold text-primary
+    }
+
+    .partner-logo {
+        @apply w-auto h-6 lg:h-8
+    }
+
+    .sosial-media-icon {
+        @apply h-6
+    }
+
+    .faq {
+        @apply bg-white border border-[#E7EEFE] rounded-lg
+    }
+
+    .faq .accordion {
+        @apply flex items-center justify-between p-5 cursor-pointer
+    }
+
+    .menu {
+        @apply max-h-0 lg:max-h-max overflow-hidden;
+        transition: max-height 0.3s ease-in-out
+    }
+
+    .faq .panel {
+        @apply max-h-0 overflow-hidden border-t border-tertiary;
+        transition: max-height 0.3s ease-in-out
+    }
+
+    .landing-btn-primary {
+        @apply bg-primary font-semibold text-white px-5 py-3 rounded-lg
+    }
+
+    .landing-btn-light {
+        @apply font-semibold text-primary px-5 py-3 rounded-lg
+    }
+
+    .label-required {
+        @apply text-[#F44336]
+    }
+
+    .plan-card {
+        @apply lg:w-[22rem] bg-gradient-to-b to-tertiary border-2 border-tertiary pt-2 rounded-2xl
+    }
+}
+
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
