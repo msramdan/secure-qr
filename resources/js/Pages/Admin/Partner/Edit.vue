@@ -3,9 +3,11 @@ import AdminLayout from "@/Layouts/Backend/AdminLayout.vue";
 import FormButton from "@/Components/Admin/FormButton.vue";
 import InputError from "@/Components/InputError.vue";
 import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
+import { Inertia } from "@inertiajs/inertia";
 const props = defineProps({
     partner: Array,
 });
+console.log(props.partner)
 const form = useForm({
     name: props.partner.name,
     email: props.partner.email,
@@ -14,11 +16,20 @@ const form = useForm({
     password_confirmation: "",
     pic: props.partner.pic,
     alamat: props.partner.address,
-    photo: props.partner.photo,
-    id_partner: props.partner.id_partner
+    photo: '',
 });
 const FormSubmit = () => {
-    form.patch(route("admin.partner.update", props.partner.id));
+    Inertia.post(route('admin.partner.update', props.partner.id), {
+        _method: 'patch',
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        password: form.password,
+        password_confirmation: form.password_confirmation,
+        pic: form.pic,
+        alamat: form.alamat,
+        photo: form.photo,
+    })
 };
 </script>
 
@@ -142,7 +153,7 @@ const FormSubmit = () => {
                                     class="flex border border-gray-300 rounded-lg"
                                 >
                                     <div class="grow text-gray-400 px-4 py-2">
-                                        Choose photo
+                                        {{ form.photo != '' ? form.photo.name : 'Choose file' }}
                                     </div>
                                     <div
                                         class="flex-none bg-gray-200 rounded-r-lg text-gray-600 px-4 py-2"

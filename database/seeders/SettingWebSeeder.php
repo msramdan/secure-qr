@@ -20,10 +20,10 @@ class SettingWebSeeder extends Seeder
             'kode_website' => '423954',
             'logo_dark' => 'logo_dark.png',
             'logo_light' => 'logo_light.png',
-            'telpon' => '0123456789',
-            'email' => 'admin@labelin.co',
+            'telpon' => '081299903331',
+            'email' => 'info@labelin.co',
             'alamat' => 'Surabaya',
-            'deskripsi' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta, quos maxime. Animi est alias porro optio maxime incidunt aspernatur, nesciunt, ab facere distinctio iure. Iste molestias, laudantium nesciunt non consequuntur et possimus a! Obcaecati dolorum placeat rerum fugit, maiores doloremque nobis in accusamus. Asperiores doloribus at nesciunt hic assumenda suscipit!',
+            'deskripsi' => 'Labelin.co merupakan layanan tag API printing berteknologi dalam bentuk label yang bisa di tempel pada produk. Dengan Labelin.co para business owner dapat menjaga originalitas produk/karya mereka hingga sampai ke tangan customer dengan membedakan produk asli dan palsu di pasaran.',
             'is_aktif' => true
         ]);
     }

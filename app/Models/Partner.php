@@ -2,15 +2,22 @@
 
 namespace App\Models;
 
+use App\Models\Business;
+// use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 class Partner extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    public function user()
+    protected $hidden = ['password', 'remember_token',];
+    public function getAuthPassword()
     {
-        return $this->belongsTo(User::class);
+        return $this->password;
+    }
+    public function business()
+    {
+        return $this->hasMany(Business::class);
     }
 }

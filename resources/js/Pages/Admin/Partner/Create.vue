@@ -117,7 +117,7 @@ const SubmitForm = () => {
                                     class="flex border border-gray-300 rounded-lg"
                                 >
                                     <div class="grow text-gray-400 px-4 py-2">
-                                        Choose file
+                                        {{ form.photo != '' ? form.photo.name : 'Choose file' }}
                                     </div>
                                     <div
                                         class="flex-none bg-gray-200 rounded-r-lg text-gray-600 px-4 py-2"

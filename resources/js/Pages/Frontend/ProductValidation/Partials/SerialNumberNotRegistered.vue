@@ -42,8 +42,11 @@ const openModal = ref(false)
 
         <!-- Modal Pengaduan -->
         <template #modal>
-            <PengaduanModal :open-modal="openModal" @closeModal="openModal = false">
-                <div class="font-semibold text-lg mb-10">Formulir Pengaduan Perlindungan Konsumen</div>
+            <PengaduanModal
+                :open-modal="openModal"
+                modal-title="Formulir Pengaduan Perlindungan Konsumen"
+                @closeModal="openModal = false"
+            >
                 <form class="mb-10">
                     <div class="mb-3">
                         <label for="nama" class="label-validation">Nama Lengkap</label>

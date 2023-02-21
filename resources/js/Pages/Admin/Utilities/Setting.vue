@@ -1,5 +1,6 @@
 <script setup>
 import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
+import { Inertia } from '@inertiajs/inertia';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 const props = defineProps({
     setting: Array
@@ -7,16 +8,25 @@ const props = defineProps({
 const form = useForm({
     id: props.setting.id,
     name: props.setting.nama_website,
-    logo_dark: props.setting.logo_dark,
-    logo_light: props.setting.logo_light,
+    logo_dark: '',
+    logo_light: '',
     telepon: props.setting.telpon,
     email: props.setting.email,
     alamat: props.setting.alamat,
     deskripsi: props.setting.deskripsi,
     status: props.setting.is_aktif,
 });
-const SubmitForm=()=>{
-    form.patch(route('admin.setting.update', form.id))
+const SubmitForm = () => {
+    Inertia.post(route('admin.setting.update', form.id), {
+        _method: 'patch',
+        nama_website: form.name,
+        telpon: form.telepon,
+        email: form.email,
+        deskripsi: form.deskripsi,
+        is_aktif: form.status,
+        logo_dark: form.logo_dark,
+        logo_light: form.logo_light,
+    })
 }
 </script>
 
@@ -36,10 +46,10 @@ const SubmitForm=()=>{
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label-dashboard">Logo Dark :</label>
-                            <img src="https://labelin.co/storage/img/setting_web/t9ebqSFalSmrWatWVjMNRomoFxa5KfJg9AYurwSE.png" alt="Logo" class="w-1/2 mb-2">
+                            <img :src="`/storage/img/setting_web/` + props.setting.logo_dark" alt="Logo" class="w-1/2 mb-2">
                             <label for="logo_dark" class="block mb-2 cursor-pointer">
                                 <div class="flex border border-gray-300 rounded-lg">
-                                    <div class="grow text-gray-400 px-4 py-2">Choose file</div>
+                                    <div class="grow text-gray-400 px-4 py-2">{{ form.logo_dark != '' ? form.logo_dark.name : 'Choose file ' }}</div>
                                     <div class="flex-none bg-gray-200 rounded-r-lg text-gray-600 px-4 py-2">Browse</div>
                                 </div>
                             </label>
@@ -48,10 +58,10 @@ const SubmitForm=()=>{
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label-dashboard">Logo Light :</label>
-                            <img src="https://labelin.co/storage/img/setting_web/t9ebqSFalSmrWatWVjMNRomoFxa5KfJg9AYurwSE.png" alt="Logo" class="w-1/2 mb-2">
+                            <img :src="`/storage/img/setting_web/` + props.setting.logo_light" alt="Logo" class="w-1/2 mb-2">
                             <label for="logo_light" class="block mb-2 cursor-pointer">
                                 <div class="flex border border-gray-300 rounded-lg">
-                                    <div class="grow text-gray-400 px-4 py-2">Choose file</div>
+                                    <div class="grow text-gray-400 px-4 py-2">{{ form.logo_light != '' ? form.logo_light.name : 'Choose file' }}</div>
                                     <div class="flex-none bg-gray-200 rounded-r-lg text-gray-600 px-4 py-2">Browse</div>
                                 </div>
                             </label>

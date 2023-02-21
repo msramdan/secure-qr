@@ -2,16 +2,22 @@
 import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
 import FormButton from '@/Components/Admin/FormButton.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import { Inertia } from '@inertiajs/inertia';
 const props = defineProps({
     type: Array
 });
 const form = useForm({
     name: props.type.name,
     price: props.type.price,
-    photo: props.type.photo,
+    photo: '',
 });
 const submit = () => {
-    form.patch(route('admin.type.update', props.type.id));
+    Inertia.post(route('admin.type.update', props.type.id), {
+        _method: 'patch',
+        name: form.name,
+        price: form.price,
+        photo: form.photo
+    });
 }
 </script>
 
@@ -32,13 +38,15 @@ const submit = () => {
                 </div>
                 <div class="mb-5">
                     <label for="photo" class="form-label-dashboard">Photo :</label>
+                    <img v-if="type.photo == null || type.photo == 'qrcode.jpg'" src="https://labelin.co/storage/uploads/photos/9d3oGAl6v50WahFABmB11c6uLKycMrtOg3KMs7yx.jpg" alt="Photo" class="sm:w-40 rounded mb-1">
+                    <img v-else :src="`/storage/uploads/type_qr/` + type.photo" alt="Photo" class="sm:w-40 rounded mb-1">
                     <label for="photo" class="block mb-2 cursor-pointer">
                         <div class="flex border border-gray-300 rounded-lg">
-                            <div class="grow text-gray-400 px-4 py-2">Choose file</div>
+                            <div class="grow text-gray-400 px-4 py-2">{{ form.photo != '' ? form.photo.name : 'Choose file' }}</div>
                             <div class="flex-none bg-gray-200 rounded-r-lg text-gray-600 px-4 py-2">Browse</div>
                         </div>
                     </label>
-                    <input type="file" id="photo" class="hidden">
+                    <input type="file" @input="form.photo = $event.target.files[0]" id="photo" class="hidden">
                 </div>
                 <FormButton :href="route('admin.type.index')" text="Update"/>
             </form>

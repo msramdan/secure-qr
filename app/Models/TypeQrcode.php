@@ -12,10 +12,10 @@ class TypeQrcode extends Model
     protected $guarded = ['id'];
     public function getCreatedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('d M Y');
+        return Carbon::parse($value)->format('d F Y');
     }
     public function getUpdatedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('d M Y');
+        return Carbon::parse($value)->format('d F Y');
     }
 }

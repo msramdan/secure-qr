@@ -31,7 +31,7 @@ const submit = () => {
                     <label for="photo" class="form-label-dashboard">Photo :</label>
                     <label for="photo" class="block mb-2 cursor-pointer">
                         <div class="flex border border-gray-300 rounded-lg">
-                            <div class="grow text-gray-400 px-4 py-2">Choose file</div>
+                            <div class="grow text-gray-400 px-4 py-2">{{ form.photo != '' ? form.photo.name : 'Choose file' }}</div>
                             <div class="flex-none bg-gray-200 rounded-r-lg text-gray-600 px-4 py-2">Browse</div>
                         </div>
                     </label>

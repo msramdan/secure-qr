@@ -2,6 +2,11 @@
 import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 
+const props = defineProps({
+    productScanned: Object,
+    serial_number: String,
+    product: Object
+})
 </script>
 
 <template>
@@ -12,21 +17,25 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
             <h2 class="card-title-dashboard">Detail Data Customer</h2>
             <table class="table">
                 <tbody>
-                    <tr>
-                        <td class="table-td-detail font-semibold table-td-dark">Serial Number</td>
-                        <td class="table-td-detail table-td-dark">CKTNF</td>
+                    <tr class="bg-odd">
+                        <td class="table-td-detail font-semibold">Serial Number</td>
+                        <td class="table-td-detail">{{ serial_number }}</td>
                     </tr>
                     <tr>
                         <td class="table-td-detail font-semibold">Nama Produk</td>
-                        <td class="table-td-detail">Night Cream Acne 10gr</td>
+                        <td class="table-td-detail">{{ product.name + "-" + product.netto }}</td>
                     </tr>
-                    <tr>
-                        <td class="table-td-detail font-semibold table-td-dark">Alamat</td>
-                        <td class="table-td-detail table-td-dark">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos, qui.</td>
+                    <tr class="bg-odd">
+                        <td class="table-td-detail font-semibold">Customer Data</td>
+                        <td class="table-td-detail">
+                            <ul class="list-disc">
+                                <li v-for="data,i in productScanned" :key="i">{{ data.kota }}</li>
+                            </ul>
+                        </td>
                     </tr>
                 </tbody>
             </table>
-            <Link href="#">
+            <Link :href="route('admin.customer.index')">
                 <button class="btn-cancel">Kembali</button>
             </Link>
         </div>

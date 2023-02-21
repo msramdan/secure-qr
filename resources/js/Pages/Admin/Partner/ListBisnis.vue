@@ -11,16 +11,7 @@ const props = defineProps({
 
     <AdminLayout>
         <div class="card-dashboard">
-            <div class="flex items-center justify-between mb-10">
-                <h2 class="card-title-dashboard">Data Bisnis Partner</h2>
-                <Link :href="route('admin.partner.index')">
-                    <button
-                        class="bg-red-50 hover:bg-red-100 text-red-500 px-4 py-2 rounded-lg"
-                    >
-                        Kembali
-                    </button>
-                </Link>
-            </div>
+            <h2 class="card-title-dashboard">Data Bisnis Partner</h2>
             <div class="w-full overflow-x-auto">
                 <table class="table">
                     <thead>
@@ -32,29 +23,17 @@ const props = defineProps({
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(list, index) in Bisnis" :key="list.id">
-                            <td
-                                class="table-td"
-                                :class="{ 'table-td-dark': list.id % 2 != 0 }"
-                            >
+                        <tr v-for="(list, index) in Bisnis" :key="list.id" class="odd:bg-odd">
+                            <td class="table-td">
                                 {{ ++index }}
                             </td>
-                            <td
-                                class="table-td"
-                                :class="{ 'table-td-dark': list.id % 2 != 0 }"
-                            >
+                            <td class="table-td">
                                 {{ list.name }}
                             </td>
-                            <td
-                                class="table-td"
-                                :class="{ 'table-td-dark': list.id % 2 != 0 }"
-                            >
+                            <td class="table-td">
                                 {{ list.brand }}
                             </td>
-                            <td
-                                class="table-td"
-                                :class="{ 'table-td-dark': list.id % 2 != 0 }"
-                            >
+                            <td class="table-td">
                                 {{ list.manufacture }}
                             </td>
                         </tr>

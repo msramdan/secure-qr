@@ -4,9 +4,21 @@ import TableAction from '@/Components/Admin/TableAction.vue';
 import ButtonCreate from '@/Components/Admin/ButtonCreate.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import Pagination from '@/Components/Pagination.vue';
+import { ref, watch } from 'vue';
+import { Inertia } from '@inertiajs/inertia';
+import debounce from 'lodash/debounce';
 const props = defineProps({
-    category: Array
+    category: Object,
+    filters: Object
 });
+const getPaginate = (event) => {
+    let selectedOption = event.target.value;
+    Inertia.get(route('admin.category.index'), {paginate: selectedOption})
+}
+let search = ref(props.filters.search);
+watch(search, debounce(function (value) {
+    Inertia.get(route('admin.category.index'), { search: value }, { preserveState: true, replace: true })
+}), 300);
 </script>
 
 <template>
@@ -44,18 +56,18 @@ const props = defineProps({
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="kategori,i in category.data" :key="i">
-                            <td class="table-td" :class="{ 'table-td-dark': kategori.id % 2 != 0 }">{{ ++i }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': kategori.id % 2 != 0 }">{{ kategori.code }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': kategori.id % 2 != 0 }">{{ kategori.name }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': kategori.id % 2 != 0 }">
-                                <TableAction :detailHref="route('admin.category.show', kategori.id)" :editHref="route('admin.category.edit',kategori.id)" :deleteHref="route('admin.category.destroy', kategori.id)"/>
+                        <tr v-for="kategori,i in category.data" :key="i" class="odd:bg-odd">
+                            <td class="table-td">{{ ++i }}</td>
+                            <td class="table-td">{{ kategori.code }}</td>
+                            <td class="table-td">{{ kategori.name }}</td>
+                            <td class="table-td">
+                                <TableAction :detail-href="route('admin.category.show', kategori.id)" :edit-href="route('admin.category.edit',kategori.id)" :delete-href="route('admin.category.destroy', kategori.id)"/>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <Pagination :links="category.links"/>
+            <Pagination :data="category"/>
         </div>
     </AdminLayout>
 </template>

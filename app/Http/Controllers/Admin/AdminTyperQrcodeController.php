@@ -11,10 +11,26 @@ use Intervention\Image\Facades\Image;
 
 class AdminTyperQrcodeController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-        $type = TypeQrcode::paginate(10);
-        return Inertia::render('Admin/Master/TypeQRCode/TypeQR', ['type' => $type]);
+        $this->middleware('permission::type_qrcode_show')->only('index');
+        $this->middleware('permission::type_qrcode_create')->only('create', 'store');
+        $this->middleware('permission::type_qrcode_update')->only('edit', 'update');
+        $this->middleware('permission::type_qrcode_delete')->only('destroy');
+        $this->middleware('permission::type_qrcode_detail')->only('show');
+    }
+    public function index(Request $request)
+    {
+        $paginate = $request->get('paginate') ?? 10;
+        $type = TypeQrcode::when($request->input('search'), function ($query, $search) {
+            $query->where('name', 'like', "%{$search}%")
+                ->orWhere('price', 'like', "%{$search}%");
+        })->paginate($paginate)
+            ->withQueryString();
+        return Inertia::render('Admin/Master/TypeQRCode/TypeQR', [
+            'type' => $type,
+            'filters' => $request->only(['search'])
+        ]);
     }
     public function create()
     {
@@ -27,30 +43,36 @@ class AdminTyperQrcodeController extends Controller
     }
     public function store(Request $request)
     {
-        $attr = $request->validate([
-            'name' => 'required|string|min:1|max:100',
-            'price' => 'required|numeric',
-            'photo' => 'required|image|max:1024',
-        ]);
-        if ($request->file('photo') && $request->file('photo')->isValid()) {
+        try {
+            $attr = $request->validate([
+                'name' => 'required|string|min:1|max:100',
+                'price' => 'required|numeric',
+                'photo' => 'required|image|max:1024',
+            ]);
+            if ($request->file('photo') && $request->file('photo')->isValid()) {
 
-            $path = storage_path('app/public/uploads/type_qr/');
-            $filename = $request->file('photo')->hashName();
+                $path = storage_path('app/public/uploads/type_qr/');
+                $filename = $request->file('photo')->hashName();
 
-            if (!file_exists($path)) {
-                mkdir($path, 0777, true);
+                if (!file_exists($path)) {
+                    mkdir($path, 0777, true);
+                }
+
+                Image::make($request->file('photo')->getRealPath())->resize(400, 400, function ($constraint) {
+                    $constraint->upsize();
+                    $constraint->aspectRatio();
+                })->save($path . $filename);
+
+                $attr['photo'] = $filename;
             }
+            TypeQrcode::create($attr);
 
-            Image::make($request->file('photo')->getRealPath())->resize(400, 400, function ($constraint) {
-                $constraint->upsize();
-                $constraint->aspectRatio();
-            })->save($path . $filename);
-
-            $attr['photo'] = $filename;
+            \Message::success('Berhasil menyimpan data!');
+            return to_route('admin.type.index');
+        } catch (\Throwable $th) {
+            \Message::danger('Gagal menyimpan data!');
+            return redirect()->back();
         }
-
-        TypeQrcode::create($attr);
-        return to_route('admin.type.index');
     }
     public function edit($id)
     {
@@ -59,50 +81,62 @@ class AdminTyperQrcodeController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $typeQr = TypeQrcode::findOrFail($id);
-        $attr = $request->validate([
-            'name' => 'required|string|min:1|max:100',
-            'price' => 'required|numeric',
-            'photo' => 'max:1024',
-        ]);
-        if ($request->file('photo') && $request->file('photo')->isValid()) {
+        try {
+            $typeQr = TypeQrcode::findOrFail($id);
+            $attr = $request->validate([
+                'name' => 'required|string|min:1|max:100',
+                'price' => 'required|numeric',
+                'photo' => 'max:1024',
+            ]);
+            if ($request->file('photo') && $request->file('photo')->isValid()) {
 
-            $path = storage_path('app/public/uploads/type_qr/');
-            $filename = $request->file('photo')->hashName();
+                $path = storage_path('app/public/uploads/type_qr/');
+                $filename = $request->file('photo')->hashName();
 
-            if (!file_exists($path)) {
-                mkdir($path, 0777, true);
+                if (!file_exists($path)) {
+                    mkdir($path, 0777, true);
+                }
+
+                Image::make($request->file('photo')->getRealPath())->resize(400, 400, function ($constraint) {
+                    $constraint->upsize();
+                    $constraint->aspectRatio();
+                })->save($path . $filename);
+
+                // delete old photo from storage
+                if ($typeQr->photo != null && file_exists($path . $typeQr->photo)) {
+                    unlink($path . $typeQr->photo);
+                }
+
+                $attr['photo'] = $filename;
             }
+            $typeQr->update($attr);
 
-            Image::make($request->file('photo')->getRealPath())->resize(400, 400, function ($constraint) {
-                $constraint->upsize();
-                $constraint->aspectRatio();
-            })->save($path . $filename);
-
-            // delete old photo from storage
-            if ($typeQr->photo != null && file_exists($path . $typeQr->photo)) {
-                unlink($path . $typeQr->photo);
-            }
-
-            $attr['photo'] = $filename;
+            \Message::success('Berhasil merubah data!');
+            return to_route('admin.type.index');
+        } catch (\Throwable $th) {
+            \Message::danger('Gagal merubah data!');
+            return redirect()->back();
         }
-
-        $typeQr->update($attr);
-        return to_route('admin.type.index');
     }
     public function destroy($id)
     {
-        $type = TypeQrcode::findOrFail($id);
-        $request_qr = RequestQrcode::where('type_qrcode_id', $id)->get();
-        if ($request_qr->isEmpty()) {
-            $path = storage_path('app/public/uploads/type_qr/');
+        try {
+            $type = TypeQrcode::findOrFail($id);
+            $request_qr = RequestQrcode::where('type_qrcode_id', $id)->get();
+            if ($request_qr->isEmpty()) {
+                $path = storage_path('app/public/uploads/type_qr/');
 
-            if ($type->photo != null && file_exists($path . $type->photo)) {
-                unlink($path . $type->photo);
+                if ($type->photo != null && file_exists($path . $type->photo)) {
+                    unlink($path . $type->photo);
+                }
+                $type->delete();
+
+                \Message::success('Berhasil menghapus data!');
+                return to_route('admin.type.index');
             }
-            $type->delete();
-            return to_route('admin.type.index');
+        } catch (\Throwable $th) {
+            \Message::danger('Gagal menghapus data!');
+            return redirect()->back();
         }
-        return redirect()->back();
     }
 }

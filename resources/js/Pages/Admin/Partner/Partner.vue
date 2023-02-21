@@ -3,12 +3,24 @@ import AdminLayout from '@/Layouts/Backend/AdminLayout.vue';
 import ButtonCreate from '@/Components/Admin/ButtonCreate.vue';
 import TableAction from '@/Components/Admin/TableAction.vue';
 import ActionIcon from '@/Components/Admin/ActionIcon.vue';
-import Pagination from '@/Components/Pagination.vue';
+import Datatable from '@/Components/Admin/Datatable.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Inertia } from '@inertiajs/inertia';
+import { ref, watch } from 'vue';
+import debounce from 'lodash/debounce';
 
 const props = defineProps({
-    partners: Array
+    partners: Object,
+    filters: Object
 })
+const getPaginate = (event) => {
+    let selectedOption = event.target.value;
+    Inertia.get(route('admin.partner.index'), {paginate: selectedOption})
+}
+let search = ref(props.filters.search);
+watch(search, debounce(function (value) {
+    Inertia.get(route('admin.partner.index'), { search: value }, { preserveState: true, replace: true })
+}), 300);
 </script>
 
 <template>
@@ -23,17 +35,18 @@ const props = defineProps({
             <div class="flex flex-wrap items-center md:justify-between mb-5">
                 <div class="flex items-center space-x-2 mb-2 md:mb-0">
                     <div>Show</div>
-                    <select class="form-input-dashboard w-20">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
+                    <select class="form-input-dashboard w-20" @change="getPaginate($event)">
+                        <option :value="10" :selected="partners.per_page == 10">10</option>
+                        <option :value="25" :selected="partners.per_page == 25">25</option>
+                        <option :value="50" :selected="partners.per_page == 50">50</option>
+                        <option :value="100" :selected="partners.per_page == 100">100</option>
                     </select>
                     <div>entries</div>
                 </div>
                 <div class="w-full md:w-auto">
                     <input
                         type="text"
+                        v-model="search"
                         class="form-input-dashboard"
                         placeholder="Search"
                     />
@@ -52,47 +65,35 @@ const props = defineProps({
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="partner,index in partners.data" :key="partner.id">
-                            <td
-                                class="table-td"
-                                :class="{ 'table-td-dark': partner.id % 2 != 0 }"
-                            >
+                        <tr v-for="partner,index in partners.data" :key="partner.id" class="odd:bg-odd">
+                            <td class="table-td">
                                 {{ ++index }}
                             </td>
                             <td
                                 class="table-td"
                                 :class="{ 'table-td-dark': partner.id % 2 != 0 }"
                             >
-                                {{ partner.user.name }}
+                                {{ partner.name }}
                             </td>
                             <td
                                 class="table-td"
                                 :class="{ 'table-td-dark': partner.id % 2 != 0 }"
                             >
-                                {{ partner.user.email }}
+                                {{ partner.email }}
                             </td>
-                            <td
-                                class="table-td"
-                                :class="{ 'table-td-dark': partner.id % 2 != 0 }"
-                            >
+                            <td class="table-td">
                                 {{ partner.pic }}
                             </td>
-                            <td
-                                class="table-td"
-                                :class="{ 'table-td-dark': partner.id % 2 != 0 }"
-                            >
+                            <td class="table-td">
                                 {{ partner.address }}
                             </td>
-                            <td
-                                class="table-td"
-                                :class="{ 'table-td-dark': partner.id % 2 != 0 }"
-                            >
+                            <td class="table-td">
                                 <TableAction
-                                    :detailHref="route('admin.partner.show',partner.user_id)"
-                                    :editHref="route('admin.partner.edit',partner.user_id)"
-                                    :deleteHref="route('admin.partner.destroy',partner.user_id)"
+                                    :detailHref="route('admin.partner.show', partner.id)"
+                                    :editHref="route('admin.partner.edit', partner.id)"
+                                    :deleteHref="route('admin.partner.destroy', partner.id)"
                                 >
-                                    <Link :href="route('admin.partner.list',partner.user_id)">
+                                    <Link :href="route('admin.partner.list', partner.id)">
                                         <ActionIcon>
                                             <path
                                                 stroke-linecap="round"
@@ -107,7 +108,7 @@ const props = defineProps({
                     </tbody>
                 </table>
             </div>
-            <Pagination :links="partners.links"/>
+            <Pagination :data="partners"/>
         </div>
     </AdminLayout>
 </template>

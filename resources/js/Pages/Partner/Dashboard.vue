@@ -1,42 +1,70 @@
 <script setup>
-import PartnerLayout from '@/Layouts/Backend/PartnerLayout.vue';
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import PartnerLayout from '@/Layouts/Backend/PartnerLayout.vue'
+import { Head, Link } from '@inertiajs/inertia-vue3'
+import { ref } from 'vue'
+import FilterData from '@/Components/FilterData.vue'
+import BarChart from '@/Components/BarChart.vue'
+import ChartByCity from '@/Components/Partner/ChartByCity.vue'
+import TotalScanMap from '@/Components/TotalScanMap.vue'
+import DashboardStatCard from '@/Components/DashboardStatCard.vue'
+
+const props = defineProps({
+    dataByCity: Array,
+    dataMap: Array,
+    chartByKategori: Array,
+    chartByBisnis: Array,
+    allScan: Array,
+    duplicateScan: Array
+})
+const byCityData = ref(props.dataByCity)
+
+const datas = ref(props.dataMap)
+
+const chartByKategoriData = ({
+    labels: props.chartByKategori[0],
+    datasets: [{
+        label: 'Total Scan',
+        data: props.chartByKategori[1],
+        backgroundColor: [
+            '#7CB5EC',
+            '#434348',
+        ]
+    }]
+})
+const chartByBisnisData = ({
+    labels: props.chartByBisnis[0],
+    datasets: [{
+        label: 'Total Scan',
+        data: props.chartByBisnis[1],
+        backgroundColor: ['#7CB5EC', '#434348', '#90ED7D', '#F7A35C', '#8085E9', '#F15C80', '#E4D354', '#2B908F', '#F45B5B']
+    }]
+})
 
 </script>
 
 <template>
-    <Head title="Dashboard"/>
+
+    <Head title="Dashboard" />
 
     <PartnerLayout>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-y-5 md:gap-x-8 md:gap-y-0 mb-8">
-            <div v-for="n in 4" :key="n" class="bg-white p-4 lg:p-6 rounded-2xl shadow-main">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam aut blanditiis eius veniam, velit illum architecto sit tenetur nemo ad exercitationem, rem dolor consequatur.</div>
+        <div class="flex space-x-5 overflow-x-auto snap-proximity snap-x mb-8">
+            <template v-for="data, i in byCityData" :key="i">
+            <div class="snap-always snap-start">
+                <ChartByCity :city="data.city" :data="data.data" :color="data.color"/>
+            </div>
+            </template>
         </div>
-        <div class="bg-white p-4 lg:p-6 rounded-2xl shadow-main">
-            <h2 class="font-bold text-lg mb-5">Datatable</h2>
-            <div class="w-full overflow-x-auto">
-                <table class="w-full table-auto">
-                    <thead>
-                        <tr>
-                            <th class="text-left border p-3 truncate">Column 1</th>
-                            <th class="text-left border p-3 truncate">Column 2</th>
-                            <th class="text-left border p-3 truncate">Column 3</th>
-                            <th class="text-left border p-3 truncate">Column 4</th>
-                            <th class="text-left border p-3 truncate">Column 5</th>
-                            <th class="text-left border p-3 truncate">Column 6</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="n in 10">
-                            <td class="border p-3" :class="{ 'bg-[#F2F2F2]': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="border p-3" :class="{ 'bg-[#F2F2F2]': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="border p-3" :class="{ 'bg-[#F2F2F2]': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="border p-3" :class="{ 'bg-[#F2F2F2]': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="border p-3" :class="{ 'bg-[#F2F2F2]': n % 2 != 0 }">Row {{ n }}</td>
-                            <td class="border p-3" :class="{ 'bg-[#F2F2F2]': n % 2 != 0 }">Row {{ n }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <FilterData />
+        <TotalScanMap :datas="datas" />
+
+        <div class="flex flex-col lg:flex-row lg:space-x-8 space-y-8 lg:space-y-0">
+            <div class="flex-1">
+                <BarChart title="Chart by Kategori" :chart-data="chartByKategoriData" />
+            </div>
+            <div class="flex-1">
+                <BarChart title="Chart by Bisnis" :chart-data="chartByBisnisData" />
             </div>
         </div>
+
     </PartnerLayout>
 </template>

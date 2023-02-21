@@ -1,18 +1,22 @@
 <script setup>
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head, Link, usePage } from '@inertiajs/inertia-vue3';
 import ProductRegistered from './Partials/ProductRegistered.vue'
 import SerialNumberNotRegistered from './Partials/SerialNumberNotRegistered.vue'
 import SerialNumberDuplicate from './Partials/SerialNumberDuplicate.vue'
 import { ref } from 'vue'
 
-const result = ref('registered')
-
+const props = defineProps({
+    product_status: String,
+    product: Object,
+    sosmed: Object,
+    rating: Object,
+})
+const result = ref(props.product_status)
 </script>
 
 <template>
     <Head title="Hasil Validasi"/>
-
-    <ProductRegistered v-if="result == 'registered'"/>
+    <ProductRegistered :product="product" :sosmed="sosmed" :rating="rating" v-if="result == 'registered'"/>
     <SerialNumberNotRegistered v-if="result == 'not registered'"/>
     <SerialNumberDuplicate v-if="result == 'duplicate'"/>
 </template>

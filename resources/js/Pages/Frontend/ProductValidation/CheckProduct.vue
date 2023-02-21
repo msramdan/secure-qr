@@ -1,13 +1,76 @@
 <script setup>
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3';
 import logo from '@src/images/validation/Frame 4112.jpg'
 import Black from '@src/images/validation/Black.png'
 import labelin from '@src/images/validation/image 34.png'
 import ValidationLayout from '@/Layouts/Frontend/ValidationLayout.vue'
 import PanduanModal from '@/Components/Frontend/Validation/Modal.vue'
-import { ref } from 'vue'
+import { ref, onMounted, reactive } from 'vue'
+import { Inertia } from '@inertiajs/inertia';
 
 const openModal = ref(false)
+const props = defineProps({
+    qr: Object,
+    sn: String,
+    apiKey: String
+})
+const form = useForm({
+    serial_number: props.sn,
+    one:'',
+    two:'',
+    three:'',
+    four:'',
+    five:'',
+    six: '',
+    latitude: '',
+    longitude: '',
+    kota: ''
+})
+
+const state = reactive({
+    latitude: null,
+    longitude: null,
+    city: null,
+});
+
+const getLocation = () => {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+            state.latitude = position.coords.latitude;
+            state.longitude = position.coords.longitude;
+            const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${state.latitude},${state.longitude}&key=${props.apiKey}`;
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                for (let i = 0; i < data.results[0].address_components.length; i++) {
+                const component = data.results[0].address_components[i];
+                if (component.types.includes('locality')) {
+                    state.city = component.long_name;
+                    break;
+                } else if (component.types.includes('administrative_area_level_2')) {
+                    state.city = component.long_name;
+                    break;
+                }
+                }
+            })
+            .catch(error => {
+                alert(error);
+            });
+        });
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+};
+
+onMounted(() => {
+    getLocation();
+});
+const FormSubmit = () => {
+    form.latitude = state.latitude;
+    form.longitude = state.longitude;
+    form.kota = state.city;
+    form.post(route('validation'))
+}
 </script>
 
 <template>
@@ -22,25 +85,28 @@ const openModal = ref(false)
             <img :src="Black" class="mx-auto mb-4">
             <div class="text-center text-white">
                 <div class="text-sm mb-1">Serial Number</div>
-                <div class="font-semibold text-2xl">XMN8BFKHAK</div>
+                <div class="font-semibold text-2xl">{{ sn }}</div>
             </div>
         </template>
 
+        <form @submit.prevent="FormSubmit">
         <div class="mb-5">
             <div class="fs-6 text-center">Masukkan Pin</div>
             <div class="flex justify-center my-4">
-                <div class="flex space-x-1">
-                    <input type="text" class="form-input-pin" placeholder="_">
-                    <input type="text" class="form-input-pin" placeholder="_">
-                    <input type="text" class="form-input-pin" placeholder="_">
-                    <input type="text" class="form-input-pin" placeholder="_">
-                    <input type="text" class="form-input-pin" placeholder="_">
-                    <input type="text" class="form-input-pin" placeholder="_">
+                    <div class="flex space-x-1">
+                        <input ref="one" type="text" v-model.number="form.one" maxlength="1" class="form-input-pin" placeholder="_">
+                        <input ref="two" type="text" v-model.number="form.two" maxlength="1" class="form-input-pin" placeholder="_">
+                        <input ref="three" type="text" v-model.number="form.three" maxlength="1" class="form-input-pin" placeholder="_">
+                        <input ref="four" type="text" v-model.number="form.four" maxlength="1" class="form-input-pin" placeholder="_">
+                        <input ref="five" type="text" v-model.number="form.five" maxlength="1" class="form-input-pin" placeholder="_">
+                        <input ref="six" type="text" v-model.number="form.six" maxlength="1" class="form-input-pin" placeholder="_">
+                    </div>
                 </div>
+                <div class="fs-6 text-center text-secondary-validation">*Pin terdapat pada label QR</div>
             </div>
-            <div class="fs-6 text-center text-secondary-validation">*Pin terdapat pada label QR</div>
-        </div>
-        <button class="btn-validation my-10">Cek Produk</button>
+            <button class="btn-validation my-10">Cek Produk</button>
+        </form>
+
         <div @click="openModal = true" class="flex items-center justify-center cursor-pointer">
             <svg class="w-3.5 h-3.5 mr-2" viewBox="0 0 12 12" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
