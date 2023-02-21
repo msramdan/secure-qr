@@ -26,15 +26,6 @@ class UserSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            [
-                'name' => 'Demo',
-                'email' => 'demo@labelin.co',
-                'password' => Hash::make('mocachino'),
-                'remember_token' => Str::random(10),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
         ]);
     }
 }

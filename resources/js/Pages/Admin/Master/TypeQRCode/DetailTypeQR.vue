@@ -4,7 +4,6 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
 const props = defineProps({
     type: Array
 });
-console.log(props.type);
 </script>
 
 <template>

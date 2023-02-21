@@ -86,7 +86,7 @@ class PartnerProductController extends Controller
             Product::create($attr);
 
             \Message::success('Berhasil menyimpan data!');
-            return redirect()->back();
+            return to_route('partner.produk.index');
         } catch (\Throwable $th) {
             // dd($th->getMessage());
             \Message::danger('Gagal menyimpan data!');
@@ -160,7 +160,7 @@ class PartnerProductController extends Controller
             }
             $product->delete();
             \Message::success('Berhasil menghapus data!');
-            return redirect()->back();
+            return to_route('partner.produk.index');
         } catch (\Throwable $th) {
             \Message::danger('Gagal menghapus data!');
             return redirect()->back();

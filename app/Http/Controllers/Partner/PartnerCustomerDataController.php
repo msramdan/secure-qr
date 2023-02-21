@@ -57,7 +57,7 @@ class PartnerCustomerDataController extends Controller
             } else {
                 \Message::success('Berhasil membuka Qr Code!');
             }
-            return redirect()->back();
+            return to_route('partner.customer.index');
         } catch (\Throwable $th) {
             \Message::danger('Gagal merubah data!');
             return redirect()->back();

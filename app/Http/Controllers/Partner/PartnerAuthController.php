@@ -27,9 +27,11 @@ class PartnerAuthController extends Controller
         \Message::danger('Gagal, Email atau Password salah!');
         return redirect()->back();
     }
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::guard('partners')->logout();
         return to_route('home');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
     }
 }

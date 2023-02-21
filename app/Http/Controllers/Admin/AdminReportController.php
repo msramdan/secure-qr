@@ -10,6 +10,10 @@ use PhpParser\Node\Stmt\Return_;
 
 class AdminReportController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission::customer_data_show')->only('index');
+    }
     public function index(Request $request)
     {
         $paginate = $request->get('paginate') ?? 10;

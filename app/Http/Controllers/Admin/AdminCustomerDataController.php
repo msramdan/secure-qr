@@ -11,6 +11,11 @@ use App\Models\QrCode;
 
 class AdminCustomerDataController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission::customer_data_show')->only('index');
+        $this->middleware('permission::customer_data_detail')->only('show');
+    }
     public function index(Request $request)
     {
         $paginate = $request->get('paginate') ?? 10;

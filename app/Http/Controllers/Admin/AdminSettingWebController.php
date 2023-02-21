@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminSettingWebController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission::setting_web_show')->only('index');
+        $this->middleware('permission::setting_web_update')->only('update');
+    }
     public function index()
     {
         $setting = SettingWeb::first();

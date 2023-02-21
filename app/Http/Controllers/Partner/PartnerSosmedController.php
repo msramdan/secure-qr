@@ -70,7 +70,7 @@ class PartnerSosmedController extends Controller
             $sosmed = Sosmed::find($id);
             $sosmed->update($attr);
             \Message::success('Berhasil merubah data!');
-            return redirect()->back();
+            return to_route('partner.links.index');
         } catch (\Throwable $th) {
             \Message::danger('Gagal merubah data!');
             return redirect()->back();
@@ -82,7 +82,7 @@ class PartnerSosmedController extends Controller
             $sosmed = Sosmed::findOrFail($id);
             $sosmed->delete();
             \Message::success('Berhasil menghapus data!');
-            return redirect()->back();
+            return to_route('partner.links.index');
         } catch (\Throwable $th) {
             \Message::danger('Gagal menghapus data!');
             return redirect()->back();

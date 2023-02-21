@@ -70,7 +70,7 @@ class PartnerRequestQrcodeController extends Controller
             return response()->download($fullpath, $filename, $headers);
         } else {
             \Message::danger('Bukti pembayaran tidak ada!');
-            return redirect()->back();
+            return to_route('partner.request.index');
         }
     }
     public function upload(int $id, Request $request)
@@ -80,7 +80,7 @@ class PartnerRequestQrcodeController extends Controller
         $requestQr = RequestQrcode::findOrFail($id);
         if (!in_array($requestQr->status, ['Waiting Payment', 'Pending Payment'])) {
             \Message::danger('Tidak dapat upload bukti pembayaran');
-            return redirect()->back();
+            return to_route('partner.request.index');
         }
         $attr = $request->validate([
             'bukti_pembayaran' => 'required|mimes:png,jpg,jpeg,pdf,docx,doc|max:1024',
@@ -116,12 +116,9 @@ class PartnerRequestQrcodeController extends Controller
             );
 
             \Message::success('Bukti pembayaran berhasil diupload');
-
-            return redirect()->back();
+            return to_route('partner.request.index');
         }
-
         \Message::danger('Bukti pembayaran gagal diupload');
-
-        return redirect()->back();
+        return to_route('partner.request.index');
     }
 }

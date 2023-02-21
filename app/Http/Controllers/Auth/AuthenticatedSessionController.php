@@ -34,14 +34,12 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request)
     {
         $request->authenticate();
-
         $request->session()->regenerate();
-
-        $user = auth()->user()->roles->pluck('name')[0] ?? 'partner';
-        if ($user == 'Super Admin') {
-            return redirect()->intended(RouteServiceProvider::HOME);
+        $user = auth()->user()->roles;
+        if ($user->isEmpty()) {
+            return redirect()->back();
         } else {
-            return redirect()->intended(route('partner.dashboard'));
+            return redirect()->intended(RouteServiceProvider::HOME);
         }
     }
 

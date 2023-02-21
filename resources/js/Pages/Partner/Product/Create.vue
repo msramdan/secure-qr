@@ -40,7 +40,7 @@ const FormSubmit = () => {
                             <InputError :message="form.errors.production_code" />
                         </div>
                         <div class="mb-5">
-                            <label for="category_id" class="form-label-dashboard">category_id :</label>
+                            <label for="category_id" class="form-label-dashboard">Category :</label>
                             <select v-model="form.category_id" id="category_id" class="form-input-dashboard">
                                 <option value="" disabled>Select category</option>
                                 <option v-for="kategori in category" :value="kategori.id">{{ kategori.name }}</option>

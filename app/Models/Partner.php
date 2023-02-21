@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Business;
 // use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Partner extends Model
 {
@@ -14,5 +15,9 @@ class Partner extends Model
     public function getAuthPassword()
     {
         return $this->password;
+    }
+    public function business()
+    {
+        return $this->hasMany(Business::class);
     }
 }

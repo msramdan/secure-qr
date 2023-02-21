@@ -96,7 +96,7 @@ class PartnerBisnisController extends Controller
             }
 
             \Message::success('Berhasil menyimpan data!');
-            return redirect()->back();
+            return to_route('partner.bisnis.index');
         } catch (\Throwable $th) {
             dd($th->getMessage());
             \Message::danger('Gagal menyimpan data!');
@@ -166,7 +166,7 @@ class PartnerBisnisController extends Controller
                 }
             }
             \Message::success('Berhasil merubah data!');
-            return redirect()->back();
+            return to_route('partner.bisnis.index');
         } catch (\Throwable $th) {
             // dd($th->getMessage());
             \Message::danger('Gagal merubah data!');
@@ -179,7 +179,7 @@ class PartnerBisnisController extends Controller
             // dd($business);
             $business->delete();
             \Message::success('Berhasil menghapus data!');
-            return redirect()->back();
+            return to_route('partner.bisnis.index');
         } catch (\Throwable $th) {
             \Message::danger('Gagal menghapus data!');
             return redirect()->back();

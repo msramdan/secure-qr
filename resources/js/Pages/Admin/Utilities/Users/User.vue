@@ -7,7 +7,8 @@ import Datatable from '@/Components/Admin/Datatable.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 
 const props = defineProps({
-    users: Object
+    users: Object,
+    filters: Object
 })
 </script>
 
@@ -18,9 +19,9 @@ const props = defineProps({
         <div class="card-dashboard">
             <div class="flex items-center justify-between mb-10">
                 <h2 class="card-title-dashboard mb-0">Data User</h2>
-                <ButtonCreate href="#"/>
+                <ButtonCreate :href="route('admin.users.create')"/>
             </div>
-            <Datatable :pagination-links="[users]">
+            <Datatable :paginationLinks="users" :filters="filters">
                 <table class="table">
                     <thead>
                         <tr>
@@ -32,13 +33,13 @@ const props = defineProps({
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="user,i in users" :key="n" class="odd:bg-odd">
-                            <td class="table-td">Row {{ n }}</td>
-                            <td class="table-td">Row {{ n }}</td>
-                            <td class="table-td">Row {{ n }}</td>
-                            <td class="table-td">Row {{ n }}</td>
+                        <tr v-for="user,i in users.data" :key="i" class="odd:bg-odd">
+                            <td class="table-td">{{ ++i }}</td>
+                            <td class="table-td">{{ user.name }}</td>
+                            <td class="table-td">{{ user.email }}</td>
+                            <td class="table-td">{{ user.roles[0].name }}</td>
                             <td class="table-td">
-                                <TableAction edit-href="#" delete-href="#"/>
+                                <TableAction :edit-href="route('admin.users.edit', user.id)" :delete-href="route('admin.users.destroy', user.id)"/>
                             </td>
                         </tr>
                     </tbody>

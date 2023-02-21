@@ -11,6 +11,14 @@ use Intervention\Image\Facades\Image;
 
 class AdminTyperQrcodeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission::type_qrcode_show')->only('index');
+        $this->middleware('permission::type_qrcode_create')->only('create', 'store');
+        $this->middleware('permission::type_qrcode_update')->only('edit', 'update');
+        $this->middleware('permission::type_qrcode_delete')->only('destroy');
+        $this->middleware('permission::type_qrcode_detail')->only('show');
+    }
     public function index(Request $request)
     {
         $paginate = $request->get('paginate') ?? 10;

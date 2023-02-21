@@ -88,22 +88,22 @@ Route::middleware(['auth:web'])->group(function () {
     });
 
     Route::controller(AdminUserController::class)->group(function () {
-      Route::get('/users', 'index');
-      Route::get('/users/create', 'create');
-      Route::post('/users/store', 'store');
-      Route::get('/users/edit/{id}', 'edit');
-      Route::patch('/users/update/{id}', 'update');
-      Route::delete('/users/destroy/{id}', 'destroy');
+      Route::get('/users', 'index')->name('admin.users.index');
+      Route::get('/users/create', 'create')->name('admin.users.create');
+      Route::post('/users/store', 'store')->name('admin.users.store');
+      Route::get('/users/edit/{id}', 'edit')->name('admin.users.edit');
+      Route::patch('/users/update/{id}', 'update')->name('admin.users.update');
+      Route::delete('/users/destroy/{id}', 'destroy')->name('admin.users.destroy');
     });
 
     Route::controller(AdminRoleController::class)->group(function () {
-      Route::get('/roles', 'index');
-      Route::get('/roles/create', 'create');
-      Route::post('/roles/store', 'store');
-      Route::get('/roles/show/{id}', 'show');
-      Route::get('/roles/edit/{id}', 'edit');
-      Route::patch('/roles/update/{id}', 'update');
-      Route::delete('/roles/destroy/{id}', 'detroy');
+      Route::get('/roles', 'index')->name('admin.roles.index');
+      Route::get('/roles/create', 'create')->name('admin.roles.create');
+      Route::post('/roles/store', 'store')->name('admin.roles.store');
+      Route::get('/roles/show/{id}', 'show')->name('admin.roles.show');
+      Route::get('/roles/edit/{id}', 'edit')->name('admin.roles.edit');
+      Route::patch('/roles/update/{id}', 'update')->name('admin.roles.update');
+      Route::delete('/roles/destroy/{id}', 'destroy')->name('admin.roles.destroy');
     });
 
     Route::controller(AdminSettingWebController::class)->group(function () {

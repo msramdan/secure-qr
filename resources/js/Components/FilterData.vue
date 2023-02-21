@@ -2,6 +2,10 @@
 import { ref } from 'vue'
 
 const openFilerOption = ref(false)
+const props = defineProps({
+    alldata: Array,
+    duplicate: Array
+})
 </script>
 
 <template>
@@ -25,31 +29,14 @@ const openFilerOption = ref(false)
                 </div>
             </div>
         </div>
-
-        <!-- <form class="form mb-5" action="#">
-            <div class="w-full flex flex-col md:flex-row md:items-end space-x-0 md:space-x-5 space-y-5">
-                <div class="md:w-56">
-                    <label for="" class="form-label-dashboard">Start Date</label>
-                    <input type="date" class="form-input-dashboard">
-                </div>
-                <div class="md:w-56">
-                    <label for="" class="form-label-dashboard">End Date</label>
-                    <input type="date" class="form-input-dashboard">
-                </div>
-                <div class="flex items-center justify-end space-x-3">
-                    <button class="form-btn-dashboard mt-0">Submit</button>
-                    <button class="btn-cancel mt-0">Clear</button>
-                </div>
-            </div>
-        </form> -->
         <div class="flex flex-col md:flex-row md:space-x-5 space-y-5 md:space-y-0">
             <div class="flex-1 text-center border border-gray-300 rounded-xl p-4">
                 <h3 class="font-semibold text-lg mb-3">Total Scanned</h3>
-                <h1 class="font-bold text-gray-900 text-6xl">68</h1>
+                <h1 class="font-bold text-gray-900 text-6xl">{{ alldata }}</h1>
             </div>
             <div class="flex-1 text-center border border-gray-300 rounded-xl p-4">
                 <h3 class="font-semibold text-lg mb-3">Duplicate Scanned</h3>
-                <h1 class="font-bold text-gray-900 text-6xl">140</h1>
+                <h1 class="font-bold text-gray-900 text-6xl">{{ duplicate }}</h1>
             </div>
         </div>
     </div>
