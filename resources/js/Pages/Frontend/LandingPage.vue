@@ -1,5 +1,6 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, onBeforeUnmount, ref } from 'vue'
+import Modal from '@/Components/Modal.vue'
 
 const openMenu = () => {
     const menu = document.getElementById('menu')
@@ -13,6 +14,22 @@ const openMenu = () => {
 const openVideoModal = () => {
     const modal = document.getElementById('video-modal')
     modal.classList.toggle('hidden')
+}
+
+const scrollTopButton = ref(null);
+
+const handleScroll = () => {
+    const scrollBtn = scrollTopButton.value;
+
+    if (window.scrollY > 0) {
+        scrollBtn.classList.remove('hidden');
+    } else {
+        scrollBtn.classList.add('hidden');
+    }
+}
+
+const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 onMounted(() => {
@@ -29,6 +46,12 @@ onMounted(() => {
             }
         });
     }
+
+    window.addEventListener('scroll', handleScroll);
+})
+
+onBeforeUnmount(() => {
+    window.removeEventListener('scroll', handleScroll);
 })
 </script>
 
@@ -62,6 +85,9 @@ onMounted(() => {
                             </li>
                             <li>
                                 <a href="#">Kontak</a>
+                            </li>
+                            <li>
+                                <a href="#">Login</a>
                             </li>
                         </ul>
                     </div>
@@ -193,176 +219,6 @@ onMounted(() => {
                             </button>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Produk Terbaik Kami -->
-        <div class="bg-quaternary my-20">
-            <section class="landing-section">
-                <h2 class="landing-h2 text-center">Produk Terbaik Kami</h2>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-8">
-                    <div class="rounded-xl" style="box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.05);">
-                        <img src="@src/images/landing/hologram/2D.png" alt="2D Hologram" class="rounded-t-xl">
-                        <div class="py-6">
-                            <p class="landing-p text-center text-lg">2D Hologram</p>
-                        </div>
-                    </div>
-                    <div class="rounded-xl" style="box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.05);">
-                        <img src="@src/images/landing/hologram/3D.png" alt="3D Hologram" class="rounded-t-xl">
-                        <div class="py-6">
-                            <p class="landing-p text-center text-lg">3D Hologram</p>
-                        </div>
-                    </div>
-                    <div class="rounded-xl" style="box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.05);">
-                        <img src="@src/images/landing/hologram/Numbering.png" alt="Numbering Hologram" class="rounded-t-xl">
-                        <div class="py-6">
-                            <p class="landing-p text-center text-lg">Numbering Hologram</p>
-                        </div>
-                    </div>
-                    <div class="rounded-xl" style="box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.05);">
-                        <img src="@src/images/landing/hologram/Printed.png" alt="Printed Hologram" class="rounded-t-xl">
-                        <div class="py-6">
-                            <p class="landing-p text-center text-lg">Printed Hologram</p>
-                        </div>
-                    </div>
-                    <div class="rounded-xl" style="box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.05);">
-                        <img src="@src/images/landing/hologram/Barcode.png" alt="Barcode Hologram" class="rounded-t-xl">
-                        <div class="py-6">
-                            <p class="landing-p text-center text-lg">Barcode Hologram</p>
-                        </div>
-                    </div>
-                    <div class="rounded-xl" style="box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.05);">
-                        <img src="@src/images/landing/hologram/Demetallic.png" alt="Demetallic Hologram" class="rounded-t-xl">
-                        <div class="py-6">
-                            <p class="landing-p text-center text-lg">Demetallic Hologram</p>
-                        </div>
-                    </div>
-                    <div class="rounded-xl" style="box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.05);">
-                        <img src="@src/images/landing/hologram/QR Code.png" alt="QR Code Hologram" class="rounded-t-xl">
-                        <div class="py-6">
-                            <p class="landing-p text-center text-lg">QR Code Hologram</p>
-                        </div>
-                    </div>
-                    <div class="rounded-xl" style="box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.05);">
-                        <img src="@src/images/landing/hologram/Scratched.png" alt="Scratched Hologram" class="rounded-t-xl">
-                        <div class="py-6">
-                            <p class="landing-p text-center text-lg">Scratched Hologram</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Kualitas Material Hologram -->
-        <div class="relative bg-primary my-20 py-20 lg:py-40">
-            <div class="absolute left-0 bottom-0">
-                <img src="@src/images/landing/Ellipse Kiri.png" alt="Ellipse Kiri" class="w-72">
-            </div>
-            <div class="absolute right-0 top-0">
-                <img src="@src/images/landing/Ellipse Kanan.png" alt="Ellipse Kanan" class="w-[40rem]">
-            </div>
-            <div class="relative max-w-full mx-auto py-8 pl-6 sm:pl-10 lg:pl-40">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-10 md:space-y-0">
-                    <div class="flex-none md:mr-10 lg:mr-32">
-                        <div class="md:w-72 pr-6 sm:pr-10 md:pr-0">
-                            <h2 class="landing-h2 text-white mb-5">Kualitas Material Hologram</h2>
-                            <p class="landing-p text-white text-lg leading-relaxed">Kami memiliki berbagai macam kualitas material terbaik dalam pembutan hologram</p>
-                        </div>
-                    </div>
-                    <div class="md:relative w-full">
-                        <div class="md:absolute md:inset-0 flex items-center">
-                            <div class="flex space-x-4 md:space-x-8 snap-x overflow-x-auto scrollbar-hide font-medium pr-6 sm:pr-10 lg:pr-40">
-                                <div class="snap-start flex-none w-56 lg:w-80 rounded-xl" style="box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.05);">
-                                    <img src="@src/images/landing/material/Custom Logo Destroyed.png" alt="Custom Logo Destroyed Material" class="rounded-t-xl">
-                                    <div class="bg-white py-6 rounded-b-xl">
-                                        <p class="landing-p text-center text-lg">Custom Logo Destroyed Material</p>
-                                    </div>
-                                </div>
-                                <div class="snap-start flex-none w-56 lg:w-80 rounded-xl" style="box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.05);">
-                                    <img src="@src/images/landing/material/Hologram Stamping Oil.png" alt="Hologram Stamping Oil" class="rounded-t-xl">
-                                    <div class="bg-white py-6 rounded-b-xl">
-                                        <p class="landing-p text-center text-lg">Hologram Stamping Oil</p>
-                                    </div>
-                                </div>
-                                <div class="snap-start flex-none w-56 lg:w-80 rounded-xl" style="box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.05);">
-                                    <img src="@src/images/landing/material/Transparent.png" alt="Transparent Material" class="rounded-t-xl">
-                                    <div class="bg-white py-6 rounded-b-xl">
-                                        <p class="landing-p text-center text-lg">Transparent Material</p>
-                                    </div>
-                                </div>
-                                <div class="snap-start flex-none w-56 lg:w-80 rounded-xl" style="box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.05);">
-                                    <img src="@src/images/landing/material/Honeycom Destroyed.png" alt="Honeycom Destroyed Material" class="rounded-t-xl">
-                                    <div class="bg-white py-6 rounded-b-xl">
-                                        <p class="landing-p text-center text-lg">Honeycom Destroyed Material</p>
-                                    </div>
-                                </div>
-                                <div class="snap-start flex-none w-56 lg:w-80 rounded-xl" style="box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.05);">
-                                    <img src="@src/images/landing/material/Non-Destroyed.png" alt="Non-Destroyed Material" class="rounded-t-xl">
-                                    <div class="bg-white py-6 rounded-b-xl">
-                                        <p class="landing-p text-center text-lg">Non-Destroyed Material</p>
-                                    </div>
-                                </div>
-                                <div class="snap-start flex-none w-56 lg:w-80 rounded-xl" style="box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.05);">
-                                    <img src="@src/images/landing/material/One Time Used.png" alt="One Time Used Material" class="rounded-t-xl">
-                                    <div class="bg-white py-6 rounded-b-xl">
-                                        <p class="landing-p text-center text-lg">One Time Used Material</p>
-                                    </div>
-                                </div>
-                                <div class="snap-start flex-none w-56 lg:w-80 rounded-xl" style="box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.05);">
-                                    <img src="@src/images/landing/material/Tamper Void.png" alt="Tamper Void Material" class="rounded-t-xl">
-                                    <div class="bg-white py-6 rounded-b-xl">
-                                        <p class="landing-p text-center text-lg">Tamper Void Material</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Keunggulan Produk Kami -->
-        <section class="landing-section">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between md:space-x-40 space-y space-y-10 md:space-y-0">
-                <div class="md:flex-none">
-                    <img src="@src/images/landing/Icon Keunggulan.png" alt="Keunggulan Kami" class="w-28 mx-auto md:mx-0 mb-4">
-                    <h2 class="landing-h2 hidden md:block mb-0">Keunggulan <br> Produk Kami</h2>
-                    <h2 class="landing-h2 md:hidden text-center mb-0">Keunggulan Produk Kami</h2>
-                </div>
-                <div class="flex-1">
-                    <ul class="space-y-4">
-                        <li class="flex items-start space-x-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="flex-none fill-primary w-7 h-7">
-                                <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
-                            </svg>
-                            <div class="text-lg">Produsen dapat dengan mudah mendeteksi pemalsuan</div>
-                        </li>
-                        <li class="flex items-start space-x-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="flex-none fill-primary w-7 h-7">
-                                <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
-                            </svg>
-                            <div class="text-lg">Produsen dapat melakukan peblokiran produk melalui serial number</div>
-                        </li>
-                        <li class="flex items-start space-x-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="flex-none fill-primary w-7 h-7">
-                                <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
-                            </svg>
-                            <div class="text-lg">Produsen dapat mendeteksi wilayah edar produk</div>
-                        </li>
-                        <li class="flex items-start space-x-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="flex-none fill-primary w-7 h-7">
-                                <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
-                            </svg>
-                            <div class="text-lg">Kontrol penuh tambah dan perbaharui konten video, gambar produk, link sosmed secara real time dan tambah fitur loyalty program. Meskipun produkmu sudah tersebar.</div>
-                        </li>
-                        <li class="flex items-start space-x-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="flex-none fill-primary w-7 h-7">
-                                <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
-                            </svg>
-                            <div class="text-lg">Dapatkan feedback dari customer Anda yang tersimpan secara daring, pahami customer behavior untuk meningkatkan performa perusahaan melalui layanan dasboard.</div>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </section>
@@ -900,5 +756,29 @@ onMounted(() => {
 
             <hr class="border-2 border-[#2A3C48] py-5">
         </footer>
+
+        <div class="fixed right-4 bottom-4 transition">
+            <div>
+                <button class="bg-primary rounded-full focus:outline-none">
+                    <a href="#" class="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="text-white w-5 h-5 md:w-6 md:h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                        </svg>
+                    </a>
+                </button>
+                <button @click="scrollToTop" ref="scrollTopButton" class="hidden bg-primary w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full focus:outline-none mt-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="text-white w-5 h-5 md:w-6 md:h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 19.5v-15m0 0l-6.75 6.75M12 4.5l6.75 6.75" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <Modal :open-modal="true" @closeModal="openModal = false">
+            <div class="py-5 md:px-3 md:py-8">
+                <div class="font-semibold text-lg mb-8">Modal Title</div>
+                <div class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam a tempore laboriosam voluptates aspernatur excepturi praesentium sequi quod? Sed unde veniam, qui est quos soluta officiis. Veritatis veniam sunt autem.</div>
+            </div>
+        </Modal>
     </div>
 </template>
