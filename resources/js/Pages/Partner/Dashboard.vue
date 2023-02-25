@@ -54,7 +54,7 @@ const chartByBisnisData = ({
             </div>
             </template>
         </div>
-        <FilterData />
+        <FilterData :alldata="allScan" :duplicate="duplicateScan"/>
         <TotalScanMap :datas="datas" />
 
         <div class="flex flex-col lg:flex-row lg:space-x-8 space-y-8 lg:space-y-0">

@@ -1,16 +1,15 @@
 <script setup>
 import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3';
-import logo from '@src/images/validation/Frame 4112.jpg'
 import Black from '@src/images/validation/Black.png'
 import labelin from '@src/images/validation/image 34.png'
 import ValidationLayout from '@/Layouts/Frontend/ValidationLayout.vue'
 import PanduanModal from '@/Components/Frontend/Validation/Modal.vue'
-import { ref, onMounted, reactive } from 'vue'
+import { ref, onMounted, reactive, getCurrentInstance } from 'vue'
 import { Inertia } from '@inertiajs/inertia';
 
 const openModal = ref(false)
 const props = defineProps({
-    qr: Object,
+    brandLogo: Object,
     sn: String,
     apiKey: String
 })
@@ -71,6 +70,32 @@ const FormSubmit = () => {
     form.kota = state.city;
     form.post(route('validation'))
 }
+onMounted(() => {
+  const inputs = document.querySelectorAll('.form-input-pin')
+  
+  inputs.forEach((input, index) => {
+    input.addEventListener('input', (event) => {
+      const inputVal = event.target.value
+      const maxLength = event.target.maxLength
+      
+      if (inputVal.length === maxLength) {
+        if (index < inputs.length - 1) {
+          inputs[index + 1].focus()
+        }
+      }
+    })
+    
+    input.addEventListener('keydown', (event) => {
+      const keyCode = event.keyCode || event.which
+      
+      if (keyCode === 8 && !event.target.value) {
+        if (index > 0) {
+          inputs[index - 1].focus()
+        }
+      }
+    })
+  })
+})
 </script>
 
 <template>
@@ -78,7 +103,8 @@ const FormSubmit = () => {
 
     <ValidationLayout>
         <template #logo>
-            <img :src="logo" alt="Unilever" class="mx-auto">
+            <img v-if="brandLogo != null" :src="`/storage/uploads/logos/` + brandLogo.logo_brand" :alt="brandLogo.logo_brand" class="mx-auto">
+            <div v-else class="mx-auto text-center">Not found</div>
         </template>
 
         <template #jumbotron>
@@ -88,7 +114,12 @@ const FormSubmit = () => {
                 <div class="font-semibold text-2xl">{{ sn }}</div>
             </div>
         </template>
-
+        <div class="flex justify-center items-center" v-if="brandLogo != null">
+            <video id="video" width="300" height="250" autoplay="" loop="" name="media" muted="">
+                    <source src="https://labelin.co/storage/uploads/video/HcHb0UkTcGLWj5BuzicH1Fvbwj3AGU0szGKATjTS.mp4" type="video/mp4">
+                    Browser anda tidak suport untuk menampilkan video.
+            </video>
+        </div>
         <form @submit.prevent="FormSubmit">
         <div class="mb-5">
             <div class="fs-6 text-center">Masukkan Pin</div>

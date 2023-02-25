@@ -55,7 +55,7 @@ class AdminUserController extends Controller
             ]);
             $user->assignRole($request->role);
             \Message::success('Berhasil menyimpan data!');
-            return redirect()->back();
+            return to_route('admin.users.index');
         } catch (\Throwable $th) {
             \Message::danger('Gagal menyimpan data!');
             return redirect()->back();

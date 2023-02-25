@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 
 class AdminRoleController extends Controller
 {
@@ -40,20 +41,60 @@ class AdminRoleController extends Controller
     }
     public function store(Request $request)
     {
-        dd($request->all());
+        $request->validate([
+            'name' => 'required|string|max:50|unique:roles,name',
+            'permissions' => 'required'
+        ]);
+        try {
+            $role = Role::create(['name' => $request->name]);
+            $role->givePermissionTo($request->permissions);
+            \Message::success('Berhasil menyimpan data!');
+            return to_route('admin.roles.index');
+        } catch (\Throwable $th) {
+            \Message::danger('Gagal menyimpan data!');
+            return redirect()->back();
+        }
     }
     public function show($id)
     {
-        return Inertia::render('Admin/Utilities/Roles/DetailRoles');
+        $role = Role::findOrFail($id);
+        $permission =  $role->permissions()->pluck('name');
+        return Inertia::render('Admin/Utilities/Roles/DetailRoles', [
+            'dataRoles' => config('permission.authorities'),
+            'role' => $role,
+            'permissionUser' => $permission
+        ]);
     }
     public function edit($id)
     {
-        return Inertia::render('Admin/Utilities/Roles/EditRoles');
+        $role = Role::findOrFail($id);
+        $permission =  $role->permissions()->pluck('name');
+        // dd(config('permission.authorities'));
+        return Inertia::render('Admin/Utilities/Roles/EditRoles', [
+            'dataRoles' => config('permission.authorities'),
+            'role' => $role,
+            'permissionUser' => $permission
+        ]);
     }
     public function update(Request $request, $id)
     {
+        dd($request->all(), $id);
     }
     public function destroy($id)
     {
+        try {
+            $role = Role::findOrFail($id);
+            if (User::role($role->name)->count()) {
+                \Message::danger('Data gagal dihapus, data sudah berelasi');
+                return to_route('admin.roles.index');
+            }
+            $role->revokePermissionTo($role->permissions()->pluck('name')->toArray());
+            $role->delete();
+            \Message::success('Data berhasil di hapus!');
+            return to_route('admin.roles.index');
+        } catch (\Throwable $th) {
+            \Message::danger('Data gagal dihapus!');
+            return to_route('admin.roles.index');
+        }
     }
 }

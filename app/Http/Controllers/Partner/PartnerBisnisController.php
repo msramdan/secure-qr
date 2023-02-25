@@ -118,7 +118,7 @@ class PartnerBisnisController extends Controller
                 'name' => 'required|string|min:1|max:100',
                 'brand' => 'required|string|min:1|max:100',
                 'manufacture' => 'required|string|min:1|max:255',
-                'logo' => 'nullable|image|max:1024|mimes:png',
+                'logo' => 'nullable|image|max:3050|mimes:png',
                 'video' => 'nullable|max:3050|mimes:mp4',
             ]);
 

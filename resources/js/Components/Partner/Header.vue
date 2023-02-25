@@ -38,7 +38,7 @@ const openNotification = ref(false)
                     <HeaderLink name="Customer Data" href="/partner/customer_data" :active="$page.url === '/partner/customer_data'">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
                     </HeaderLink>
-                    <HeaderLink name="Custom Link Resmi" href="/partner/links" :active="$page.url === '/partner/links'">
+                    <HeaderLink name="Official Links" href="/partner/links" :active="$page.url === '/partner/links'">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
                     </HeaderLink>
                 </ul>
