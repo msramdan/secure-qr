@@ -9,6 +9,8 @@ use App\Http\Controllers\Partner\PartnerProductController;
 use App\Http\Controllers\Partner\PartnerProfileController;
 use App\Http\Controllers\Partner\PartnerDashboardController;
 use App\Http\Controllers\Partner\PartnerCustomerDataController;
+use App\Http\Controllers\Partner\PartnerLoyaltyController;
+use App\Http\Controllers\Partner\PartnerRatingController;
 use App\Http\Controllers\Partner\PartnerRequestQrcodeController;
 
 Route::controller(PartnerAuthController::class)
@@ -49,6 +51,14 @@ Route::middleware(['auth:partners'])->group(function () {
         Route::patch('/produk/update/{product}', 'update')->name('produk.update');
         Route::delete('/produk/destroy/{product}', 'destroy')->name('produk.destroy');
       });
+
+      Route::controller(PartnerRatingController::class)->group(function () {
+        Route::get('/produk/rating', 'index')->name('rating.index');
+      });
+
+      // Route::controller(PartnerLoyaltyController::class)->group(function () {
+      //   Route::get('/loyalty', 'index')->name('loyalty.index');
+      // });
 
       Route::controller(PartnerRequestQrcodeController::class)->group(function () {
         Route::get('/request_qrcode', 'index')->name('request.index');

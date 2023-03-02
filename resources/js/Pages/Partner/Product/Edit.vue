@@ -44,7 +44,7 @@ const FormUpdate = () => {
 
     <PartnerLayout>
         <div class="card-dashboard">
-            <h2 class="card-title-dashboard">Edit Product</h2>
+            <h2 class="card-title-dashboard">Edit Produk</h2>
             <form class="form-dashboard" @submit.prevent="FormUpdate">
                 <div class="flex flex-col lg:flex-row lg:space-x-8">
                     <div class="flex-1">

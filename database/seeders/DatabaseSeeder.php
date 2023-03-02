@@ -28,5 +28,16 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             TypeQrcodeSeeder::class
         ]);
+        \App\Models\Partner::create([
+            'code' => '8723J',
+            'name' => 'demo',
+            'phone' => '928493282',
+            'pic' => 'Ms Glow',
+            'photo' => 'photo.jpg',
+            'address' => 'Gadu Barat Ganding Sumenep',
+            'email' => 'demo@labelin.co',
+            'email_verified_at' => now(),
+            'password' => bcrypt('mocachino')
+        ]);
     }
 }

@@ -11,7 +11,7 @@ const props = defineProps({
 
     <PartnerLayout>
         <div class="card-dashboard">
-            <h2 class="card-title-dashboard">Detail Product</h2>
+            <h2 class="card-title-dashboard">Detail Produk</h2>
             <div>
                 <table class="w-full">
                     <tbody>

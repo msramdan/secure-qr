@@ -30,7 +30,7 @@ const FormSubmit = () => {
 
     <PartnerLayout>
         <div class="card-dashboard">
-            <h2 class="card-title-dashboard">Tambah Produk</h2>
+            <h2 class="card-title-dashboard">Tambah Rating Produk</h2>
             <form class="form-dashboard" @submit.prevent="FormSubmit">
                 <div class="flex flex-col lg:flex-row lg:space-x-8">
                     <div class="flex-1">
