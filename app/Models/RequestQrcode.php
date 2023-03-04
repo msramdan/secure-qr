@@ -16,6 +16,10 @@ class RequestQrcode extends Model
 {
     use HasFactory, HasCode;
     protected $guarded = ['id'];
+    public function getAmountPriceAttribute($value)
+    {
+        return 'Rp. ' . number_format($value, 2, ',', '.');
+    }
     public function product()
     {
         return $this->belongsTo(Product::class);
@@ -40,6 +44,19 @@ class RequestQrcode extends Model
     {
         return 'Rp. ' . number_format($value, 2, ',', '.');
     }
+    protected function tanggalRequest(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Carbon::parse($value)->format('d F Y'),
+        );
+    }
+    protected function tglUploadBuktiBayar(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Carbon::parse($value)->format('d F Y'),
+        );
+    }
+    // casting
     protected function tanggalRequest(): Attribute
     {
         return Attribute::make(

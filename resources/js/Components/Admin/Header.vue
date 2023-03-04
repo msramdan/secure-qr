@@ -50,6 +50,7 @@ const openNotification = ref(false)
                     </div>
                 </div>
             </div>
+
             <transition
                 enter-from-class="opacity-10 translate-y-1/4"
                 enter-active-class="transition ease-out duration-700"

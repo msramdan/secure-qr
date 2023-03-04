@@ -159,7 +159,6 @@ const submit = () => {
             <div class="text-justify">
                     Dengan mengunjungi atau menggunakan situs Labelin.co, Anda sepakat untuk mengikat diri dengan
                     ketentuan dan persyaratan yang ditentukan oleh Labelin.co, sebagaimana suatu perjanjian yang sah dan
-                    mengikat (“Syarat dan Ketentuan”), sebagai berikut: <br><br>
 
                     1. Definisi dan Penafsiran
                     Kecuali ditentukan lain dalam Syarat dan Ketentuan, definisi ini berlaku:
@@ -406,9 +405,6 @@ const submit = () => {
                     Ketentuan dan/atau Daftar Keterangan.
             </div>
             <div class="sticky bottom-0 bg-white py-5">
-                <div class="flex items-center justify-end space-x-2 font-medium">
-                    <button @click="openModal = false" class="bg-red-50 hover:bg-red-100 text-red-500 px-4 py-2 rounded-lg">Close</button>
-                </div>
             </div>
         </Modal>
     </GuestLayout>
