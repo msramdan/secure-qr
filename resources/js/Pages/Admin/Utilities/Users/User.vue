@@ -37,9 +37,9 @@ const props = defineProps({
                             <td class="table-td">{{ ++i }}</td>
                             <td class="table-td">{{ user.name }}</td>
                             <td class="table-td">{{ user.email }}</td>
-                            <td class="table-td">{{ user.roles[0].name }}</td>
+                            <td class="table-td">{{ user.role[0].name}}</td>
                             <td class="table-td">
-                                <TableAction :edit-href="route('admin.users.edit', user.id)" :delete-href="route('admin.users.destroy', user.id)"/>
+                                <TableAction :edit-href="route('admin.users.edit', user.code)" :delete-href="route('admin.users.destroy', user.code)"/>
                             </td>
                         </tr>
                     </tbody>

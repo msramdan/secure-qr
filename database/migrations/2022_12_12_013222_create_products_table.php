@@ -18,9 +18,10 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Category::class)->constrained();
-            $table->foreignIdFor(Business::class)->constrained();
-            $table->foreignIdFor(Partner::class)->constrained();
+            $table->string('code');
+            $table->foreignId('category_id')->constrained();
+            $table->foreignId('business_id')->constrained();
+            $table->foreignId('partner_id')->constrained();
             $table->string('production_code', 20);
             $table->string('name');
             $table->string('slug');

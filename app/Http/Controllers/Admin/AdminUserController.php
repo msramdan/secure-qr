@@ -26,7 +26,13 @@ class AdminUserController extends Controller
         })
             ->with('roles')
             ->paginate($paginate)
-            ->withQueryString();
+            ->withQueryString()
+            ->through(fn ($user) => [
+                'code' => $user->code,
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->roles
+            ]);
         return Inertia::render('Admin/Utilities/Users/User', [
             'users' => $user,
             'filters' => $request->only(['search'])

@@ -6,7 +6,6 @@ import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
 
 // console.log($page.props.auth.user);
 const form = useForm({
-    code: '',
     name: '',
     brand: '',
     logo: '',
@@ -28,11 +27,6 @@ const FormSubmit = () => {
             <form class="form-dashboard" @submit.prevent="FormSubmit">
                 <div class="flex flex-col lg:flex-row lg:space-x-8">
                     <div class="flex-1">
-                        <div class="mb-5">
-                            <label for="" class="form-label-dashboard">Code :</label>
-                            <input type="text" v-model="form.code" class="form-input-dashboard" placeholder=""/>
-                            <InputError :message="form.errors.code" />
-                        </div>
                         <div class="mb-5">
                             <label for="" class="form-label-dashboard">Brand :</label>
                             <input type="text" v-model="form.brand" class="form-input-dashboard" placeholder=""/>

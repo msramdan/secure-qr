@@ -65,19 +65,19 @@ watch(search, debounce(function (value) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="partner,index in partners.data" :key="partner.id" class="odd:bg-odd">
-                            <td class="table-td">
+                        <tr v-for="partner,index in partners.data" :key="index" class="odd:bg-odd">
+                            <td class="table-td" :class="{ 'table-td-dark': index % 2 != 0 }">
                                 {{ ++index }}
                             </td>
                             <td
                                 class="table-td"
-                                :class="{ 'table-td-dark': partner.id % 2 != 0 }"
+                                :class="{ 'table-td-dark': index % 2 != 0 }"
                             >
                                 {{ partner.name }}
                             </td>
                             <td
                                 class="table-td"
-                                :class="{ 'table-td-dark': partner.id % 2 != 0 }"
+                                :class="{ 'table-td-dark': index % 2 != 0 }"
                             >
                                 {{ partner.email }}
                             </td>
@@ -89,11 +89,11 @@ watch(search, debounce(function (value) {
                             </td>
                             <td class="table-td">
                                 <TableAction
-                                    :detailHref="route('admin.partner.show', partner.id)"
-                                    :editHref="route('admin.partner.edit', partner.id)"
-                                    :deleteHref="route('admin.partner.destroy', partner.id)"
+                                    :detailHref="route('admin.partner.show', partner.code)"
+                                    :editHref="route('admin.partner.edit', partner.code)"
+                                    :deleteHref="route('admin.partner.destroy', partner.code)"
                                 >
-                                    <Link :href="route('admin.partner.list', partner.id)">
+                                    <Link :href="route('admin.partner.list', partner.code)">
                                         <ActionIcon>
                                             <path
                                                 stroke-linecap="round"

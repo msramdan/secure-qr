@@ -7,13 +7,14 @@ use App\Models\Partner;
 use App\Models\Product;
 use App\Models\TypeQrcode;
 use App\Models\HistoryRequest;
+use App\Traits\HasCode;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class RequestQrcode extends Model
 {
-    use HasFactory;
+    use HasFactory, HasCode;
     protected $guarded = ['id'];
     public function product()
     {

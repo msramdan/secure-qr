@@ -15,7 +15,7 @@ class SettingWebSeeder extends Seeder
      */
     public function run()
     {
-        SettingWeb::insert([
+        SettingWeb::create([
             'nama_website' => 'Labelin.co',
             'kode_website' => '423954',
             'logo_dark' => 'logo_dark.png',

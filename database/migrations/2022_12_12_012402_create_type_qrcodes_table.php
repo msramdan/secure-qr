@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('type_qrcodes', function (Blueprint $table) {
             $table->id();
+            $table->string('code');
             $table->string('name', 100);
             $table->bigInteger('price');
             $table->string('photo');

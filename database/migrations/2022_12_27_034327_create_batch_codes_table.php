@@ -18,9 +18,10 @@ return new class extends Migration
     {
         Schema::create('batch_codes', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Product::class)->constrained();
-            $table->foreignIdFor(QrCode::class)->constrained();
-            $table->foreignIdFor(RequestQrcode::class)->constrained();
+            $table->string('code');
+            $table->foreignId('product_id')->constrained();
+            $table->foreignId('qr_code_id')->constrained();
+            $table->foreignId('request_qrcode_id')->constrained();
             $table->string('batch_code', 20);
             $table->timestamps();
         });

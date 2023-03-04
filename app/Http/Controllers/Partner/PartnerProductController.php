@@ -30,7 +30,7 @@ class PartnerProductController extends Controller
             ->paginate($paginate)
             ->withQueryString()
             ->through(fn ($product) => [
-                'id' => $product->id,
+                'code' => $product->code,
                 'partner' => $product->nama_partner,
                 'category' => $product->category,
                 'bisnis' => $product->bisnis,

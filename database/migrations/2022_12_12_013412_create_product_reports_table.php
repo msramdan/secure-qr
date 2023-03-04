@@ -16,7 +16,8 @@ return new class extends Migration
     {
         Schema::create('product_reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(QrCode::class)->constrained();
+            $table->string('code');
+            $table->foreignId('qr_code_id')->constrained();
             $table->string('fullname');
             $table->bigInteger('phone_number');
             $table->text('kronologi');

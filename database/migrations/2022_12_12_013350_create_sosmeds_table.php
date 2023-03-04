@@ -16,7 +16,8 @@ return new class extends Migration
     {
         Schema::create('sosmeds', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Partner::class)->constrained();
+            $table->string('code');
+            $table->foreignId('partner_id')->constrained();
             $table->string('name');
             $table->string('link_sosmed');
             $table->timestamps();

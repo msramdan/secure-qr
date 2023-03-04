@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\HasCode;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    use HasFactory;
+    use HasFactory, HasCode;
     protected $guarded = ['id'];
     public function getCreatedAtAttribute($value)
     {

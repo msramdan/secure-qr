@@ -46,14 +46,14 @@ const props = defineProps({
                     </thead>
                     <tbody>
                         <tr v-for="product,i in products.data" :key="i" class="odd:bg-odd">
-                            <td class="table-td" :class="{ 'table-td-dark': product.id % 2 != 0 }">{{ ++i }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': product.id % 2 != 0 }">{{ product.production_code }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': product.id % 2 != 0 }">{{ product.name }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': product.id % 2 != 0 }">{{ product.bisnis }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': product.id % 2 != 0 }">{{ product.category }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': product.id % 2 != 0 }">{{ product.bpom }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': product.id % 2 != 0 }">
-                                <TableAction :detail-href="route('partner.produk.show', product.id)" :edit-href="route('partner.produk.edit', product.id)" :delete-href="route('partner.produk.destroy', product.id)"/>
+                            <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">{{ ++i }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">{{ product.production_code }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">{{ product.name }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">{{ product.bisnis }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">{{ product.category }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">{{ product.bpom }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">
+                                <TableAction :detail-href="route('partner.produk.show', product.code)" :edit-href="route('partner.produk.edit', product.code)" :delete-href="route('partner.produk.destroy', product.code)"/>
                             </td>
                         </tr>
                     </tbody>

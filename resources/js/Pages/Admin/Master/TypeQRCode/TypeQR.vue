@@ -61,7 +61,7 @@ watch(search, debounce(function (value) {
                             <td class="table-td">{{ tipe.name }}</td>
                             <td class="table-td">{{ tipe.price }}</td>
                             <td class="table-td">
-                                <TableAction :detail-href="route('admin.type.show',tipe.id)" :edit-href="route('admin.type.edit',tipe.id)" :delete-href="route('admin.type.destroy',tipe.id)"/>
+                                <TableAction :detail-href="route('admin.type.show',tipe.code)" :edit-href="route('admin.type.edit',tipe.code)" :delete-href="route('admin.type.destroy',tipe.code)"/>
                             </td>
                         </tr>
                     </tbody>

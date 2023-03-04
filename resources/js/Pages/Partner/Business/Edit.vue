@@ -10,7 +10,6 @@ const props = defineProps({
     videos: Object
 });
 const form = useForm({
-    code: props.business.code,
     brand: props.business.brand,
     name: props.business.name,
     manufacture: props.business.manufacture,
@@ -20,7 +19,6 @@ const form = useForm({
 const ForomUpdate = () => {
     Inertia.post(route('partner.bisnis.update', props.business.id), {
         _method: 'patch',
-      code: form.code,
       brand: form.brand,
       name: form.name,
       manufacture: form.manufacture,
@@ -39,11 +37,6 @@ const ForomUpdate = () => {
             <form class="form-dashboard" @submit.prevent="ForomUpdate">
                 <div class="flex flex-col lg:flex-row lg:space-x-8">
                     <div class="flex-1">
-                        <div class="mb-5">
-                            <label for="" class="form-label-dashboard">Code :</label>
-                            <input type="text" class="form-input-dashboard" placeholder="" v-model="form.code"/>
-                            <InputError :message="form.errors.code" />
-                        </div>
                         <div class="mb-5">
                             <label for="" class="form-label-dashboard">Brand :</label>
                             <input type="text" class="form-input-dashboard" placeholder="" v-model="form.brand"/>

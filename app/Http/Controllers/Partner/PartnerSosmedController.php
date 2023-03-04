@@ -21,7 +21,7 @@ class PartnerSosmedController extends Controller
             ->paginate($paginate)
             ->withQueryString()
             ->through(fn ($link) => [
-                'id' => $link->id,
+                'code' => $link->code,
                 'name' => $link->name,
                 'link' => $link->link_sosmed,
             ]);

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('setting_webs', function (Blueprint $table) {
             $table->id();
+            $table->string('code');
             $table->string('nama_website');
             $table->string('kode_website')->nullable();
             $table->string('logo_dark');

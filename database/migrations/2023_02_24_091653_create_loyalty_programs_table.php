@@ -17,8 +17,9 @@ return new class extends Migration
     {
         Schema::create('loyalty_programs', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Partner::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(QrCode::class)->constrained()->cascadeOnDelete();
+            $table->string('code');
+            $table->foreignId('partner_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('qr_code_id')->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->text('deskription');
             $table->date('start_program');

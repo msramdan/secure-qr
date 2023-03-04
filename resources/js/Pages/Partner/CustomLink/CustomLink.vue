@@ -37,7 +37,7 @@ const props = defineProps({
                             <td class="table-td">{{ data.name }}</td>
                             <td class="table-td">{{ data.link }}</td>
                             <td class="table-td">
-                                <TableAction :edit-href="route('partner.links.edit', data.id)" :delete-href="route('partner.links.destroy', data.id)"/>
+                                <TableAction :edit-href="route('partner.links.edit', data.code)" :delete-href="route('partner.links.destroy', data.code)"/>
                             </td>
                         </tr>
                     </tbody>

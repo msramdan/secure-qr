@@ -16,7 +16,8 @@ return new class extends Migration
     {
         Schema::create('claimed_loyalties', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(LoyaltyProgram::class)->constrained()->cascadeOnDelete();
+            $table->string('code');
+            $table->foreignId('loyalty_program_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->string('phone');
             $table->string('nik');

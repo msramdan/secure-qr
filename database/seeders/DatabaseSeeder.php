@@ -29,7 +29,6 @@ class DatabaseSeeder extends Seeder
             TypeQrcodeSeeder::class
         ]);
         \App\Models\Partner::create([
-            'code' => '8723J',
             'name' => 'demo',
             'phone' => '928493282',
             'pic' => 'Ms Glow',

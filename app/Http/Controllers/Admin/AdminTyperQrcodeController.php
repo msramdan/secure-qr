@@ -26,7 +26,11 @@ class AdminTyperQrcodeController extends Controller
             $query->where('name', 'like', "%{$search}%")
                 ->orWhere('price', 'like', "%{$search}%");
         })->paginate($paginate)
-            ->withQueryString();
+            ->withQueryString()->through(fn ($type) => [
+                'code' => $type->code,
+                'name' => $type->name,
+                'price' => $type->price
+            ]);
         return Inertia::render('Admin/Master/TypeQRCode/TypeQR', [
             'type' => $type,
             'filters' => $request->only(['search'])
@@ -38,7 +42,7 @@ class AdminTyperQrcodeController extends Controller
     }
     public function show($id)
     {
-        $type = TypeQrcode::findOrFail($id);
+        $type = TypeQrcode::firstWhere('code', $id);
         return Inertia::render('Admin/Master/TypeQRCode/DetailTypeQR', ['type' => $type]);
     }
     public function store(Request $request)
@@ -76,13 +80,13 @@ class AdminTyperQrcodeController extends Controller
     }
     public function edit($id)
     {
-        $type = TypeQrcode::findOrFail($id);
+        $type = TypeQrcode::firstWhere('code', $id);
         return Inertia::render('Admin/Master/TypeQRCode/EditTypeQR', ['type' => $type]);
     }
     public function update(Request $request, $id)
     {
         try {
-            $typeQr = TypeQrcode::findOrFail($id);
+            $typeQr = TypeQrcode::firstWhere('code', $id);
             $attr = $request->validate([
                 'name' => 'required|string|min:1|max:100',
                 'price' => 'required|numeric',
@@ -121,7 +125,7 @@ class AdminTyperQrcodeController extends Controller
     public function destroy($id)
     {
         try {
-            $type = TypeQrcode::findOrFail($id);
+            $type = TypeQrcode::firstWhere('code', $id);
             $request_qr = RequestQrcode::where('type_qrcode_id', $id)->get();
             if ($request_qr->isEmpty()) {
                 $path = storage_path('app/public/uploads/type_qr/');

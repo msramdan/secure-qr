@@ -99,12 +99,12 @@ function openMenu(menu) {
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             </template>
 
-                            <Link href="/panel/users">
+                            <!-- <Link href="/panel/users">
                                 <li class="hover:text-purple-1100 py-2" :class="{ 'text-purple-1100': $page.url === '/panel/users' }">User</li>
                             </Link>
                             <Link href="/panel/roles">
                                 <li class="hover:text-purple-1100 py-2" :class="{ 'text-purple-1100': $page.url === '/panel/roles' }">Role</li>
-                            </Link>
+                            </Link> -->
                             <Link href="/panel/setting_web">
                                 <li class="hover:text-purple-1100 py-2" :class="{ 'text-purple-1100': $page.url === '/panel/setting_web' }">Setting</li>
                             </Link>

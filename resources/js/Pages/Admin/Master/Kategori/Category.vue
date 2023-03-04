@@ -50,7 +50,6 @@ watch(search, debounce(function (value) {
                     <thead>
                         <tr>
                             <th class="table-th">No</th>
-                            <th class="table-th">Kode</th>
                             <th class="table-th">Nama</th>
                             <th class="table-th">Action</th>
                         </tr>
@@ -58,10 +57,9 @@ watch(search, debounce(function (value) {
                     <tbody>
                         <tr v-for="kategori,i in category.data" :key="i" class="odd:bg-odd">
                             <td class="table-td">{{ ++i }}</td>
-                            <td class="table-td">{{ kategori.code }}</td>
                             <td class="table-td">{{ kategori.name }}</td>
                             <td class="table-td">
-                                <TableAction :detail-href="route('admin.category.show', kategori.id)" :edit-href="route('admin.category.edit',kategori.id)" :delete-href="route('admin.category.destroy', kategori.id)"/>
+                                <TableAction :detail-href="route('admin.category.show', kategori.code)" :edit-href="route('admin.category.edit',kategori.code)" :delete-href="route('admin.category.destroy', kategori.code)"/>
                             </td>
                         </tr>
                     </tbody>

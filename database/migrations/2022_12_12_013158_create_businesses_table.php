@@ -16,8 +16,8 @@ return new class extends Migration
     {
         Schema::create('businesses', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Partner::class)->constrained();
-            $table->string('code', 20);
+            $table->string('code');
+            $table->foreignId('partner_id')->constrained();
             $table->string('name', 100);
             $table->string('brand', 100);
             $table->string('logo');

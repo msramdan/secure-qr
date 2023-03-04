@@ -16,7 +16,8 @@ return new class extends Migration
     {
         Schema::create('history_requests', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(RequestQrcode::class)->constrained()->cascadeOnDelete();
+            $table->string('code');
+            $table->foreignId('request_qrcode_id')->constrained()->cascadeOnDelete();
             $table->enum('status', ['Waiting Payment', 'Pending Payment', 'Proses Cetak QR', 'Dalam Pengiriman']);
             $table->timestamps();
         });

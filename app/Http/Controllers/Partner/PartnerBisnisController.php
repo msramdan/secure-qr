@@ -27,7 +27,6 @@ class PartnerBisnisController extends Controller
             ->paginate($paginate)
             ->withQueryString()
             ->through(fn ($partner) => [
-                'id' => $partner->id,
                 'code' => $partner->code,
                 'name' => $partner->name,
                 'brand' => $partner->brand,
@@ -53,7 +52,6 @@ class PartnerBisnisController extends Controller
     {
         try {
             $attr = $request->validate([
-                'code' => 'required|string|min:1|max:20|unique:businesses,code',
                 'name' => 'required|string|min:1|max:100',
                 'brand' => 'required|string|min:1|max:100',
                 'logo' => 'required|image|max:1024|mimes:png',
@@ -78,6 +76,7 @@ class PartnerBisnisController extends Controller
             }
             $attr['partner_id'] = Auth::guard('partners')->user()->id;
             $bis = Business::create($attr);
+            // dd($bis);
             if ($request->file('video') && $request->file('video')->isValid()) {
 
                 $path = storage_path('app/public/uploads/videos/');
@@ -114,7 +113,6 @@ class PartnerBisnisController extends Controller
     {
         try {
             $attr = $request->validate([
-                'code' => 'required|string|min:1|unique:businesses,code,' . $business->id,
                 'name' => 'required|string|min:1|max:100',
                 'brand' => 'required|string|min:1|max:100',
                 'manufacture' => 'required|string|min:1|max:255',

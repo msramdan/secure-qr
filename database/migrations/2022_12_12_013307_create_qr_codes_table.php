@@ -16,7 +16,8 @@ return new class extends Migration
     {
         Schema::create('qr_codes', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(RequestQrcode::class)->constrained();
+            $table->string('code');
+            $table->foreignId('request_qrcode_id')->constrained();
             $table->string('serial_number');
             $table->string('pin');
             $table->boolean('status')->default(false);

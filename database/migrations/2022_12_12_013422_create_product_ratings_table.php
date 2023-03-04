@@ -16,7 +16,8 @@ return new class extends Migration
     {
         Schema::create('product_ratings', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Product::class)->constrained();
+            $table->string('code');
+            $table->foreignId('product_id')->constrained();
             $table->double('produk_rated');
             $table->ipAddress('visitor');
             $table->timestamps();

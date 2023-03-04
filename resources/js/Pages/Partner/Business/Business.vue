@@ -26,7 +26,6 @@ const props = defineProps({
                     <thead>
                         <tr>
                             <th class="table-th">No</th>
-                            <th class="table-th">Code</th>
                             <th class="table-th">Company Name</th>
                             <th class="table-th">Brand</th>
                             <th class="table-th">Manufacture Address</th>
@@ -35,16 +34,15 @@ const props = defineProps({
                     </thead>
                     <tbody>
                         <tr v-for="bisnis,i in business.data" :key="i">
-                            <td class="table-td" :class="{ 'table-td-dark': bisnis.id % 2 != 0 }">{{ ++i }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': bisnis.id % 2 != 0 }">{{ bisnis.code }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': bisnis.id % 2 != 0 }">{{ bisnis.name }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': bisnis.id % 2 != 0 }">{{ bisnis.brand }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': bisnis.id % 2 != 0 }">{{ bisnis.manufacture }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">{{ ++i }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">{{ bisnis.name }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">{{ bisnis.brand }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">{{ bisnis.manufacture }}</td>
                             <td
                                 class="table-td"
-                                :class="{ 'table-td-dark': bisnis.id % 2 != 0 }"
+                                :class="{ 'table-td-dark': i % 2 != 0 }"
                             >
-                                <TableAction :detail-href="route('partner.bisnis.show', bisnis.id)" :edit-href="route('partner.bisnis.edit', bisnis.id)" :delete-href="route('partner.bisnis.destroy', bisnis.id)"/>
+                                <TableAction :detail-href="route('partner.bisnis.show', bisnis.code)" :edit-href="route('partner.bisnis.edit', bisnis.code)" :delete-href="route('partner.bisnis.destroy', bisnis.code)"/>
                             </td>
                         </tr>
                     </tbody>

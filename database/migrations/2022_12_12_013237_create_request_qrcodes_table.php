@@ -18,10 +18,10 @@ return new class extends Migration
     {
         Schema::create('request_qrcodes', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Partner::class)->constrained();
-            $table->foreignIdFor(Product::class)->constrained();
-            $table->foreignIdFor(TypeQrcode::class)->constrained();
-            $table->string('code', 100);
+            $table->string('code');
+            $table->foreignId('partner_id')->constrained();
+            $table->foreignId('product_id')->constrained();
+            $table->foreignId('type_qrcode_id')->constrained();
             $table->dateTime('tanggal_request');
             $table->integer('qty');
             $table->integer('sn_length');

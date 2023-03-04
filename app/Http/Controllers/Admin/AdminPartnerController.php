@@ -35,7 +35,7 @@ class AdminPartnerController extends Controller
             ->paginate($paginate)
             ->withQueryString()
             ->through(fn ($partner) => [
-                'id' => $partner->id,
+                'code' => $partner->code,
                 'name' => $partner->name,
                 'email' => $partner->email,
                 'pic' => $partner->pic,
@@ -52,7 +52,7 @@ class AdminPartnerController extends Controller
     }
     public function show($id)
     {
-        $partner = Partner::findOrFail($id);
+        $partner = Partner::firstWhere('code', $id);
         return Inertia::render('Admin/Partner/Detail', [
             'partner' => $partner
         ]);
@@ -96,7 +96,7 @@ class AdminPartnerController extends Controller
     }
     public function edit($id)
     {
-        $partner = Partner::find($id);
+        $partner = Partner::firstWhere('code', $id);
         return Inertia::render('Admin/Partner/Edit', ['partner' => $partner]);
     }
     public function update(Request $request, $id)
@@ -152,7 +152,7 @@ class AdminPartnerController extends Controller
     public function destroy($id)
     {
         try {
-            $partner = Partner::findOrFail($id);
+            $partner = Partner::firstWhere('code', $id);
             $path = storage_path('app/public/uploads/profiles/');
             if ($partner->photo != null && file_exists($path . $partner->photo)) {
                 unlink($path . $partner->photo);
@@ -167,7 +167,8 @@ class AdminPartnerController extends Controller
     }
     public function list($id)
     {
-        $bisnis = Business::where('id', $id)->get();
+        $partner = Partner::firstWhere('code', $id);
+        $bisnis = Business::where('partner_id', $partner->id)->get();
         return Inertia::render('Admin/Partner/ListBisnis', ['Bisnis' => $bisnis]);
     }
 }
