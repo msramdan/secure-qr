@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminReportController;
 use App\Http\Controllers\Admin\AdminContactController;
 use App\Http\Controllers\Admin\AdminPartnerController;
+use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminDasboardController;
 use App\Http\Controllers\Admin\AdminSettingWebController;
@@ -109,6 +110,10 @@ Route::middleware(['auth:web'])->group(function () {
     Route::controller(AdminSettingWebController::class)->group(function () {
       Route::get('/setting_web', 'index')->name('admin.setting.index');
       Route::patch('/setting_web/update/{id}', 'update')->name('admin.setting.update');
+    });
+    Route::controller(AdminProfileController::class)->group(function () {
+      Route::get('/profile', 'index')->name('admin.profil.index');
+      Route::patch('/profile/update/{id}', 'update')->name('admin.profil.update');
     });
   });
 });

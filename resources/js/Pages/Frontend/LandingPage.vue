@@ -62,7 +62,7 @@ onBeforeUnmount(() => {
             <nav class="landing-nav">
                 <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
                     <div class="flex items-center justify-between">
-                        <img src="@src/images/landing/Labelin Logo.png" alt="Logo" class="w-36">
+                        <img src="@src/images/landing/Labelin-Logo.png" alt="Logo" class="w-36">
                         <button type="button" @click="openMenu" class="lg:hidden focus:outline-none">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="fill-secondary hover:fill-gray-900 w-6 h-6">
                                 <path fill-rule="evenodd" d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm8.25 5.25a.75.75 0 01.75-.75h8.25a.75.75 0 010 1.5H12a.75.75 0 01-.75-.75z" clip-rule="evenodd" />
@@ -148,7 +148,7 @@ onBeforeUnmount(() => {
         <section class="my-0 py-0">
             <div class="md:h-72">
                 <div class="relative bg-cover bg-no-repeat bg-center bg-autentikasi h-full rounded-3xl">
-                    <img src="@src/images/landing/Autentikasi Kanan.png" class="hidden md:block absolute inset-y-0 right-0 h-full">
+                    <img src="@src/images/landing/Autentikasi-Kanan.png" class="hidden md:block absolute inset-y-0 right-0 h-full">
                     <div class="flex items-center h-full">
                         <div class="p-8 md:px-16 md:py-0">
                             <div class="mb-10">
@@ -190,21 +190,21 @@ onBeforeUnmount(() => {
             <div class="grid grid-cols-1 md:grid-cols-3 gap-y-8 md:gap-x-8 md:gap-y-0">
                 <div class="border border-tertiary text-center px-8 py-16 rounded-xl">
                     <div class="w-28 h-36 mx-auto">
-                        <img src="@src/images/landing/Smart Label.png" alt="Smart Label" class="w-full">
+                        <img src="@src/images/landing/Smart-Label.png" alt="Smart Label" class="w-full">
                     </div>
                     <h3 class="landing-h3">Smart Label</h3>
                     <p class="landing-p">Securetag Membantu dalam pembuatan label barcode dan nomor seri produk, yang digunakan untuk mengetahui keaslian produk berbasis Qrcode & RFID/NFC.</p>
                 </div>
                 <div class="border border-tertiary text-center px-8 py-16 rounded-xl">
                     <div class="w-28 h-36 mx-auto">
-                        <img src="@src/images/landing/Distribution Tracking System.png" alt="Distribution Tracking System" class="w-full">
+                        <img src="@src/images/landing/Distribution-Tracking-System.png" alt="Distribution Tracking System" class="w-full">
                     </div>
                     <h3 class="landing-h3">Distribution Tracking System</h3>
                     <p class="landing-p">Bersama Securetag Dengan sistem pelacakan produk, kamu dapat mengetahui persebaran penjualan produkmu di setiap wilayah secara real time.</p>
                 </div>
                 <div class="relative bg-primary px-8 py-16 h-96 md:h-auto rounded-xl">
                     <div class="absolute -top-[11.3rem] -left-[11.3rem]">
-                        <img src="@src/images/landing/Hubungi Kami.png" class="w-[550px]">
+                        <img src="@src/images/landing/Hubungi-Kami.png" class="w-[550px]">
                     </div>
                     <div class="flex items-end h-full">
                         <div>
@@ -257,21 +257,21 @@ onBeforeUnmount(() => {
             <div class="grid grid-cols-1 md:grid-cols-3 gap-y-8 md:gap-x-8 md:gap-y-0">
                 <div class="border border-gray-100 text-center px-10 py-14 rounded-xl">
                     <div class="w-28 h-36 mx-auto">
-                        <img src="@src/images/landing/Scan Code.png" alt="Scan Code" class="w-full mb-6" style="background-color: red">
+                        <img src="@src/images/landing/Scan-Code.png" alt="Scan Code" class="w-full mb-6" style="background-color: red">
                     </div>
                     <h3 class="landing-h3">Scan Code</h3>
                     <p class="landing-p">Scan kode QR securetag yang terdapat pada kemasan atau label produk anda.</p>
                 </div>
                 <div class="border border-gray-100 text-center px-10 py-14 rounded-xl">
                     <div class="w-28 h-36 mx-auto">
-                        <img src="@src/images/landing/Masukkan PIN.png" alt="Masukkan PIN" class="w-full mb-6">
+                        <img src="@src/images/landing/Masukkan-PIN.png" alt="Masukkan PIN" class="w-full mb-6">
                     </div>
                     <h3 class="landing-h3">Masukkan PIN</h3>
                     <p class="landing-p">Masukan 6 digit PIN yang terdapat pada bagian bawah kode QR Securetag</p>
                 </div>
                 <div class="border border-gray-100 text-center px-10 py-14 rounded-xl">
                     <div class="w-28 h-36 mx-auto">
-                        <img src="@src/images/landing/Sertifikat Produk.png" alt="Sertifikat Produk" class="w-full mb-6">
+                        <img src="@src/images/landing/Sertifikat-Produk.png" alt="Sertifikat Produk" class="w-full mb-6">
                     </div>
                     <h3 class="landing-h3">Sertifikat Produk</h3>
                     <p class="landing-p">Jika produk original, maka anda akan mendapatkan sertifikasi keaslian produk.</p>
@@ -290,12 +290,12 @@ onBeforeUnmount(() => {
                         </div>
                     </div>
                     <div class="sm:flex-none">
-                        <img src="@src/images/landing/Mobile Scan.png" alt="Mobile Scan" class="sm:w-64 lg:w-[22rem]">
+                        <img src="@src/images/landing/Mobile-Scan.png" alt="Mobile Scan" class="sm:w-64 lg:w-[22rem]">
                     </div>
                 </div>
                 <div class="lg:flex-auto bg-quaternary pt-12 rounded-xl">
                     <div class="lg:w-96 px-8 pb-8 lg:pb-0">
-                        <img src="@src/images/landing/Produk Aman.png" alt="Produk Aman dan Terjamin" class="w-20 mb-8">
+                        <img src="@src/images/landing/Produk-Aman.png" alt="Produk Aman dan Terjamin" class="w-20 mb-8">
                         <h3 class="landing-h3">Produk aman dan terjamin</h3>
                         <p class="landing-p">Solusi nyata dari permasalahan pemalsuan produk didalam bisnismu.</p>
                     </div>
@@ -304,7 +304,7 @@ onBeforeUnmount(() => {
             <div class="flex flex-col lg:flex-row lg:space-x-8 space-y-8 lg:space-y-0">
                 <div class="lg:flex-auto flex items-center bg-quaternary py-8 lg:py-0 rounded-xl">
                     <div class="lg:w-96 px-8">
-                        <img src="@src/images/landing/Lokasi Produk.png" alt="Lokasi Produk" class="w-20 mb-8">
+                        <img src="@src/images/landing/Lokasi-Produk.png" alt="Lokasi Produk" class="w-20 mb-8">
                         <h3 class="landing-h3">Monitoring titik pesebaran lokasi produk</h3>
                         <p class="landing-p">Menampilkan data ketertelusuran di tingkat unit dari setiap produk yang dijual</p>
                     </div>
@@ -317,7 +317,7 @@ onBeforeUnmount(() => {
                         </div>
                     </div>
                     <div class="sm:flex-none px-8">
-                        <img src="@src/images/landing/Relasi Bisnis.png" alt="Relasi Bisnis" class="sm:w-64 lg:w-96">
+                        <img src="@src/images/landing/Relasi-Bisnis.png" alt="Relasi Bisnis" class="sm:w-64 lg:w-96">
                     </div>
                 </div>
             </div>
@@ -445,21 +445,21 @@ onBeforeUnmount(() => {
                     <h2 class="landing-h2">Mengapa pentingnya <br> menggunakan label <br> SecureTag</h2>
                     <ul class="space-y-8 text-[#4A4A68]">
                         <li class="flex items-start space-x-6">
-                            <img src="@src/images/landing/Pentingnya Label.png" alt="Pentingnya Label" class="w-12">
+                            <img src="@src/images/landing/Pentingnya-Label.png" alt="Pentingnya Label" class="w-12">
                             <div>
                                 <h3 class="landing-h3 mb-2">Meningkatkan kepercayaan customer</h3>
                                 <p class="landing-p">Membangun kepercayaan merek produk Anda kepada pelanggan sehingga meningkatkan penjualan </p>
                             </div>
                         </li>
                         <li class="flex items-start space-x-6">
-                            <img src="@src/images/landing/Pentingnya Label.png" alt="Pentingnya Label" class="w-12">
+                            <img src="@src/images/landing/Pentingnya-Label.png" alt="Pentingnya Label" class="w-12">
                             <div>
                                 <h3 class="landing-h3 mb-2">Efisien dan mudah digunakan</h3>
                                 <p class="landing-p">Scan mudah dengan handphone untuk mengautentikasi produk dengan label produk fisik yang unik</p>
                             </div>
                         </li>
                         <li class="flex items-start space-x-6">
-                            <img src="@src/images/landing/Pentingnya Label.png" alt="Pentingnya Label" class="w-12">
+                            <img src="@src/images/landing/Pentingnya-Label.png" alt="Pentingnya Label" class="w-12">
                             <div>
                                 <h3 class="landing-h3 mb-2">Memberantas produk palsu</h3>
                                 <p class="landing-p">Bersama perangi dan berantas produk palsu yang beredar.</p>
@@ -477,7 +477,7 @@ onBeforeUnmount(() => {
         <section class="bg-[#FBFBFB] max-w-none py-6 my-20">
             <div class="flex flex-wrap justify-center md:justify-around max-w-6xl mx-auto">
                 <div class="flex-none mr-16 md:mr-0 mb-8">
-                    <img src="@src/images/landing/Sun Life.png" alt="Partner" class="partner-logo">
+                    <img src="@src/images/landing/Sun-Life.png" alt="Partner" class="partner-logo">
                 </div>
                 <div class="flex-none mr-16 md:mr-0 mb-8">
                     <img src="@src/images/landing/Telkomsel.png" alt="Partner" class="partner-logo">
@@ -489,7 +489,7 @@ onBeforeUnmount(() => {
                     <img src="@src/images/landing/Indofood.png" alt="Partner" class="partner-logo">
                 </div>
                 <div class="flex-none mr-16 md:mr-0 mb-8">
-                    <img src="@src/images/landing/Lembaga Sensor Film.png" alt="Partner" class="partner-logo">
+                    <img src="@src/images/landing/Lembaga-Sensor-Film.png" alt="Partner" class="partner-logo">
                 </div>
             </div>
         </section>
@@ -503,7 +503,7 @@ onBeforeUnmount(() => {
 
                     Kini Labelin.co melalui teknologi Securetag dalam bentuk QR Code yang Terenkripsi. Mudah diaplikasikan melalu label  stiker atau hologram yang dapat di tempel pada produk. Memberikan informasi foto produk, produk detail hingga melibatkan konsumen dari memberikan tanggapan. Hindari produk yang tidak terdaftar atau terduplikasi. Kami memiliki kontrol penuh terhadap produk yang di jual belikan dengan perlindungan Securetag.
                 </p>
-                <img src="@src/images/landing/Scan Machine.png" alt="Scan Machine" class="mb-16">
+                <img src="@src/images/landing/Scan-Machine.png" alt="Scan Machine" class="mb-16">
                 <div class="mb-16">
                     <h3 class="landing-h3">Tentang Kami</h3>
                     <p class="landing-p">Labelin.co merupakan layanan tag API printing berteknologi securetag dalam bentuk label yang bisa di tempel pada produk. Dengan Labelin.co para business owner dapat menjaga originalitas produk/karya mereka hingga sampai ke tangan customer dengan membedakan produk asli dan palsu di pasaran.</p>
@@ -697,14 +697,14 @@ onBeforeUnmount(() => {
         <!-- Mari Berantas Produk Palsu -->
         <section class="landing-section">
             <div class="relative bg-primary h-[19.5rem] rounded-2xl p-8 lg:p-0">
-                <img src="@src/images/landing/Berantas Kiri.png" alt="Berantas Kiri" class="absolute inset-y-0 left-0 h-full rounded-l-2xl">
+                <img src="@src/images/landing/Berantas-Kiri.png" alt="Berantas Kiri" class="absolute inset-y-0 left-0 h-full rounded-l-2xl">
                 <div class="flex items-center justify-center h-full">
                     <div class="text-center">
                         <h2 class="landing-h2 text-white mb-5">Mari Berantas Produk Palsu <br> Bersama Securetag!</h2>
                         <p class="landing-p text-white">Identifikasi produk palsu secara digital dimanapun dan kapanpun</p>
                     </div>
                 </div>
-                <img src="@src/images/landing/Berantas Kanan.png" alt="Berantas Kanan" class="hidden lg:block absolute inset-y-0 -right-2/3 lg:right-0 h-full rounded-r-2xl">
+                <img src="@src/images/landing/Berantas-Kanan.png" alt="Berantas Kanan" class="hidden lg:block absolute inset-y-0 -right-2/3 lg:right-0 h-full rounded-r-2xl">
             </div>
         </section>
 

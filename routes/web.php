@@ -11,7 +11,7 @@ Route::middleware(['isAktif'])->group(function () {
         Route::get('/scan/{id}', 'scan')->name('scan');
         Route::any('/validation', 'validation')->name('validation');
         Route::post('/rating/{id}', 'rating')->name('rating');
-        Route::post('/report/{id}', 'report')->name('report');
+        Route::post('/report', 'report')->name('report');
     });
     // backend parnter
     require __DIR__ . '/partner.php';

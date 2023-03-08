@@ -116,7 +116,7 @@ onMounted(() => {
         </template>
         <div class="flex justify-center items-center" v-if="brandLogo != null">
             <video id="video" width="300" height="250" autoplay="" loop="" name="media" muted="">
-                    <source src="https://labelin.co/storage/uploads/video/HcHb0UkTcGLWj5BuzicH1Fvbwj3AGU0szGKATjTS.mp4" type="video/mp4">
+                    <source :src="`/storage/uploads/videos/` + brandLogo.video" type="video/mp4">
                     Browser anda tidak suport untuk menampilkan video.
             </video>
         </div>

@@ -78,7 +78,6 @@ class AdminPartnerController extends Controller
                 $attr["photo"] = $filename;
             }
             Partner::create([
-                'code' => fake()->numberBetween(5),
                 'name' => $attr["name"],
                 'phone' => $attr["phone"],
                 'pic' => $attr["pic"],

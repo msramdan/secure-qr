@@ -75,8 +75,6 @@ class PartnerRequestQrcodeController extends Controller
     }
     public function upload(int $id, Request $request)
     {
-        // Gate::allowIf(fn () => session()->get('id-partner') == $requestQr->partner_id);
-        // abort_if(session()->get('id-partner') != $requestQr->partner_id, Response::HTTP_FORBIDDEN);
         $requestQr = RequestQrcode::findOrFail($id);
         if (!in_array($requestQr->status, ['Waiting Payment', 'Pending Payment'])) {
             \Message::danger('Tidak dapat upload bukti pembayaran');

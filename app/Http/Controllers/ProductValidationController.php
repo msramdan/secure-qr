@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ClaimedLoyalty;
-use App\Models\LoyaltyProgram;
 use Inertia\Inertia;
 use App\Models\QrCode;
 use App\Models\Sosmed;
 use Illuminate\Http\Request;
 use App\Models\ProductRating;
+use App\Models\ProductReport;
+use App\Models\ClaimedLoyalty;
+use App\Models\LoyaltyProgram;
 use App\Models\ProductScanned;
 use App\Models\RoyaltiProgram;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\Facades\Image;
 use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
 
 class ProductValidationController extends Controller
@@ -114,14 +116,16 @@ class ProductValidationController extends Controller
                             ]);
                         } else {
                             return Inertia::render('Frontend/ProductValidation/ValidationResult', [
-                                'product_status' => 'duplicate'
+                                'product_status' => 'duplicate',
+                                'sn' => $request->serial_number
                             ]);
                         }
                     }
                 }
             } else {
                 return Inertia::render('Frontend/ProductValidation/ValidationResult', [
-                    'product_status' => 'not registered'
+                    'product_status' => 'not registered',
+                    'sn' => $request->serial_number
                 ]);
             }
         } catch (\Throwable $th) {
@@ -140,7 +144,7 @@ class ProductValidationController extends Controller
             ->first();
         $cek = ProductRating::where('product_id', $produk->id)->where('visitor', $ipClient)->first();
         if (!isset($cek)) {
-            DB::table('product_ratings')->insert([
+            ProductRating::create([
                 'product_id' => $produk->id,
                 'produk_rated' => $request->productRate,
                 'visitor' => $ipClient,
@@ -158,6 +162,44 @@ class ProductValidationController extends Controller
             return response()->json([
                 'message' => 'Terimakasih, anda telah melakukan rating.'
             ], 200);
+        }
+    }
+    public function report(Request $request)
+    {
+        try {
+            $data = $request->validate([
+                'nama_lengkap' => 'required|string',
+                'no_telepon' => 'required|max:15',
+                'kronologi' => 'required|string|max:500',
+                'lampiran' => 'required|max:3050|mimes:png,jpg,doc,pdf,docx'
+            ]);
+            $qr = QrCode::firstWhere('serial_number', $request->serial_number);
+            if ($request->file('lampiran') && $request->file('lampiran')->isValid()) {
+
+                $path = storage_path('app/public/uploads/report/');
+                $filename = $request->file('lampiran')->hashName();
+
+                if (!file_exists($path)) {
+                    mkdir($path, 0777, true);
+                }
+
+                Image::make($request->file('lampiran')->getRealPath())->resize(400, 400, function ($constraint) {
+                    $constraint->upsize();
+                    $constraint->aspectRatio();
+                })->save($path . $filename);
+
+                $data['file'] = $filename;
+            }
+
+            $data['qr_code_id'] = $qr->id;
+            $data['fullname'] = $request->nama_lengkap;
+            $data['phone_number'] = $request->no_telepon;
+            ProductReport::create($data);
+            return response([
+                'message' => 'Terimakasih atas laporan anda!'
+            ], 200)->header('X-Inertia', true);
+        } catch (\Throwable $th) {
+            return response()->json([$th->getMessage()], 200);
         }
     }
 }

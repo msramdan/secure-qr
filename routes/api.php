@@ -14,3 +14,4 @@ Route::controller(ProductValidationController::class)->group(function () {
 Route::controller(RoyaltyProgramController::class)->group(function () {
     Route::post('/claim/{id}', 'store')->name('api.claim.store');
 });
+Route::post('/report', [ProductValidationController::class, 'report'])->name('api.report');

@@ -8,6 +8,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return 'halaman home';
+        return to_route('partner.login');
     }
 }

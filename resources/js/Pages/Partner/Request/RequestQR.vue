@@ -8,12 +8,11 @@ import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import { ref } from 'vue'
 
 const openModal = ref(false)
-const selectId = ''
+const selectId = ref('')
 const props = defineProps({
     requestQr: Object,
     filters: Object
 })
-
 const formUpload = useForm({
     bukti_pembayaran: '',
     id: ''

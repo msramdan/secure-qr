@@ -206,7 +206,7 @@ class AdminRequestQrcodeController extends Controller
         try {
             $request_qr_id = $request->request_id;
             // insert ke table qr
-            HistoryRequest::insert([
+            HistoryRequest::create([
                 'request_qrcode_id' => $request_qr_id,
                 'status' => 'Proses Cetak QR',
                 'created_at' => date('Y-m-d H:i:s'),
@@ -227,7 +227,7 @@ class AdminRequestQrcodeController extends Controller
     {
         try {
             // insert ke table qr
-            HistoryRequest::insert([
+            HistoryRequest::create([
                 'request_qrcode_id' => $request->request_id,
                 'status' => 'Dalam Pengiriman',
                 'created_at' => date('Y-m-d H:i:s'),
@@ -282,7 +282,7 @@ class AdminRequestQrcodeController extends Controller
             if ($kode < $maxNumber) {
                 $kode++;
                 $newcode = $prefix . str_pad($kode, 8, '0', STR_PAD_LEFT);
-                BatchCode::insert([
+                BatchCode::create([
                     'product_id' => $product_id,
                     'qr_code_id' => $qr_code_id,
                     'request_qrcode_id' => $request_id,
@@ -293,7 +293,7 @@ class AdminRequestQrcodeController extends Controller
             }
         } else {
             $newcode = $randString . str_pad($minNumber, 8, '0', STR_PAD_LEFT);
-            BatchCode::insert([
+            BatchCode::create([
                 'product_id' => $product_id,
                 'qr_code_id' => $qr_code_id,
                 'request_qrcode_id' => $request_id,

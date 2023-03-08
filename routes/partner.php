@@ -18,7 +18,7 @@ Route::controller(PartnerAuthController::class)
   ->as('partner.')
   ->group(function () {
     Route::get('/register', 'register')->name('register');
-    Route::post('/register', 'register')->name('register.store');
+    Route::post('/register/store', 'handleRegister')->name('register.store');
     Route::get('/login', 'index')->name('login');
     Route::post('/auth', 'handleLogin')->name('auth');
     Route::post('/logout', 'logout')->name('logout');
@@ -86,6 +86,7 @@ Route::middleware(['auth:partners'])->group(function () {
 
       Route::controller(PartnerProfileController::class)->group(function () {
         Route::get('/profile', 'index')->name('profil.index');
+        Route::patch('/profile/update/{id}','update')->name('profil.update');
       });
     });
 });

@@ -12,6 +12,7 @@ const props = defineProps({
     product_rate: Object,
     status: Boolean,
     loyalty: Boolean,
+    sn: String
 })
 const result = ref(props.product_status)
 </script>
@@ -19,8 +20,8 @@ const result = ref(props.product_status)
 <template>
     <Head title="Hasil Validasi"/>
     <ProductRegistered :product="product" :sosmed="sosmed" :product_rate="product_rate" :status="status" :loyalty="loyalty" v-if="result == 'registered'"/>
-    <SerialNumberNotRegistered v-if="result == 'not registered'"/>
-    <SerialNumberDuplicate v-if="result == 'duplicate'"/>
+    <SerialNumberNotRegistered :sn="sn" v-if="result == 'not registered'"/>
+    <SerialNumberDuplicate :sn="sn" v-if="result == 'duplicate'"/>
 </template>
 
 <style scoped>

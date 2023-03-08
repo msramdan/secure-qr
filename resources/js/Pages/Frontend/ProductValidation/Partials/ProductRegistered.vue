@@ -226,9 +226,9 @@ const ClaimRoyalty = () => {
         </div>
 
         <!-- Loyalti Program jika ada -->
-        <div v-if="statusLoyaty == true">
+        <!-- <div v-if="statusLoyaty == true">
             <button @click="modalRoyalti = true" class="btn-validation mt-3">Claim Reward</button>
-        </div>
+        </div> -->
 
         <template #modal>
             <PengaduanModal :open-modal="openModal" @closeModal="openModal = false">
@@ -237,7 +237,7 @@ const ClaimRoyalty = () => {
                 <button @click="openModal = false" class="btn-secondary-validation">Oke</button>
             </PengaduanModal>
 
-            <PengaduanModal :open-modal="modalRoyalti" @closeModal="modalRoyalti = false">
+            <!-- <PengaduanModal :open-modal="modalRoyalti" @closeModal="modalRoyalti = false">
                 <img :src="successRate" class="mx-auto mb-5">
                 <form class="mb-10" @submit.prevent="ClaimRoyalty">
                     <div class="mb-3">
@@ -254,7 +254,7 @@ const ClaimRoyalty = () => {
                     </div>
                     <button type="submit" class="btn-secondary-validation">Claim</button>
                 </form>
-            </PengaduanModal>
+            </PengaduanModal> -->
         </template>
     </ValidationLayout>
 </template>

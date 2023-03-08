@@ -13,13 +13,15 @@ const openModal = ref(false)
 const form = useForm({
     name: '',
     email: '',
+    phone: '',
+    address: '',
     password: '',
     password_confirmation: '',
     terms: false,
 });
 
 const submit = () => {
-    form.post('', {
+    form.post(route('partner.register.store'), {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };
@@ -110,34 +112,40 @@ const submit = () => {
                 <h1 class="font-semibold text-4xl md:text-5xl mb-3">Register</h1>
                 <div class="text-gray-500">Enter your information to register to this website.</div>
             </div>
-            <form action="" class="">
+            <form class="" @submit.prevent="submit">
                 <div class="mb-5">
-                    <label for="name" class="form-label-dashboard">Nama Lengkap<span class="text-red-500">*</span></label>
-                    <input type="text" id="name" class="form-input-dashboard" placeholder="John Doe">
+                    <label for="name" class="form-label-dashboard">Name<span class="text-red-500">*</span></label>
+                    <input type="text" id="name" v-model="form.name" class="form-input-dashboard" placeholder="John Doe">
+                    <InputError :message="form.errors.name" />
                 </div>
                 <div class="mb-5">
                     <label for="email" class="form-label-dashboard">Email<span class="text-red-500">*</span></label>
-                    <input type="email" id="email" class="form-input-dashboard" placeholder="johndoe@gmail.com">
+                    <input type="email" id="email" v-model="form.email"  class="form-input-dashboard" placeholder="johndoe@gmail.com">
+                    <InputError :message="form.errors.email" />
                 </div>
                 <div class="mb-5">
-                    <label for="name" class="form-label-dashboard">Phone<span class="text-red-500">*</span></label>
-                    <input type="text" id="name" class="form-input-dashboard" placeholder="John Doe">
+                    <label for="phone" class="form-label-dashboard">Phone<span class="text-red-500">*</span></label>
+                    <input type="text" id="phone" v-model="form.phone"  class="form-input-dashboard" placeholder="John Doe">
+                    <InputError :message="form.errors.phone" />
                 </div>
                 <div class="mb-5">
-                    <label for="name" class="form-label-dashboard">Address<span class="text-red-500">*</span></label>
-                    <input type="text" id="name" class="form-input-dashboard" placeholder="John Doe">
+                    <label for="address" class="form-label-dashboard">Address<span class="text-red-500">*</span></label>
+                    <input type="text" id="address" v-model="form.address"  class="form-input-dashboard" placeholder="John Doe">
+                    <InputError :message="form.errors.address" />
                 </div>
                 <div class="mb-5">
                     <label for="password" class="form-label-dashboard">Password<span class="text-red-500">*</span></label>
-                    <input type="password" class="form-input-dashboard" placeholder="********">
+                    <input type="password" v-model="form.password"  class="form-input-dashboard" placeholder="********">
+                    <InputError :message="form.errors.password" />
                 </div>
                 <div class="mb-5">
                     <label for="password_confirmation" class="form-label-dashboard">Password Confirmation<span class="text-red-500">*</span></label>
-                    <input type="password" class="form-input-dashboard" placeholder="********">
+                    <input type="password"  v-model="form.password_confirmation" id="password_confirmation"  class="form-input-dashboard" placeholder="********">
+                    <InputError :message="form.errors.password_confirmation" />
                 </div>
                 <div class="flex flex-wrap md:flex-nowrap md:items-center md:justify-between mt-8">
                     <label class="flex items-center form-label-dashboard mb-5 md:mb-0">
-                        <input type="checkbox" class="accent-red-500 rounded mr-2">
+                        <input type="checkbox" class="accent-red-500 rounded mr-2" required>
                         <span>Setujui&nbsp;</span>
                         <button type="button" @click="openModal = true" class="text-purple-1100">Syarat dan Ketentuan Berlaku</button>
                     </label>
@@ -146,7 +154,7 @@ const submit = () => {
             </form>
             <hr class="border-t border-gray-200 my-5">
             <div class="text-center md:text-start md:pb-10">
-                Already have an account? <a :href="route('partner.login')" class="text-purple-1100">Login</a>
+                Already have an account? <Link :href="route('partner.login')" class="text-purple-1100">Login</Link>
             </div>
         </div>
 

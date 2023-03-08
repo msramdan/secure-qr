@@ -25,12 +25,17 @@ class PartnerStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|min:1|max:50|string',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email|unique:partners,email',
             'phone' => 'required|min:1|max:15',
-            'password' => 'required|min:7|confirmed',
+            'password' => [
+                'required',
+                'min:8',
+                'regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/',
+                'confirmed'
+            ],
             'pic' => 'required|min:5|max:100',
             'photo' => 'required|mimes:png,jpg',
-            'alamat' => 'required|min:10|string'
+            'alamat' => 'required|string'
         ];
     }
 }
