@@ -10,6 +10,7 @@ import { Inertia } from '@inertiajs/inertia';
 const openModal = ref(false)
 const props = defineProps({
     brandLogo: Object,
+    brandVideo: Object,
     sn: String,
     apiKey: String
 })
@@ -103,8 +104,8 @@ onMounted(() => {
 
     <ValidationLayout>
         <template #logo>
-            <img v-if="brandLogo != null" :src="`/storage/uploads/logos/` + brandLogo.logo_brand" :alt="brandLogo.logo_brand" class="mx-auto">
-            <div v-else class="mx-auto text-center">Not found</div>
+            <div v-if="brandLogo == null || brandLogo ==''" class="mx-auto text-center">Not found</div>
+            <img v-else :src="`/storage/uploads/logos/` + brandLogo.logo" :alt="brandLogo.logo" class="mx-auto">
         </template>
 
         <template #jumbotron>
@@ -114,9 +115,9 @@ onMounted(() => {
                 <div class="font-semibold text-2xl">{{ sn }}</div>
             </div>
         </template>
-        <div class="flex justify-center items-center" v-if="brandLogo != null">
+        <div class="flex justify-center items-center" v-if="brandVideo != null || brandVideo ==''">
             <video id="video" width="300" height="250" autoplay="" loop="" name="media" muted="">
-                    <source :src="`/storage/uploads/videos/` + brandLogo.video" type="video/mp4">
+                    <source :src="`/storage/uploads/videos/` + brandVideo.video" type="video/mp4">
                     Browser anda tidak suport untuk menampilkan video.
             </video>
         </div>

@@ -53,7 +53,7 @@ class PartnerSosmedController extends Controller
     }
     public function edit($id)
     {
-        $link = Sosmed::findOrFail($id);
+        $link = Sosmed::firstWhere('code', $id);
         return Inertia::render('Partner/CustomLink/Edit', [
             'link' => $link
         ]);
@@ -67,7 +67,7 @@ class PartnerSosmedController extends Controller
             ]);
             $attr['partner_id'] = Auth::guard('partners')->user()->id;
             $attr['link_sosmed'] = $request->link;
-            $sosmed = Sosmed::find($id);
+            $sosmed = Sosmed::firstWhere('code', $id);
             $sosmed->update($attr);
             \Message::success('Berhasil merubah data!');
             return to_route('partner.links.index');
@@ -79,7 +79,7 @@ class PartnerSosmedController extends Controller
     public function destroy($id)
     {
         try {
-            $sosmed = Sosmed::findOrFail($id);
+            $sosmed = Sosmed::firstWhere('code', $id);
             $sosmed->delete();
             \Message::success('Berhasil menghapus data!');
             return to_route('partner.links.index');

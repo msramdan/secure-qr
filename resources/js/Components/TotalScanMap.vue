@@ -5,12 +5,11 @@ import L from "leaflet";
 import data from '@src/geojson/gadm41_IDN_2.json'
 
 const props = defineProps(['datas']);
-
 let map = ref()
 const colors = ref([
-    { total: 1000, color: '#dc2626' },
-    { total: 500, color: '#16a34a' },
-    { total: 1, color: '#ca8a04' }
+    { total: 10, color: '#dc2626' },
+    { total: 1, color: '#16a34a' },
+    // { total: 1, color: '#ca8a04' }
 ])
 
 function camelToFlat(camel) {
@@ -58,9 +57,9 @@ onMounted(() => {
 	}
 
 	function getColor(total) {
-		return total > 1000 ? '#dc2626' :
-			total > 500  ? '#16a34a' :
-			total >= 1  ? '#ca8a04' : 'transparent';
+		return total > 10 ? '#dc2626' :
+			total > 1  ? '#16a34a' : 'transparent';
+			// total >= 1  ? '#ca8a04' : 'transparent';
 	}
 
 	function style(feature) {
@@ -107,7 +106,8 @@ onMounted(() => {
         let contents = 'Hover sebuah kota'
         if( props ) {
             const data = getFeatureData(props.NAME_2)
-            contents = `<b>${camelToFlat(props.NAME_2)}, ${camelToFlat(props.NAME_1)}</b><br />${data.totalScan} total scan`;
+            contents = `<b>${camelToFlat(props.NAME_2)}, ${camelToFlat(props.NAME_1)}</b><br />
+            ${data.serial_number} - ${data.totalScan} total scan`;
         }
         this._div.innerHTML = `<h4>Total Scan Labelin</h4>${contents}`;
     };

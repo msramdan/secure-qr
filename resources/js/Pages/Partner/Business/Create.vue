@@ -33,7 +33,7 @@ const FormSubmit = () => {
                             <InputError :message="form.errors.brand" />
                         </div>
                         <div class="mb-5">
-                            <label for="photo" class="form-label-dashboard">Logo :</label>
+                            <label for="photo" class="form-label-dashboard">Logo Brand:</label>
                             <label for="photo" class="block mb-2 cursor-pointer">
                                 <div class="flex border border-gray-300 rounded-lg">
                                     <div class="grow text-gray-400 px-4 py-2">
@@ -49,17 +49,19 @@ const FormSubmit = () => {
                     </div>
                     <div class="flex-1">
                         <div class="mb-5">
-                            <label for="" class="form-label-dashboard">Company Name :</label>
+                            <label for="" class="form-label-dashboard">Manufacture Name :</label>
                             <input type="text" v-model="form.name" class="form-input-dashboard" placeholder=""/>
+                            <InputError message="Produsen / Pabrik yang di tunjuk untuk proses produksi." />
                             <InputError :message="form.errors.name" />
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label-dashboard">Manufacture Address :</label>
                             <input type="text" v-model="form.manufacture" class="form-input-dashboard" placeholder=""/>
+                            <InputError message="Produsen / Pabrik yang di tunjuk untuk proses produksi." />
                             <InputError :message="form.errors.manufacture" />
                         </div>
                         <div class="mb-5">
-                            <label for="video" class="form-label-dashboard">Video Pendek :</label>
+                            <label for="video" class="form-label-dashboard">Video Pendek Brand:</label>
                             <label for="video" class="block mb-2 cursor-pointer">
                                 <div class="flex border border-gray-300 rounded-lg">
                                     <div class="grow text-gray-400 px-4 py-2">

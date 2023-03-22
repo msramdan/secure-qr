@@ -20,15 +20,10 @@ class ProductValidationController extends Controller
 {
     public function scan($id)
     {
-        $product = QrCode::select('businesses.logo as logo_brand', 'business_videos.video')
-            ->join('request_qrcodes', 'qr_codes.request_qrcode_id', '=', 'request_qrcodes.id')
-            ->join('products', 'request_qrcodes.product_id', '=', 'products.id')
-            ->join('businesses', 'products.business_id', '=', 'businesses.id')
-            ->join('business_videos', 'business_videos.business_id', '=', 'businesses.id')
-            ->where('qr_codes.serial_number', $id)
-            ->first();
+        $product = QrCode::with('request_qrcode')->where('serial_number', $id)->first();
         return Inertia::render('Frontend/ProductValidation/CheckProduct', [
-            'brandLogo' => $product,
+            'brandLogo' => $product->request_qrcode->product->business,
+            'brandVideo' => $product->request_qrcode->product->business->business_video,
             'sn' => $id,
             'apiKey' => env('MAP_KEY', 'AIzaSyA2C2Pu928d5fXhDBBpozZY4ZKkWLbmrTY')
         ]);

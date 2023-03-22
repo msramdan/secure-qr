@@ -16,21 +16,17 @@ const props = defineProps({
             <div>
                 <table class="w-full">
                     <tbody>
-                        <tr class="bg-odd">
-                            <td class="table-td-detail font-semibold md:truncate">Code</td>
-                            <td class="table-td-detail">{{ business.code }}</td>
+                        <tr>
+                            <td class="table-td-detail font-semibold">Manufacture Name</td>
+                            <td class="table-td-detail">{{ business.name }}</td>
                         </tr>
                         <tr>
-                            <td class="table-td-detail font-semibold">Name</td>
-                            <td class="table-td-detail">{{ business.name }}</td>
+                            <td class="table-td-detail font-semibold">Manufacture Address</td>
+                            <td class="table-td-detail">{{ business.manufacture }}</td>
                         </tr>
                         <tr class="bg-odd">
                             <td class="table-td-detail font-semibold md:truncate">Brand</td>
                             <td class="table-td-detail">{{ business.brand }}</td>
-                        </tr>
-                        <tr>
-                            <td class="table-td-detail font-semibold">Manufacture</td>
-                            <td class="table-td-detail">{{ business.manufacture }}</td>
                         </tr>
                         <tr class="bg-odd">
                             <td class="table-td-detail font-semibold">Photo</td>

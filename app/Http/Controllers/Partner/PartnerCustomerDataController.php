@@ -38,10 +38,15 @@ class PartnerCustomerDataController extends Controller
     public function show($id)
     {
         $productScanned = ProductScanned::with('qr_code')->where('qr_code_id', $id)->get();
+        // dd();
         $sn = $productScanned[0]->qr_code->serial_number;
         $product = $productScanned[0]->qr_code->request_qrcode->product;
         return Inertia::render('Partner/CustomerData/Detail', [
-            'productScanned' => $productScanned,
+            'productScanned' => $productScanned->groupBy('kota')->map(function ($row, $key) {
+                return [
+                    'jumlah' => $row->count()
+                ];
+            }),
             'serial_number' => $sn,
             'product' => $product
         ]);

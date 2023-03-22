@@ -74,7 +74,7 @@ headers: {
         <!-- Tombol Pengaduan -->
         <div>
             <button @click="openModal = true" class="btn-validation mb-4">Pengaduan Produk</button>
-            <button @click.prevent="HubungiWhatsapp('https://wa.me/6281299903331?text=Silahkan%20ajukan%20pengaduan%20anda%20')" class="btn-secondary-validation">Hubungi Whatsapp</button>
+            <button @click.prevent="HubungiWhatsapp('https://wa.me/6281299903331?text=Silahkan%20ajukan%20pengaduan%20anda%20tentang%20serial%20number%20' + sn)" class="btn-secondary-validation">Hubungi Whatsapp</button>
         </div>
 
         <template #bottom-content>

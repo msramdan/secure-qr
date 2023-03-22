@@ -32,7 +32,7 @@ const props = defineProps({
                             <td class="table-td-detail">{{ product.category.name }}</td>
                         </tr>
                         <tr class="bg-odd">
-                            <td class="table-td-detail font-semibold md:truncate">Business Partner</td>
+                            <td class="table-td-detail font-semibold md:truncate">Manufacture Name</td>
                             <td class="table-td-detail">{{ product.business.name }}</td>
                         </tr>
                         <tr>
@@ -48,7 +48,7 @@ const props = defineProps({
                             <td class="table-td-detail">{{ product.netto }}</td>
                         </tr>
                         <tr class="bg-odd">
-                            <td class="table-td-detail font-semibold md:truncate">Deskripsi</td>
+                            <td class="table-td-detail font-semibold md:truncate">Product Description</td>
                             <td class="table-td-detail">{{ product.description }}</td>
                         </tr>
                         <tr>

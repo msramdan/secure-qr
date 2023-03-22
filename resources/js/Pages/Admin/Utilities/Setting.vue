@@ -58,7 +58,7 @@ const SubmitForm = () => {
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label-dashboard">Logo Light :</label>
-                            <img :src="`/storage/img/` + props.setting.logo_light" alt="Logo" class="w-1/2 mb-2">
+                            <img :src="`/storage/uploads/setting_web/` + props.setting.logo_light" alt="Logo" class="w-1/2 mb-2">
                             <label for="logo_light" class="block mb-2 cursor-pointer">
                                 <div class="flex border border-gray-300 rounded-lg">
                                     <div class="grow text-gray-400 px-4 py-2">{{ form.logo_light != '' ? form.logo_light.name : 'Choose file' }}</div>

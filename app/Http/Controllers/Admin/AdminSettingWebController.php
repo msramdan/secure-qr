@@ -32,17 +32,17 @@ class AdminSettingWebController extends Controller
             ]);
             $setting_web = SettingWeb::findOrFail($id);
             if ($request->file('logo_dark') != null || $request->file('logo_dark') != '') {
-                Storage::disk('local')->delete('public/img/' . $setting_web->logo_dark);
+                Storage::disk('local')->delete('public/uploads/setting_web/' . $setting_web->logo_dark);
                 $logo = $request->file('logo_dark');
-                $logo->storeAs('public/img/', $logo->hashName());
+                $logo->storeAs('public/uploads/setting_web/', $logo->hashName());
                 $setting_web->update([
                     'logo_dark'     => $logo->hashName(),
                 ]);
             }
             if ($request->file('logo_light') != "" || $request->file('logo_light') != null) {
-                Storage::disk('local')->delete('public/img/' . $setting_web->logo_light);
+                Storage::disk('local')->delete('public/uploads/setting_web/' . $setting_web->logo_light);
                 $banner = $request->file('logo_light');
-                $banner->storeAs('public/img/', $banner->hashName());
+                $banner->storeAs('public/uploads/setting_web/', $banner->hashName());
                 $setting_web->update([
                     'logo_light'     => $banner->hashName(),
                 ]);

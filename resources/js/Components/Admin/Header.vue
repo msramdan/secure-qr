@@ -1,5 +1,6 @@
 <script setup>
 import user1 from '@src/images/user-1.jpg'
+import logo from '@src/images/landing/Labelin-Logo.png'
 import { Link, usePage } from '@inertiajs/inertia-vue3'
 import { ref } from 'vue'
 
@@ -18,7 +19,7 @@ const user = ref(usePage().props.value.auth.user)
     <header class="sticky top-0 bg-dashboard pt-5 rounded-b-2xl z-10">
         <div class="bg-white rounded-2xl shadow-dashboard-card mb-5">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-                <div class="font-bold text-2xl ml-4 md:ml-5 mt-5 md:mt-0 mb-5 md:mb-0">SecureTag By Labelin.co</div>
+                <img :src="logo" alt="labelin.co" width="150" class="mt-0 mb-5 sm:mb-0"/>
                 <div class="flex items-center justify-end space-x-4 xl:space-x-6">
                     <div class="flex items-center space-x-4 xl:space-x-6 text-purple-1100">
                         <button  @click="openNotification = !openNotification; openUserOption = false" class="focus:outline-none">

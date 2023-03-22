@@ -26,8 +26,8 @@ const props = defineProps({
                     <thead>
                         <tr>
                             <th class="table-th">No</th>
-                            <th class="table-th">Company Name</th>
                             <th class="table-th">Brand</th>
+                            <th class="table-th">Manufacture Name</th>
                             <th class="table-th">Manufacture Address</th>
                             <th class="table-th">Action</th>
                         </tr>
@@ -35,8 +35,8 @@ const props = defineProps({
                     <tbody>
                         <tr v-for="bisnis,i in business.data" :key="i">
                             <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">{{ ++i }}</td>
-                            <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">{{ bisnis.name }}</td>
                             <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">{{ bisnis.brand }}</td>
+                            <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">{{ bisnis.name }}</td>
                             <td class="table-td" :class="{ 'table-td-dark': i % 2 != 0 }">{{ bisnis.manufacture }}</td>
                             <td
                                 class="table-td"

@@ -7,7 +7,7 @@ import { ref, watch } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 import debounce from 'lodash/debounce';
 const props = defineProps({
-    reports: Array,
+    reports: Object,
     filters: Object
 });
 const getPaginate = (event) => {

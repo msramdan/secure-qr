@@ -50,7 +50,7 @@ const chartByBisnisData = ({
         <div class="flex space-x-5 overflow-x-auto snap-proximity snap-x mb-8">
             <template v-for="data, i in byCityData" :key="i">
             <div class="snap-always snap-start">
-                <ChartByCity :city="data.city" :data="data.data" :color="data.color"/>
+                <ChartByCity :city="data.city" :data="data.data" :total="data.total" :color="data.color"/>
             </div>
             </template>
         </div>

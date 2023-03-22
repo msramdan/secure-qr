@@ -22,7 +22,9 @@
     },
     "dependencies": {
         "chart.js": "^4.1.1",
+        "laravel-echo": "^1.15.0",
         "leaflet": "^1.9.3",
+        "pusher-js": "^8.0.1",
         "v-switch-case": "^1.0.3",
         "vue-chartjs": "^5.1.0",
         "vue-star-rating": "^2.1.0"

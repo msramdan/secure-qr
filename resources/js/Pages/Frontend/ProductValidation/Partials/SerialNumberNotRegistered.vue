@@ -1,5 +1,5 @@
 <script setup>
-import logo from '@src/images/validation/Frame 4112.jpg'
+// import logo from '@src/images/validation/Frame 4112.jpg'
 import jumbotron from '@src/images/validation/Group 4108.png'
 import ValidationLayout from '@/Layouts/Frontend/ValidationLayout.vue'
 import PengaduanModal from '@/Components/Frontend/Validation/Modal.vue'
@@ -48,9 +48,9 @@ headers: {
 
 <template>
     <ValidationLayout>
-        <template #logo>
+        <!-- <template #logo>
             <img :src="logo" alt="Unilever" class="mx-auto">
-        </template>
+        </template> -->
 
         <template #jumbotron>
             <img :src="jumbotron" class="mx-auto mb-4">
@@ -71,7 +71,7 @@ headers: {
         <!-- Tombol Pengaduan -->
         <div>
             <button @click="openModal = true" class="btn-validation mb-4">Pengaduan Produk</button>
-            <button @click.prevent="HubungiWhatsapp('https://wa.me/6281299903331?text=Silahkan%20ajukan%20pengaduan%20anda%20')" class="btn-secondary-validation">Hubungi Whatsapp</button>
+            <button @click.prevent="HubungiWhatsapp('https://wa.me/6281299903331?text=Silahkan%20ajukan%20pengaduan%20anda%20tentang%20serial%20number%20' + sn)" class="btn-secondary-validation">Hubungi Whatsapp</button>
         </div>
 
         <template #bottom-content>

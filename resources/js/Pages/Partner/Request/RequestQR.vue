@@ -3,6 +3,7 @@ import PartnerLayout from '@/Layouts/Backend/PartnerLayout.vue';
 import TableAction from '@/Components/Partner/TableAction.vue';
 import Datatable from '@/Components/Partner/Datatable.vue';
 import ActionIcon from '@/Components/Admin/ActionIcon.vue';
+import InputError from "@/Components/InputError.vue";
 import Modal from '@/Components/Modal.vue'
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import { ref } from 'vue'
@@ -22,6 +23,10 @@ const submitUpload = (e) => {
     formUpload.id = e
     formUpload.post(route('partner.request.upload', e));
     openModal.value = false
+}
+const ExportQR = (e) => {
+    let url = route('partner.export.Qr', e)
+    window.open(url)
 }
 </script>
 
@@ -61,17 +66,17 @@ const submitUpload = (e) => {
                                     <td class="table-td" :class="{ 'table-td-dark': req.id % 2 != 0 }">{{ req.status }}</td>
                                     <td class="table-td" :class="{ 'table-td-dark': req.id % 2 != 0 }">
                                         <TableAction>
-                                            <Link :href="route('partner.request.show', req.id)">
+                                            <Link :href="route('partner.request.show', req.code)">
                                                 <ActionIcon>
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                 </ActionIcon>
                                             </Link>
-                                            <a  v-if="req.is_generate == 'Sudah Generate'" :href="route('partner.export.Qr', req.id)" target="_blank">
+                                            <Link  v-if="req.is_generate == 'Sudah Generate'" @click="ExportQR(req.id)" target="_blank">
                                                 <ActionIcon>
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                                                 </ActionIcon>
-                                            </a>
+                                            </Link>
                                             <button  v-if="!req.bukti_bayar" type="button" @click="openModal = true; selectId = req.id">
                                                 <div class="bg-[#DDDAF2] hover:bg-opacity-75 flex items-center justify-center w-8 h-8 rounded">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="text-purple-1100 w-5 h-5">

@@ -5,7 +5,6 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
 const props = defineProps({
     request: Object
 })
-console.log(props.request.histories);
 </script>
 
 <template>

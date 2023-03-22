@@ -4,7 +4,7 @@ import { Bar } from 'vue-chartjs';
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
-const props = defineProps(['city', 'data', 'color'])
+const props = defineProps(['city', 'data', 'total', 'color'])
 
 const chartData = ({
     labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
@@ -16,7 +16,7 @@ const chartData = ({
 })
 
 const totalScan = computed(() =>
-    props.data.reduce((a, b) => a + b)
+    props.total
 );
 
 const chartOptions = ({

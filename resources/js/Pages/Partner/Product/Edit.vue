@@ -24,7 +24,7 @@ const form = useForm({
 })
 
 const FormUpdate = () => {
-    Inertia.post(route('partner.produk.update', props.product.id), {
+    Inertia.post(route('partner.produk.update', props.product.code), {
         _method: 'patch',
         production_code: form.production_code,
         bpom: form.bpom,
@@ -94,15 +94,15 @@ const FormUpdate = () => {
                             <InputError :message="form.errors.product_name" />
                         </div>
                         <div class="mb-5">
-                            <label for="company" class="form-label-dashboard">Company Name :</label>
+                            <label for="company" class="form-label-dashboard">Manufacture Name :</label>
                             <select v-model="form.business_id" id="company" class="form-input-dashboard">
-                                <option value="" disabled>Select company name</option>
+                                <option value="" disabled>Select Manufacture name</option>
                                 <option v-for="bisnis in businesses" :value="bisnis.id" :selected="bisnis.id == product.business_id">{{ bisnis.name }}</option>
                             </select>
                             <InputError :message="form.errors.business_id" />
                         </div>
                         <div class="mb-5">
-                            <label for="description" class="form-label-dashboard">Description :</label>
+                            <label for="description" class="form-label-dashboard">Product Description :</label>
                             <textarea v-model="form.description" id="description" rows="4" class="form-input-dashboard" placeholder="Description"></textarea>
                             <InputError :message="form.errors.description" />
                         </div>

@@ -62,7 +62,7 @@ Route::middleware(['auth:partners'])->group(function () {
 
       Route::controller(PartnerRequestQrcodeController::class)->group(function () {
         Route::get('/request_qrcode', 'index')->name('request.index');
-        Route::get('/request_qrcode/show/{requestQr}', 'show')->name('request.show');
+        Route::get('/request_qrcode/show/{requestQr:code}', 'show')->name('request.show');
         Route::get('/request_qrcode/download/{filename}', 'download')->name('request.download');
         Route::post('/request_qrcode/upload/{id}', 'upload')->name('request.upload');
       });

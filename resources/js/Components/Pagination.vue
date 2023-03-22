@@ -3,7 +3,7 @@ import { Link } from "@inertiajs/inertia-vue3";
 import { onMounted } from 'vue';
 
 const props = defineProps({
-    data: Array,
+    data: Object,
 });
 </script>
 <template>

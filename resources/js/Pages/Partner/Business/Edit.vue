@@ -17,7 +17,7 @@ const form = useForm({
     video: '',
 })
 const ForomUpdate = () => {
-    Inertia.post(route('partner.bisnis.update', props.business.id), {
+    Inertia.post(route('partner.bisnis.update', props.business.code), {
         _method: 'patch',
       brand: form.brand,
       name: form.name,
@@ -60,13 +60,15 @@ const ForomUpdate = () => {
                     </div>
                     <div class="flex-1">
                         <div class="mb-5">
-                            <label for="" class="form-label-dashboard">Company Name :</label>
+                            <label for="" class="form-label-dashboard">Manufacture Name :</label>
                             <input type="text" class="form-input-dashboard" placeholder="" v-model="form.name"/>
+                            <InputError message="Produsen / Pabrik yang di tunjuk untuk proses produksi." />
                             <InputError :message="form.errors.name" />
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label-dashboard">Manufacture Address :</label>
                             <input type="text" class="form-input-dashboard" placeholder="" v-model="form.manufacture"/>
+                            <InputError message="Produsen / Pabrik yang di tunjuk untuk proses produksi." />
                             <InputError :message="form.errors.manufacture" />
                         </div>
                         <div class="mb-5">

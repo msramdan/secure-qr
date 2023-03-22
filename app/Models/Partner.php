@@ -7,10 +7,11 @@ use App\Traits\HasCode;
 // use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
 
 class Partner extends Model
 {
-    use HasFactory, HasCode;
+    use HasFactory, HasCode, Notifiable;
     protected $guarded = ['id'];
     protected $hidden = ['password', 'remember_token', 'id'];
     public function getAuthPassword()

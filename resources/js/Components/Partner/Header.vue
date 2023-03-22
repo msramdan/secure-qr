@@ -1,5 +1,6 @@
 <script setup>
 import user1 from '@src/images/user-1.jpg'
+import logo from '@src/images/landing/Labelin-Logo.png'
 import { ref } from 'vue'
 import { Link, usePage } from '@inertiajs/inertia-vue3'
 import HeaderLink from './HeaderLink.vue';
@@ -20,7 +21,7 @@ const openNotification = ref(false)
     <header class="sticky top-0 bg-dashboard pt-5 rounded-b-2xl z-20">
         <div class="bg-white rounded-xl shadow-main px-5 py-4 mb-5">
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                <div class="font-bold text-2xl mt-0 mb-5 sm:mb-0">SecureTag By Labelin.co</div>
+                <img :src="logo" alt="labelin.co" width="150" class="mt-0 mb-5 sm:mb-0"/>
                 <ul class="hidden xl:flex items-center space-x-10 overflow-x-auto">
                     <HeaderLink name="Dashboard" href="/partner/dashboard" :active="$page.url === '/partner/dashboard'">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
@@ -60,9 +61,9 @@ const openNotification = ref(false)
                             </svg>
                         </button>
                     </div>
-                    <img @click="openUserOption = !openUserOption; openNotification = false" v-if="user.photo == 'default.jpg'" :src="user1" alt="User" class="w-12 rounded-xl cursor-pointer">
-                    <img @click="openUserOption = !openUserOption; openNotification = false" v-else if="user.photo != '' || user.photo != null" :src="`/storage/uploads/profiles/` + user.photo" :alt="user.photo" class="w-12 rounded-xl cursor-pointer">
-                    <img @click="openUserOption = !openUserOption; openNotification = false" v-else :src="user1" alt="User" class="w-12 rounded-xl cursor-pointer">
+                    
+                    <img @click="openUserOption = !openUserOption; openNotification = false" v-if="user.photo == '' || user.photo == null || user.photo == 'default.jpg'" :src="user1" alt="User" class="w-12 rounded-xl cursor-pointer">
+                    <img @click="openUserOption = !openUserOption; openNotification = false" v-else :src="`/storage/uploads/profiles/` + user.photo" :alt="user.photo" class="w-12 rounded-xl cursor-pointer">
                 </div>
             </div>
 

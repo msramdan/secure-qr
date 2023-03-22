@@ -29,7 +29,7 @@ const props = defineProps({
                         <td class="table-td-detail font-semibold">Customer Data</td>
                         <td class="table-td-detail">
                             <ul class="list-disc">
-                                <li v-for="data,i in productScanned" :key="i">{{ data.kota }}</li>
+                                <li v-for="data,i in productScanned" :key="i">{{ i + " - " + data.jumlah }}</li>
                             </ul>
                         </td>
                     </tr>
