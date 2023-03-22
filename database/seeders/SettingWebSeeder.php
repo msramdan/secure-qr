@@ -24,6 +24,8 @@ class SettingWebSeeder extends Seeder
             'email' => 'info@labelin.co',
             'alamat' => 'Surabaya',
             'deskripsi' => 'Labelin.co merupakan layanan tag API printing berteknologi dalam bentuk label yang bisa di tempel pada produk. Dengan Labelin.co para business owner dapat menjaga originalitas produk/karya mereka hingga sampai ke tangan customer dengan membedakan produk asli dan palsu di pasaran.',
+            'url_wa_gateway' => 'http://103.176.79.206:40000/',
+            'session_wa_gateway' => 'secure_tag',
             'is_aktif' => true
         ]);
     }

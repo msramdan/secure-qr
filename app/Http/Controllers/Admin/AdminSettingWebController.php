@@ -29,6 +29,8 @@ class AdminSettingWebController extends Controller
                 'email' => 'required|email',
                 'deskripsi' => 'required|string',
                 'is_aktif' => 'required',
+                'url_wa_gateway' => 'required',
+                'session_wa_gateway' => 'required',
             ]);
             $setting_web = SettingWeb::findOrFail($id);
             if ($request->file('logo_dark') != null || $request->file('logo_dark') != '') {
@@ -47,14 +49,19 @@ class AdminSettingWebController extends Controller
                     'logo_light'     => $banner->hashName(),
                 ]);
             }
-            $setting_web->update([
+
+            $data = [
                 'nama_website' => $request->nama_website,
                 'telpon' => $request->telpon,
                 'email' => $request->email,
                 'alamat' => $request->alamat,
                 'deskripsi' => $request->deskripsi,
-                'is_aktif_website' => $request->is_aktif_website,
-            ]);
+                'is_aktif' => $request->is_aktif,
+                'url_wa_gateway' => $request->url_wa_gateway,
+                'session_wa_gateway' => $request->session_wa_gateway,
+            ];
+
+            $setting_web->update($data);
             \Message::success('Berhasil merubah data!');
             return redirect()->back();
         } catch (\Throwable $th) {

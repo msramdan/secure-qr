@@ -15,15 +15,20 @@ const form = useForm({
     alamat: props.setting.alamat,
     deskripsi: props.setting.deskripsi,
     status: props.setting.is_aktif,
+    url_wa_gateway: props.setting.url_wa_gateway,
+    session_wa_gateway: props.setting.session_wa_gateway,
 });
 const SubmitForm = () => {
     Inertia.post(route('admin.setting.update', form.id), {
         _method: 'patch',
         nama_website: form.name,
+        alamat: form.alamat,
         telpon: form.telepon,
         email: form.email,
         deskripsi: form.deskripsi,
         is_aktif: form.status,
+        url_wa_gateway: form.url_wa_gateway,
+        session_wa_gateway: form.session_wa_gateway,
         logo_dark: form.logo_dark,
         logo_light: form.logo_light,
     })
@@ -90,6 +95,19 @@ const SubmitForm = () => {
                             <textarea v-model="form.deskripsi" id="deskripsi" rows="5" class="form-input-dashboard" placeholder="Deskripsi"></textarea>
                             <InputError :message="form.errors.deskripsi" />
                         </div>
+
+                        <div class="mb-5">
+                            <label for="email" class="form-label-dashboard">Url Wa Gateway :</label>
+                            <input type="text" v-model="form.url_wa_gateway" id="url_wa_gateway" class="form-input-dashboard" placeholder="Url Wa Gateway">
+                            <InputError :message="form.errors.url_wa_gateway" />
+                        </div>
+
+                        <div class="mb-5">
+                            <label for="email" class="form-label-dashboard">Session Wa Gateway  :</label>
+                            <input type="text" v-model="form.session_wa_gateway" id="session_wa_gateway" class="form-input-dashboard" placeholder="Session Wa Gateway">
+                            <InputError :message="form.errors.session_wa_gateway" />
+                        </div>
+
                         <div>
                             <label for="status" class="form-label-dashboard">Apakah Website Aktif :</label>
                             <select v-model="form.status" id="status" class="form-input-dashboard">

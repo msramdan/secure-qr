@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Super Admin',
                 'email' => 'admin@labelin.co',
-                'password' => Hash::make('mocachino'),
+                'password' => Hash::make('admin'),
                 'remember_token' => Str::random(10),
                 'created_at' => now(),
                 'updated_at' => now(),

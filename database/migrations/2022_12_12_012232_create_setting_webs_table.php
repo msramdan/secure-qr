@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('email');
             $table->text('alamat');
             $table->text('deskripsi');
+            $table->text('url_wa_gateway');
+            $table->text('session_wa_gateway');
             $table->boolean('is_aktif');
             $table->timestamps();
         });
