@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('kota');
             $table->string('lat');
             $table->string('long');
+            //add no wa
             $table->ipAddress('visitor');
             $table->timestamps();
         });
