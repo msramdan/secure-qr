@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\CustomerDataExport;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\ProductScanned;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\QrCode;
 use Faker\Guesser\Name;
+use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\Finder\Iterator\CustomFilterIterator;
 
 class AdminCustomerDataController extends Controller
@@ -85,5 +87,10 @@ class AdminCustomerDataController extends Controller
             \Message::danger('Gagal merubah data!');
             return redirect()->back();
         }
+    }
+
+    public function exportExcel(Request $request)
+    {
+        return Excel::download(new CustomerDataExport($request->product), 'customer-data-export.xlsx');
     }
 }

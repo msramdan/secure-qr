@@ -58,6 +58,7 @@ Route::middleware(['auth:web'])->group(function () {
       Route::get('/customer_data', 'index')->name('admin.customer.index');
       Route::get('/customer_data/show/{id}', 'show')->name('admin.customer.show');
       Route::post('/customer_data/update/{id}', 'update')->name('admin.customer.update');
+      Route::get('/customer_data/export-excel', 'exportExcel')->name('admin.customer.export-excel');
     });
 
     Route::controller(AdminContactController::class)->group(function () {
