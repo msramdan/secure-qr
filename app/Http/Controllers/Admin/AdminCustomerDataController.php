@@ -42,7 +42,13 @@ class AdminCustomerDataController extends Controller
             })
             ->paginate($paginate);
         
-        $productOnlyNames = DB::select("select products.name from products left join request_qrcodes on products.id = request_qrcodes.product_id where request_qrcodes.is_generate = 'Sudah Generate' group by products.name");
+        $productOnlyNames = DB::select("SELECT 
+                                            products.name 
+                                        FROM product_scanneds 
+                                            LEFT JOIN qr_codes ON qr_codes.id = product_scanneds.qr_code_id 
+                                            LEFT JOIN request_qrcodes ON request_qrcodes.id = qr_codes.request_qrcode_id 
+                                            LEFT JOIN products on products.id = request_qrcodes.product_id 
+                                        GROUP BY products.name");
 
         // dd($productOnlyName);
         return Inertia::render('Admin/Scanned/CustomerData', [
