@@ -12,9 +12,13 @@ use App\Models\ClaimedLoyalty;
 use App\Models\LoyaltyProgram;
 use App\Models\ProductScanned;
 use App\Models\RoyaltiProgram;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
 use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class ProductValidationController extends Controller
 {
@@ -195,6 +199,127 @@ class ProductValidationController extends Controller
             ], 200)->header('X-Inertia', true);
         } catch (\Throwable $th) {
             return response()->json([$th->getMessage()], 200);
+        }
+    }
+
+    public function waScanNotification(Request $request)
+    {
+        $request->validate([
+            'serial_number' => ['required', 'exists:qr_codes,serial_number'],
+            'latitude' => ['required'],
+            'longitude' => ['required'],
+            'kota' => ['required'],
+            'wa_number' => ['required', 'numeric'],
+        ]);
+
+        $qrcode = QrCode::where('serial_number', $request->serial_number)->first();
+
+        if($qrcode->status) {
+            throw ValidationException::withMessages(['product' => 'Product is locked']);
+        }
+
+        $formattedWaNumber = strval(strval($request->wa_number)[0] == 8 ? '62' . $request->wa_number : $request->wa_number);
+
+        $prScanned = ProductScanned::create([
+            'qr_code_id' => $qrcode->id,
+            'kota' => $request->kota,
+            'lat' => $request->latitude,
+            'long' => $request->longitude,
+            'visitor' => $request->getClientIp(true),
+            'whatsapp_number' => $formattedWaNumber,
+        ]);
+
+        $response = Http::post('http://103.176.79.206:40000/chats/send?id=partner_abc', [
+            'receiver' => $formattedWaNumber,
+            'message' => [
+                'text' => 'Klik link berikut, untuk cek produk ' . route('scanWithPin', [$request->serial_number, $qrcode->pin])
+            ],
+        ]);
+
+        if(!$response->json()['success']) {
+            $prScanned->delete();
+            throw ValidationException::withMessages(['whatsapp_number' => $response->json()['message']]);
+        } else {
+            return back()->with('success', 'Link telah kami kirimkan ke nomor whatsapp anda');
+        }
+    }
+
+    public function scanWithPin(Request $request, $serialNumber, $pin)
+    {
+        try {
+            $scanned = ProductScanned::selectRaw('product_scanneds.*')->leftJoin('qr_codes', 'qr_codes.id', '=', 'product_scanneds.qr_code_id')->where('qr_codes.serial_number', $serialNumber)->where('qr_codes.pin', $pin)->first();
+
+            // validation
+            $valid = QrCode::where('serial_number', $serialNumber)->where('pin', $pin)->first();
+            if ($scanned) {
+                $product = QrCode::join('request_qrcodes', 'qr_codes.request_qrcode_id', '=', 'request_qrcodes.id')
+                    ->join('products', 'request_qrcodes.product_id', '=', 'products.id')
+                    ->join('categories', 'products.category_id', '=', 'categories.id')
+                    ->join('businesses', 'products.business_id', '=', 'businesses.id')
+                    ->where('qr_codes.serial_number', $serialNumber)
+                    ->where('qr_codes.pin', $pin)
+                    ->select('products.name as nama_produk', 'categories.name as nama_kategori', 'businesses.logo as logo_brand', 'businesses.brand as nama_brand', 'products.bpom', 'products.photo', 'products.id as product_id', 'products.netto', 'products.expired_date', 'products.production_code', 'products.partner_id', 'qr_codes.*')
+                    ->first();
+                $sosialLinks = Sosmed::where('partner_id', $product->partner_id)->get();
+                $rating = ProductRating::where('product_id', $product->product_id)->where('visitor', $scanned['visitor'])->first();
+                $getProdukRating = ProductRating::where('product_id', $product->product_id)->get('produk_rated');
+                $produk_rating = $getProdukRating->count() > 0 ? round($getProdukRating->sum('produk_rated') / $getProdukRating->count(), 2) : 0;
+                $loyaltyProgram = LoyaltyProgram::select('end_program', 'start_program', 'id')->where('qr_code_id', $valid->id)
+                    ->where('end_program', '>=', date('Y-m-d'))
+                    ->first();
+                $loyaltyStatus = (bool) false;
+                if ($loyaltyProgram != null) {
+                    if (date('Y-m-d') >= $loyaltyProgram->start_program) {
+                        if (date('Y-m-d') >= $loyaltyProgram->end_program) {
+                            $loyaltyStatus = false;
+                        } else {
+                            $claimed = ClaimedLoyalty::where('loyalty_program_id', $loyaltyProgram->id)->first();
+                            // dd($claimed->isEmpty());
+                            if ($claimed == null) {
+                                $loyaltyStatus = true;
+                            } else {
+                                $loyaltyStatus = false;
+                            }
+                        }
+                    } else {
+                        $loyaltyStatus = false;
+                    }
+                }
+                    $duplicate = ProductScanned::where('qr_code_id', $valid->id)->get();
+                    $Qr = $duplicate->load('qr_code');
+                    
+                    if (isset($Qr)) {
+                        if ($Qr[0]->qr_code->status == false) {
+
+                            if ($Qr[0]->visitor != $scanned['visitor']) {
+                                ProductScanned::create($scanned);
+                            }
+                            return Inertia::render('Frontend/ProductValidation/ValidationResult', [
+                                'product_status' => 'registered',
+                                'product' => $product,
+                                'sosmed' => $sosialLinks,
+                                'product_rate' => isset($getProdukRating) ? $produk_rating : 0,
+                                'status' => $rating != null ? true : false,
+                                'loyalty' => $loyaltyStatus,
+                            ]);
+                        } else {
+                            return Inertia::render('Frontend/ProductValidation/ValidationResult', [
+                                'product_status' => 'duplicate',
+                                'sn' => $request->serial_number
+                            ]);
+                        }
+                    }
+                // }
+            } else {
+                return Inertia::render('Frontend/ProductValidation/ValidationResult', [
+                    'product_status' => 'not registered',
+                    'sn' => $request->serial_number
+                ]);
+            }
+        } catch (\Throwable $th) {
+            // dd($th->getMessage());
+            \Message::danger('Gagal menvalidasi produk!');
+            return redirect()->back();
         }
     }
 }

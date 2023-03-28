@@ -9,7 +9,9 @@ Route::middleware(['isAktif'])->group(function () {
     // product validation
     Route::controller(ProductValidationController::class)->group(function () {
         Route::get('/scan/{id}', 'scan')->name('scan');
+        Route::get('/scan/{id}/{pin}', 'scanWithPin')->name('scanWithPin');
         Route::any('/validation', 'validation')->name('validation');
+        Route::post('wa-scan-notification', 'waScanNotification')->name('wa-scan-notification');
         Route::post('/rating/{id}', 'rating')->name('rating');
         Route::post('/report', 'report')->name('report');
     });
