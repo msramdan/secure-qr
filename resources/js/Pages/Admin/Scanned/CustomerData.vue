@@ -9,11 +9,15 @@ import { ref, watch } from 'vue';
 import debounce from 'lodash/debounce';
 const props = defineProps({
     customers: Object,
-    filters: Object
+    filters: Object,
+    productOnlyNames: Array,
+    productSelected: String
 });
-const getPaginate = (event) => {
-    let selectedOption = event.target.value;
-    Inertia.get(route('admin.customer.index'), {paginate: selectedOption})
+const filterChange = (event) => {
+    Inertia.get(route('admin.customer.index'), {
+        paginate: document.getElementById('paginate').value,
+        product: document.getElementById('product').value
+    })
 }
 let search = ref(props.filters.search);
 watch(search, debounce(function (value) {
@@ -33,13 +37,20 @@ watch(search, debounce(function (value) {
             <div class="flex flex-wrap items-center md:justify-between mb-5">
                 <div class="flex items-center space-x-2 mb-2 md:mb-0">
                     <div>Show</div>
-                    <select class="form-input-dashboard w-20" @change="getPaginate($event)">
+                    <select class="form-input-dashboard w-20" id="paginate" @change="filterChange($event)">
                         <option :value="10" :selected="customers.per_page == 10">10</option>
                         <option :value="25" :selected="customers.per_page == 25">25</option>
                         <option :value="50" :selected="customers.per_page == 50">50</option>
                         <option :value="100" :selected="customers.per_page == 100">100</option>
                     </select>
                     <div>entries</div>
+                </div>
+                <div class="flex items-center space-x-2 mb-2 md:mb-0">
+                    <div>Nama Produk</div>
+                    <select class="form-input-dashboard w-50" id="product" @change="filterChange($event)">
+                        <option :selected="productSelected == 'Semua Produk'">Semua Produk</option>
+                        <option :value="productName.name" :selected="productSelected == productName.name" v-for="(productName) in productOnlyNames">{{ productName.name }}</option>
+                    </select>
                 </div>
                 <div class="w-full md:w-auto">
                     <input type="text" v-model="search" class="form-input-dashboard" placeholder="Search">

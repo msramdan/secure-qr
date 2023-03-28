@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\ProductScanned;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\QrCode;
+use Faker\Guesser\Name;
+use Symfony\Component\Finder\Iterator\CustomFilterIterator;
 
 class AdminCustomerDataController extends Controller
 {
@@ -25,6 +28,11 @@ class AdminCustomerDataController extends Controller
             ->join('products', 'request_qrcodes.product_id', '=', 'products.id')
             ->join('businesses', 'products.business_id', '=', 'businesses.id')
             ->selectRaw('count(*) as total, qr_codes.id, qr_codes.serial_number, products.name, qr_codes.status')
+            ->when($request->product, function($query) use($request) {
+                if($request->product != 'Semua Produk') {
+                    $query->where('products.name', $request->product);
+                }
+            })
             ->groupBy('qr_codes.id', 'qr_codes.serial_number', 'products.name', 'qr_codes.status')
             ->when($request->input('search'), function ($query, $search) {
                 $query->where('products.name', 'like', "%{$search}%")
@@ -33,9 +41,15 @@ class AdminCustomerDataController extends Controller
                     ->orWhere('qr_codes.status', 'like', "%{$search}%");
             })
             ->paginate($paginate);
+        
+        $productOnlyNames = DB::select("select products.name from products left join request_qrcodes on products.id = request_qrcodes.product_id where request_qrcodes.is_generate = 'Sudah Generate' group by products.name");
+
+        // dd($productOnlyName);
         return Inertia::render('Admin/Scanned/CustomerData', [
             'customers' => $productScanned,
-            'filters' => $request->only(['search'])
+            'filters' => $request->only(['search']),
+            'productOnlyNames' => $productOnlyNames,
+            'productSelected' => $request->product
         ]);
     }
     public function show($id)
